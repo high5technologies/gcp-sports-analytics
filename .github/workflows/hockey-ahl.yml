@@ -42,5 +42,5 @@ jobs:
     - name: Terraform Plan
       #working-directory: ./terraform
       run: terraform plan
-      with:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      env:
+        TF_VAR_GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
