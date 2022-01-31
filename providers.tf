@@ -13,11 +13,19 @@ provider "google" {
 #}
 
 # Using a single workspace:
+#terraform {
+#  backend "remote" {
+#    hostname = "app.terraform.io"
+#    organization = "high5"
+#
+#    workspaces {
+#      name = "gcp-sports-analytics"
+#    }
+#  }
+#}
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
+  cloud {
     organization = "high5"
-
     workspaces {
       name = "gcp-sports-analytics"
     }
