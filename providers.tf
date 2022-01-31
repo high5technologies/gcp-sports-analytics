@@ -1,13 +1,11 @@
 terraform {
   required_providers {
-    random = {
-      source  = "hashicorp/random"
-      version = "3.0.1"
+    google = {
+      source  = "hashicorp/google"
+      version = "3.89.0"
     }
   }
-  required_version = ">= 1.1.0"
-
-  cloud {
+  backend "remote" {
     organization = "high5"
 
     workspaces {
@@ -15,7 +13,6 @@ terraform {
     }
   }
 }
-
 provider "google" {
   project = "sports-analytics-dev"
   region = "us-central1" 
