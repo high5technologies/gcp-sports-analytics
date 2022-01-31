@@ -1,4 +1,4 @@
-name: 'event profile api deploy pipeline'
+name: 'AHL Deployment'
 
 on:
   push:
@@ -42,3 +42,5 @@ jobs:
     - name: Terraform Plan
       #working-directory: ./terraform
       run: terraform plan
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
