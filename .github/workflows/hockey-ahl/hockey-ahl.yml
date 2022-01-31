@@ -18,6 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: hockey-ahl
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -47,7 +48,7 @@ jobs:
       with:
         var_file: |
           hockey-ahl.tfvars
-          
+
     # Auto Apply
     - name: Terraform Apply
       #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
