@@ -2,6 +2,8 @@ name: 'AHL Deployment'
 
 on:
   push:
+    paths:
+    - 'ahl/**'
     branches:
     - main
   pull_request:
@@ -42,5 +44,11 @@ jobs:
     - name: Terraform Plan
       #working-directory: ./terraform
       run: terraform plan
-      env:
-        TF_VAR_GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      with:
+        var_file: |
+          hockey-ahl.tfvars
+          
+    # Auto Apply
+    - name: Terraform Apply
+      #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve
