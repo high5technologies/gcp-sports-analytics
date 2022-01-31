@@ -1,33 +1,22 @@
-provider "google" {
-  #project = var.project_id
-  project = "sports-analytics-dev"
-  #region  = var.region
-  region = "us-central1" 
-}
-
-#terraform {
-#  backend "gcs" {
-#    bucket = "myvik-tf-state-prod"
-#    prefix = "terraform/state"
-#  }
-#}
-
-# Using a single workspace:
-#terraform {
-#  backend "remote" {
-#    hostname = "app.terraform.io"
-#    organization = "high5"
-#
-#    workspaces {
-#      name = "gcp-sports-analytics"
-#    }
-#  }
-#}
 terraform {
+  required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "3.0.1"
+    }
+  }
+  required_version = ">= 1.1.0"
+
   cloud {
     organization = "high5"
+
     workspaces {
       name = "gcp-sports-analytics"
     }
   }
+}
+
+provider "google" {
+  project = "sports-analytics-dev"
+  region = "us-central1" 
 }
