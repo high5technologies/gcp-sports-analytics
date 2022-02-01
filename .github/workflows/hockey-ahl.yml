@@ -4,9 +4,11 @@ on:
   push:
     paths:
     - 'ahl/**'
-    branches:
-    - main
-  pull_request:
+    #branches:
+    #- main
+  #pull_request:
+
+
 
 jobs:
   terraform:
@@ -19,7 +21,8 @@ jobs:
       run:
         shell: bash
         #working-directory: hockey-ahl
-
+    
+    #if: github.ref == 'refs/heads/master'
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
