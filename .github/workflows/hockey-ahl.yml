@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: hockey-ahl
+        #working-directory: hockey-ahl
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -47,7 +47,7 @@ jobs:
       run: terraform plan
       with:
         var_file: |
-          hockey-ahl.tfvars
+          hockey-ahl\hockey-ahl.tfvars
 
     # Auto Apply
     - name: Terraform Apply
