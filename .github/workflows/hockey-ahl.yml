@@ -2,10 +2,10 @@ name: 'AHL Deployment'
 
 on:
   push:
-    paths:
-    - 'ahl/**'
-    #branches:
-    #- main
+    #paths:
+    #- 'ahl/**'
+    branches:
+    - main
   #pull_request:
 
 
