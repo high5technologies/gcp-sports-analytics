@@ -47,7 +47,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       #working-directory: ./terraform
-      run: terraform plan -var-file="hockey-ahl\hockey-ahl.tfvars"
+      run: terraform plan -var-file=".github\workflows\hockey-ahl\hockey-ahl.tfvars"
       #with:
       #  var_file: |
       #    hockey-ahl\hockey-ahl.tfvars
