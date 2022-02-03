@@ -33,6 +33,10 @@ jobs:
     
     #if: github.ref == 'refs/heads/master'
     steps:
+    #echo "::set-env name=ENVIRONMENT::main"  
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
     #- name: Some check on branch
     #  id: branch_check
     #  run: |
@@ -55,10 +59,7 @@ jobs:
 
   
 
-    #echo "::set-env name=ENVIRONMENT::main"  
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
+    
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
