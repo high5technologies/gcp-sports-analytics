@@ -20,7 +20,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: hockey-ahl
+        working-directory: ahl
         #working-directory: ./hockey-ahl
     
     #if: github.ref == 'refs/heads/master'
