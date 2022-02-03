@@ -15,7 +15,8 @@ jobs:
     name: 'Terraform-deploy'
     runs-on: ubuntu-latest
     #environment: dev
-    environment: ${{ github.head_ref }}
+    #environment: ${{ github.head_ref }}
+    environment: ${{ github.ref }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
