@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     #environment: dev
     #environment: ${{ github.head_ref }}
-    environment: ${{ github.ref }}
+    #environment: ${{ github.ref }}
+    environment: ${GITHUB_REF#refs/heads/}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
