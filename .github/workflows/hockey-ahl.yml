@@ -44,7 +44,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory:hockey-ahl
+        working-directory: hockey-ahl
         #working-directory: ${{ env.sport }}
         #working-directory: ./hockey-ahl
     
