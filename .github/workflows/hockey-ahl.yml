@@ -3,15 +3,16 @@ name: 'AHL Deployment'
 on:
   push:
     paths:
-    - 'ahl/**'
+    - 'hockey-ahl/**'
     branches:
     - main
   #pull_request:
 
-
+env:
+  sport: hockey-ahl
 
 jobs:
-  build:
+  set_env:
     runs-on: ubuntu-latest
     steps:
       - name: Some check on branch
@@ -27,7 +28,7 @@ jobs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
 
   terraform:
-    needs: [build]
+    needs: [set_env]
     name: 'Terraform-deploy'
     runs-on: ubuntu-latest
     #environment: dev
@@ -37,13 +38,13 @@ jobs:
     #environment: ${GITHUB_REF_NAME}
     #${GITHUB_REF##*/}
     #${GITHUB_REF_NAME}
-    environment: ${{ needs.build.outputs.env_name }}
+    environment: ${{ needs.set_env.outputs.env_name }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
-        working-directory: ahl
+        working-directory: ${{ env.sport }}
         #working-directory: ./hockey-ahl
     
     #if: github.ref == 'refs/heads/master'
@@ -89,7 +90,7 @@ jobs:
       #working-directory: ./terraform
       #run: terraform init -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
       #run: terraform init -var-file="hockey-ahl.tfvars"
-      run: terraform init -backend-config=backend.conf
+      run: terraform init -backend-config=env/${{ needs.set_env.outputs.env_name }}-backend.conf
 
     # Checks that all Terraform configuration files adhere to a canonical format
     #- name: Terraform Format
@@ -119,6 +120,6 @@ jobs:
     # Auto Apply
     - name: Terraform Apply
     #  #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -var-file="hockey-ahl.tfvars"
+      run: terraform apply -auto-approve -var-file="env/${{ needs.set_env.outputs.env_name }}.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
