@@ -12,6 +12,7 @@ on:
 
 jobs:
   terraform:
+    needs: [build]
     name: 'Terraform-deploy'
     runs-on: ubuntu-latest
     #environment: dev
@@ -21,8 +22,7 @@ jobs:
     #environment: ${GITHUB_REF_NAME}
     #${GITHUB_REF##*/}
     #${GITHUB_REF_NAME}
-    environment: 
-      name: ${{ needs.build.outputs.env_name }}
+    environment: ${{ needs.build.outputs.env_name }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:

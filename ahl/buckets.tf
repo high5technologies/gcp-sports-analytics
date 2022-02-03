@@ -9,3 +9,4 @@ resource "google_storage_bucket" "test-bucket-3" {
   location      = "US"
   force_destroy = true
 }
+
