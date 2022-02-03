@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - name: Some check on branch
+      - name: Some check on branch
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref }}"
@@ -31,7 +31,7 @@ jobs:
   
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
-      
+
   terraform:
     needs: [build]
     name: 'Terraform-deploy'
