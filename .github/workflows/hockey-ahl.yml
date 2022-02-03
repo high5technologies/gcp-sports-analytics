@@ -21,8 +21,8 @@ jobs:
     #environment: ${GITHUB_REF_NAME}
     #${GITHUB_REF##*/}
     #${GITHUB_REF_NAME}
-    environment: 
-      name: ${{ needs.build.outputs.env_name }}
+    #environment: 
+    #  name: ${{ needs.build.outputs.env_name }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -33,15 +33,18 @@ jobs:
     
     #if: github.ref == 'refs/heads/master'
     steps:
-    - name: Some check on branch
-      id: branch_check
+    #- name: Some check on branch
+    #  id: branch_check
+    #  run: |
+    #    echo "Running on branch ${{ github.ref }}"
+    #    echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
+    #    
+    #- name: Use variable setup in previous step
+    #  run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+    - name: Set Environment
+      #if: endsWith(github.ref, '/develop')
       run: |
-        echo "Running on branch ${{ github.ref }}"
-        echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
-        
-    - name: Use variable setup in previous step
-      run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
-      
+        echo "::set-env name=ENVIRONMENT::${GITHUB_REF#refs/heads/}"  
 
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
