@@ -18,6 +18,8 @@ jobs:
     #environment: ${{ github.head_ref }}
     #environment: ${{ github.ref }}
     environment: ${{ env.GITHUB_REF_NAME }}
+    environment: ${GITHUB_REF_NAME}
+    #${GITHUB_REF##*/}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
