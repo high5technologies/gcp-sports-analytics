@@ -44,8 +44,8 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: hockey-ahl
-        #working-directory: ${{ env.sport }}
+        #working-directory: hockey-ahl
+        working-directory: ${{ env.sport }}
         #working-directory: ./hockey-ahl
     
     #if: github.ref == 'refs/heads/master'
@@ -88,7 +88,7 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      working-directory: ./terraform
+      #working-directory: ./terraform
       #run: terraform init -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
       #run: terraform init -var-file="hockey-ahl.tfvars"
       run: terraform init -backend-config=env/${{ needs.set_env.outputs.env_name }}-backend.conf
