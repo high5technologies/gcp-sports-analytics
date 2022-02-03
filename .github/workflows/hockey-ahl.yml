@@ -87,10 +87,10 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      #working-directory: ./terraform
+      working-directory: ./terraform
       #run: terraform init -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
       #run: terraform init -var-file="hockey-ahl.tfvars"
-      run: terraform init -backend-config=env\${{ needs.set_env.outputs.env_name }}-backend.conf
+      run: terraform init -backend-config=env/main-backend.conf
 
     # Checks that all Terraform configuration files adhere to a canonical format
     #- name: Terraform Format
@@ -120,6 +120,6 @@ jobs:
     # Auto Apply
     - name: Terraform Apply
     #  #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -var-file="env\${{ needs.set_env.outputs.env_name }}.tfvars"
+      run: terraform apply -auto-approve -var-file="env/${{ needs.set_env.outputs.env_name }}.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
