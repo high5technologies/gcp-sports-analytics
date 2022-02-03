@@ -15,15 +15,13 @@ jobs:
     name: 'Terraform-deploy'
     runs-on: ubuntu-latest
     environment: dev
-    defaults:
-      run:
-        working-directory: ./
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
         #working-directory: hockey-ahl
+        working-directory: ./
     
     #if: github.ref == 'refs/heads/master'
     steps:
