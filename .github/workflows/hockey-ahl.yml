@@ -21,7 +21,7 @@ jobs:
       run:
         shell: bash
         #working-directory: hockey-ahl
-        working-directory: ./
+        working-directory: ./hockey-ahl
     
     #if: github.ref == 'refs/heads/master'
     steps:
