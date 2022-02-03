@@ -17,7 +17,7 @@ jobs:
     #environment: dev
     #environment: ${{ github.head_ref }}
     #environment: ${{ github.ref }}
-    environment: ${{ env.GITHUB_REF_NAME }}
+    #environment: ${{ env.GITHUB_REF_NAME }}
     environment: ${GITHUB_REF##*/}
     #${GITHUB_REF##*/}
     #${GITHUB_REF_NAME}
