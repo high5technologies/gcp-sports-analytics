@@ -41,7 +41,7 @@ jobs:
       #run: terraform init -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
       #run: terraform init -var-file="hockey-ahl.tfvars"
       run: terraform init -backend-config=backend.conf
-      
+
     # Checks that all Terraform configuration files adhere to a canonical format
     #- name: Terraform Format
     #  #working-directory: ./terraform
@@ -57,8 +57,8 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
     #  #working-directory: ./terraform
-    #  #run: terraform plan -var-file="hockey-ahl.tfvars"
-      run: terraform plan -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
+      run: terraform plan -var-file="hockey-ahl.tfvars"
+    #  run: terraform plan -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
     #  with:
     #      args: '-var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="gcp-sports-analytics-ahl-dev"'
 
