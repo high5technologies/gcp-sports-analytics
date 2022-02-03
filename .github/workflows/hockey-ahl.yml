@@ -44,7 +44,7 @@ jobs:
     - name: Set Environment
       #if: endsWith(github.ref, '/develop')
       run: |
-        echo "::set-env name=ENVIRONMENT::${GITHUB_REF#refs/heads/}"  
+        echo "::set-env name=ENVIRONMENT::main"  
 
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
