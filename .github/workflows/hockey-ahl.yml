@@ -60,7 +60,7 @@ jobs:
     - name: Print Environment
       #if: endsWith(github.ref, '/develop')
       run: |
-        echo "${{ jobs.terraform.environment }}"
+        echo "${{ terraform.environment }}"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
