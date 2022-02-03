@@ -18,14 +18,8 @@ jobs:
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref }}"
-          if [ "${{ github.ref }}" = "refs/heads/master" ]; then
-            echo "::set-output name=env_name::Production"
-          elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
-            echo "::set-output name=env_name::Test"
-          else
-             echo "::set-output name=env_name::Features"
-          fi         
-          
+          echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
+         
       - name: Use variable setup in previous step
         run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
   
@@ -59,14 +53,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     
-    - name: Some check on branch
-      id: branch_check
-      run: |
-        echo "Running on branch ${{ github.ref }}"
-        echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
+    #- name: Some check on branch
+    #  id: branch_check
+    #  run: |
+    #    echo "Running on branch ${{ github.ref }}"
+    #    echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
         
-    - name: Use variable setup in previous step
-      run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+    #- name: Use variable setup in previous step
+    #  run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
     # extract branch name
     #- name: Extract branch name
     #  #if: github.event_name != 'pull_request'
