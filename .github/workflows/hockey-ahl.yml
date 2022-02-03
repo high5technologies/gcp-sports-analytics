@@ -55,9 +55,9 @@ jobs:
     #    args: '-var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="gcp-sports-analytics-ahl-dev"'
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan
+    #- name: Terraform Plan
     #  #working-directory: ./terraform
-      run: terraform plan -var-file="hockey-ahl.tfvars"
+    #  run: terraform plan -var-file="hockey-ahl.tfvars"
     #  run: terraform plan -var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="tfcloud_workspace=gcp-sports-analytics-ahl-dev"
     #  with:
     #      args: '-var="gcp_project_id=sports-analytics-dev" -var="gcp_region=us-central1" -var="tfcloud_organization=high5" -var="gcp-sports-analytics-ahl-dev"'
@@ -68,6 +68,6 @@ jobs:
       #    hockey-ahl\hockey-ahl.tfvars
 
     # Auto Apply
-    #- name: Terraform Apply
+    - name: Terraform Apply
     #  #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #  run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -var-file="hockey-ahl.tfvars"
