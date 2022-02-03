@@ -7,12 +7,12 @@ terraform {
   }
   backend "remote" {
     #organization = "high5"
-    organization = var.tfcloud_organization
+    #organization = var.tfcloud_organization
 
-    workspaces {
-      #name = "gcp-sports-analytics"
-      name = var.tfcloud_workspace
-    }
+    #workspaces {
+    #  #name = "gcp-sports-analytics"
+    #  name = var.tfcloud_workspace
+    #}
   }
 }
 
