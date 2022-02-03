@@ -21,8 +21,8 @@ jobs:
     #environment: ${GITHUB_REF_NAME}
     #${GITHUB_REF##*/}
     #${GITHUB_REF_NAME}
-    #environment: 
-    #  name: ${{ needs.build.outputs.env_name }}
+    environment: 
+      name: ${{ needs.build.outputs.env_name }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -37,14 +37,15 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
-    #- name: Some check on branch
-    #  id: branch_check
-    #  run: |
-    #    echo "Running on branch ${{ github.ref }}"
-    #    echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
-    #    
-    #- name: Use variable setup in previous step
-    #  run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+    
+    - name: Some check on branch
+      id: branch_check
+      run: |
+        echo "Running on branch ${{ github.ref }}"
+        echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
+        
+    - name: Use variable setup in previous step
+      run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
     # extract branch name
     #- name: Extract branch name
     #  #if: github.event_name != 'pull_request'
@@ -52,15 +53,15 @@ jobs:
     #  run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
     #  id: extract_branch
 
-    - name: Set Environment
-      #if: endsWith(github.ref, '/develop')
-      run: |
-        echo "ENVIRONMENT=${GITHUB_REF#refs/heads/}"
+    #- name: Set Environment
+    #  #if: endsWith(github.ref, '/develop')
+    #  run: |
+    #    echo "ENVIRONMENT=${GITHUB_REF#refs/heads/}"
     
-    - name: Print Environment
-      #if: endsWith(github.ref, '/develop')
-      run: |
-        echo "${{ terraform.environment }}"
+    #- name: Print Environment
+    #  #if: endsWith(github.ref, '/develop')
+    #  run: |
+    #    echo "${{ terraform.environment }}"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
