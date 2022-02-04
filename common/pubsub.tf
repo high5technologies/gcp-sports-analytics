@@ -1,10 +1,10 @@
 # Google Pubsup Topic: BigQuery Replication
-resource "google_pubsub_topic" "bigquery_replication_topic" {
+resource "google_pubsub_topic" "bigquery_replication_topic_" {
   name = "bigquery_replication_topic"
 }
 
 # Google Pubsup Topic: BigQuery Replication
-resource "google_pubsub_topic" "error_log_topic" {
+resource "google_pubsub_topic" "error_log_topic_" {
   name = "error_log_topic"
 }
 
