@@ -57,7 +57,7 @@ variable "function_trigger_http" {
 variable "function_event_trigger_type" {
   type        = string
   description = "Type of GCP resouces that triggers function"
-  default     = "null"
+  default     = null
   nullable    = true
   validation {
     condition     = contains(["google.pubsub.topic.publish"], var.function_event_trigger_type) || var.function_event_trigger_type == null
