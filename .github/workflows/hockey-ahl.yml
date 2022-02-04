@@ -9,15 +9,21 @@ name: 'Hockey AHL Deployment'
 on:
   push:
     paths:
-    - 'hockey-ahl/**'
+    - 'hockey-ahl/**'                     #config-here
     branches:
-    - main, dev
+    - [main, dev]
   #pull_request:
 
 env:
-  sport: hockey-ahl
+  sport: hockey-ahl                       #config-here
 
+##################################################################################################
+# No changes below here
+##################################################################################################
 jobs:
+
+  # First "set_env" job gets and parse the branch this is run from
+  # This is used to configure the backend.config and tfvars file in the env-config directory
   set_env:
     runs-on: ubuntu-latest
     steps:
@@ -27,15 +33,15 @@ jobs:
           echo "Running on branch ${{ github.ref }}"
           echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
          
-      - name: Use variable setup in previous step
-        run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+      #- name: Use variable setup in previous step
+      #  run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
   
     outputs:
-      env_name: ${{ steps.branch_check.outputs.env_name }}
+      env_name: ${{ steps.branch_check.outputs.env_name }} # job output ... consumed by next job
 
-  terraform:
-    needs: [set_env]
-    name: 'Terraform-deploy'
+  terraform_deployment:
+    needs: [set_env] #orchestrates set_env job to run before terraform_deployment
+    name: 'terraform-deployment'
     runs-on: ubuntu-latest
     environment: ${{ needs.set_env.outputs.env_name }}
 
@@ -43,18 +49,18 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ${{ env.sport }}
+        working-directory: ${{ env.sport }} # set the sport folder to pull code from
 
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
-
+    
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        cli_config_credentials_token: ${{ secrets.TFCLOUD_API_TOKEN }}
+        cli_config_credentials_token: ${{ secrets.TFCLOUD_API_TOKEN }} # repo level secret
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -68,10 +74,10 @@ jobs:
     # Generates an execution plan for Terraform
     #- name: Terraform Plan
     #  run: terraform plan -var-file="hockey-ahl.tfvars"
-    
+
     # Auto Apply
     - name: Terraform Apply
     #  #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -var-file="env-config/${{ needs.set_env.outputs.env_name }}.tfvars"
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # environment level secret per branch
