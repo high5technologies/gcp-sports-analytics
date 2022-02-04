@@ -60,7 +60,7 @@ variable "function_event_trigger_type" {
   default     = null
   nullable    = true
   validation {
-    condition     = contains(["google.pubsub.topic.publish"], var.function_event_trigger_type) || var.function_event_trigger_type == null
+    condition     = var.function_event_trigger_type == null || contains(["google.pubsub.topic.publish"], var.function_event_trigger_type)
     error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]."
   } 
 }
@@ -68,7 +68,7 @@ variable "function_event_trigger_type" {
 variable "function_event_trigger_resource" {
   type        = string
   description = "Name of the resouce that triggers function"
-  default     = "null"
+  default     = null
   nullable    = true
 }
 
