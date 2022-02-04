@@ -12,3 +12,4 @@ module "s3-website" {
   function_event_trigger_type = "google.pubsub.topic.publish"
   function_event_trigger_resource = google_pubsub_topic.common_test_topic.name
 }
+

@@ -34,7 +34,7 @@ resource "google_cloudfunctions_function" "mod_function" {
   region                = var.function_region
   event_trigger {
     event_type = var.function_event_trigger_type
-    resource = var.function_event_trigger_type
+    resource = var.function_event_trigger_resource
   }
 }
 
