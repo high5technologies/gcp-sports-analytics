@@ -1,4 +1,4 @@
-module "function_SportsAnalytics_Common_Test" {
+module "function_SportsAnalytics_Common_Log_Error" {
   source = "../modules/function"
 
   project_name = var.gcp_project_id
@@ -14,7 +14,7 @@ module "function_SportsAnalytics_Common_Test" {
   function_event_trigger_resource = google_pubsub_topic.error_log_topic.name
 }
 
-module "function_SportsAnalytics_Common_Test" {
+module "function_SportsAnalytics_Common_BigQuery_Replication" {
   source = "../modules/function"
 
   project_name = var.gcp_project_id
