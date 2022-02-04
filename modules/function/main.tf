@@ -16,8 +16,8 @@ data "archive_file" "mod_zip" {
 # Upload zip to bucket
 resource "google_storage_bucket_object" "mod_archive_object" {
   name   = "terraform-google-functions-zips/${var.function_name}_${local.timestamp}.zip"
-  bucket = google_storage_bucket.bucket_deployment.name
-  source = data.archive_file.zip_SportsAnalytics_Common_BigQuery_Replication.output_path
+  bucket = google_storage_bucket.mod_deploy_bucket.name
+  source = data.archive_file.mod_zip.output_path
 }
 
 resource "google_cloudfunctions_function" "mod_function" {
