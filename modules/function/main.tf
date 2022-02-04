@@ -1,9 +1,9 @@
 # Create bucket to deploy code to
-resource "google_storage_bucket" "mod_deploy_bucket" {
-  name = "function_deploy_${var.project_name}"
-  location      = "US"
-  #force_destroy = true
-}
+#resource "google_storage_bucket" "mod_deploy_bucket" {
+#  name = "function_deploy_${var.project_name}"
+#  location      = "US"
+#  #force_destroy = true
+#}
 
 # Zip the file path
 data "archive_file" "mod_zip" {
@@ -17,7 +17,8 @@ data "archive_file" "mod_zip" {
 # Upload zip to bucket
 resource "google_storage_bucket_object" "mod_archive_object" {
   name   = "terraform-google-functions-zips/${var.function_name}_${local.timestamp}.zip"
-  bucket = google_storage_bucket.mod_deploy_bucket.name
+  #bucket = google_storage_bucket.mod_deploy_bucket.name
+  bucket = var.function_deployment_bucket_name
   source = data.archive_file.mod_zip.output_path
 }
 
@@ -27,7 +28,8 @@ resource "google_cloudfunctions_function" "mod_function" {
   runtime     = var.function_runtime
 
   available_memory_mb   = var.function_available_memory_mb
-  source_archive_bucket = google_storage_bucket.mod_deploy_bucket.name
+  #source_archive_bucket = google_storage_bucket.mod_deploy_bucket.name
+  source_archive_bucket = var.function_deployment_bucket_name
   source_archive_object = google_storage_bucket_object.mod_archive_object.name
   trigger_http          = var.function_trigger_http
   entry_point           = var.function_entry_point

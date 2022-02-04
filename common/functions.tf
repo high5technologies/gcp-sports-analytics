@@ -4,6 +4,7 @@ module "function_SportsAnalytics_Common_Test" {
   project_name = var.gcp_project_id
   function_name = "SportsAnalytics_Common_Test"
   function_description = "Test function"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
   function_entry_point = "hello_world"
   function_region = var.gcp_region
   function_runtime = "python39"
@@ -19,6 +20,7 @@ module "function_SportsAnalytics_Common_Test2" {
   project_name = var.gcp_project_id
   function_name = "SportsAnalytics_Common_Test2"
   function_description = "Test function"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
   function_entry_point = "hello_world"
   function_region = var.gcp_region
   function_runtime = "python39"

@@ -16,6 +16,11 @@ variable "function_description" {
   nullable    = false 
 }
 
+variable "function_deployment_bucket_name" {
+  type        = string
+  description = "Name of the bucket where zips are loaded to"
+}
+
 variable "function_entry_point" {
   type        = string
   description = "Name of primary function that will get called with GCP Function triggered"
