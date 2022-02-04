@@ -60,7 +60,7 @@ variable "function_event_trigger_type" {
   default     = null
   nullable    = true
   validation {
-    condition     = var.function_event_trigger_type == null || contains(["google.pubsub.topic.publish"], var.function_event_trigger_type)
+    condition     = var.function_event_trigger_type == null || contains(["google.pubsub.topic.publish"], coalesce(var.function_event_trigger_type,""))
     error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]."
   } 
 }
