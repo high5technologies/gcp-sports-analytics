@@ -1,4 +1,10 @@
-name: 'AHL Deployment'
+#################################
+# Trigger = github action
+# executeion happens on the github side
+# backend = terraform cloud (TF Cloud is state file only - no config or additional needed)
+# TF Cloud Workspace - single workspace per state file - means every sport/env combo requires a new workspace
+#################################
+name: 'Hockey AHL Deployment'
 
 on:
   push:
