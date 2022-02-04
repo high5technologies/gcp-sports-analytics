@@ -72,3 +72,6 @@ variable "function_event_trigger_resource" {
   nullable    = true
 }
 
+locals {
+  timestamp   = formatdate("YYMMDDhhmmss", timestamp())
+}
