@@ -36,7 +36,7 @@ variable "function_runtime" {
   nullable    = false 
   validation {
     condition     = contains(["python37", "python38", "python39"], var.function_runtime)
-    error_message = "Valid values for var: function_runtime are [python37, python38, python39]"
+    error_message = "Valid values for var: function_runtime are [python37, python38, python39]."
   } 
 }
 
@@ -61,7 +61,7 @@ variable "function_event_trigger_type" {
   nullable    = true
   validation {
     condition     = contains(["google.pubsub.topic.publish"], var.function_event_trigger_type) || var.function_event_trigger_type == null
-    error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]"
+    error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]."
   } 
 }
 
