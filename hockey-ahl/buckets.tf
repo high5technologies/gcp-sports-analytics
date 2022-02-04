@@ -4,3 +4,4 @@ resource "google_storage_bucket" "test-bucket-1" {
   force_destroy = true
 }
 
+
