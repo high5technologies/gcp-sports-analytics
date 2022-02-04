@@ -7,4 +7,3 @@ resource "google_pubsub_topic" "bigquery_replication_topic" {
 resource "google_pubsub_topic" "error_log_topic" {
   name = "error_log_topic"
 }
-
