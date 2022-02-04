@@ -59,16 +59,16 @@ variable "function_trigger_http" {
   nullable    = true 
 }
 
-variable "function_event_trigger_type" {
-  type        = string
-  description = "Type of GCP resouces that triggers function"
-  default     = null
-  nullable    = true
-  validation {
-    condition     = var.function_event_trigger_type == null || contains(["google.pubsub.topic.publish"], coalesce(var.function_event_trigger_type,"dummy"))
-    error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]."
-  } 
-}
+#variable "function_event_trigger_type" {
+#  type        = string
+#  description = "Type of GCP resouces that triggers function"
+#  default     = null
+#  nullable    = true
+#  validation {
+#    condition     = var.function_event_trigger_type == null || contains(["google.pubsub.topic.publish"], coalesce(var.function_event_trigger_type,"dummy"))
+#    error_message = "Valid values for var: function_event_trigger_type are [google.pubsub.topic.publish]."
+#  } 
+#}
 
 variable "function_event_trigger_resource" {
   type        = string

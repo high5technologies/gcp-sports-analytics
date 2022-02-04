@@ -39,9 +39,10 @@ resource "google_cloudfunctions_function" "mod_function" {
   #  resource = var.function_event_trigger_resource
   #}
   dynamic "event_trigger" {
-      for_each = var.function_event_trigger_type[*]
+      for_each = var.function_event_trigger_resource[*]
       content {
-         event_type = var.function_event_trigger_type
+         #event_type = var.function_event_trigger_type
+         event_type = "google.pubsub.topic.publish"
          resource   = var.function_event_trigger_resource
       }
    }
