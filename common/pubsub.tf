@@ -12,3 +12,4 @@ resource "google_pubsub_topic" "error_log_topic" {
 resource "google_pubsub_topic" "common_test_topic" {
   name = "common_test_topic"
 }
+

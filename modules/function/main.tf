@@ -32,10 +32,17 @@ resource "google_cloudfunctions_function" "mod_function" {
   trigger_http          = var.function_trigger_http
   entry_point           = var.function_entry_point
   region                = var.function_region
-  event_trigger {
-    event_type = var.function_event_trigger_type
-    resource = var.function_event_trigger_resource
-  }
+  #event_trigger {
+  #  event_type = var.function_event_trigger_type
+  #  resource = var.function_event_trigger_resource
+  #}
+  dynamic "event_trigger" {
+      for_each = var.function_event_trigger_type[*]
+      content {
+         event_type = var.function_event_trigger_type
+         resource   = var.function_event_trigger_resource
+      }
+   }
 }
 
 # IAM entry for all users to invoke the function
