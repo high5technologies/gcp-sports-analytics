@@ -9,12 +9,12 @@ variable "gcp_region" {
   description = "The Google Cloud region"
 }
 
-variable "tfcloud_organization" {
-    type        = string
-    description = "Terraform Cloud Organization - State File"
-}
+#variable "tfcloud_organization" {
+#    type        = string
+#    description = "Terraform Cloud Organization - State File"
+#}
 
-variable "tfcloud_workspace" {
-    type        = string
-    description = "Terraform Cloud Workspace name - State File"
-}
+#variable "tfcloud_workspace" {
+#    type        = string
+#    description = "Terraform Cloud Workspace name - State File"
+#}
