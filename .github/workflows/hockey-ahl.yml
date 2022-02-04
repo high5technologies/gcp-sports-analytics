@@ -11,7 +11,7 @@ on:
     paths:
     - 'hockey-ahl/**'                     #config-here
     branches:
-    - [main, dev]
+    - main
   #pull_request:
 
 env:
