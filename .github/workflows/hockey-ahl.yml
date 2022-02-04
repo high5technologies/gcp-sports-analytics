@@ -12,6 +12,7 @@ on:
     - 'hockey-ahl/**'                     #config-here
     branches:
     - main
+    - dev
   #pull_request:
 
 env:
