@@ -50,8 +50,8 @@ variable "function_available_memory_mb" {
 variable "function_trigger_http" {
   type        = bool
   description = "trigger function via http"
-  default     = false
-  nullable    = false 
+  default     = null
+  nullable    = true 
 }
 
 variable "function_event_trigger_type" {

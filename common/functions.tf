@@ -8,7 +8,7 @@ module "s3-website" {
   function_region = var.gcp_region
   function_runtime = "python39"
   function_available_memory_mb = "128"
-  function_trigger_http = false
+  function_trigger_http = null
   function_event_trigger_type = "google.pubsub.topic.publish"
   function_event_trigger_resource = google_pubsub_topic.common_test_topic.name
 }
