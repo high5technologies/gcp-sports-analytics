@@ -1,4 +1,4 @@
-module "function_SportsAnalytics_Common_Test" {
+module "function_SportsAnalytics_Common_Log_Error" {
   source = "../modules/function"
 
   project_name = var.gcp_project_id
@@ -14,7 +14,7 @@ module "function_SportsAnalytics_Common_Test" {
   function_event_trigger_resource = google_pubsub_topic.error_log_topic.name
 }
 
-module "function_SportsAnalytics_Common_Test" {
+module "function_SportsAnalytics_Common_BigQuery_Replication" {
   source = "../modules/function"
 
   project_name = var.gcp_project_id
@@ -27,6 +27,6 @@ module "function_SportsAnalytics_Common_Test" {
   function_available_memory_mb = 128
   #function_trigger_http = null
   #function_event_trigger_type = "google.pubsub.topic.publish"
-  function_event_trigger_resource = bigquery_replication_topic.error_log_topic.name
+  function_event_trigger_resource = google_pubsub_topic.bigquery_replication_topic.name
 }
 
