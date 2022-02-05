@@ -22,8 +22,8 @@ def bigquery_load_test(event, context):
 
     # Push test data to bigquery replication topic
     replication_data = {}
-    replication_data['bq_dataset'] = 'nba' 
-    replication_data['bq_table'] = 'raw_nbacom_game_event'
+    replication_data['bq_dataset'] = 'common' 
+    replication_data['bq_table'] = 'test_data'
     replication_data['data'] = data
     data_string = json.dumps(replication_data)  
     future = publisher.publish(topic_path, data_string.encode("utf-8"))   
