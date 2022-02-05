@@ -6,8 +6,6 @@ import os
 from datetime import datetime, timedelta, date
 import uuid
 import traceback
-import pandas as pd
-import pandas_gbq
 
 def pubsub_to_bigquery_replication(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -29,35 +27,17 @@ def pubsub_to_bigquery_replication(event, context):
         bq_dataset = message_data['bq_dataset']
         bq_table = message_data['bq_table']
         table_id = project_id + "." + bq_dataset + "." + bq_table
+
         #data = json.loads(message_data['data'])
         data = message_data['data']
-        df = pd.DataFrame(data) 
-
-        #errors = client.insert_rows_json(table_id, data)  # Make an API request.
+        errors = client.insert_rows_json(table_id, data)  # Make an API request.
         
-        #if errors == []:
-        #    print("New rows have been added.")
-        #else:
-        #    print("Encountered errors while inserting rows: {}".format(errors))
-        #    raise ValueError(json.dumps(errors))
-
-
-        # TODO: Set project_id to your Google Cloud Platform project ID.
-        # project_id = "my-project"
-
-        # TODO: Set table_id to the full destination table ID (including the
-        #       dataset ID).
-        # table_id = 'my_dataset.my_table'
-
-        pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
-
-        #pandas_gbq.to_gbq(
-        #    df, 'my_dataset.my_table', project_id=projectid, if_exists='fail',
-        #)
-
-         
-        return f'Data successfully replicated to BigQuery'
-
+        if errors == []:
+            print("New rows have been added.")
+        else:
+            print("Encountered errors while inserting rows: {}".format(errors))
+            raise ValueError(json.dumps(errors))
+            
     except Exception as e:
         err = {}
         err['error_key'] = str(uuid.uuid4())
