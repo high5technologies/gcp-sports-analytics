@@ -6,7 +6,7 @@ from google.cloud import pubsub_v1
 #import traceback
 #from bs4 import BeautifulSoup, Comment
 
-def bigquery_load_test(event, context):
+def bigquery_load_test(request):
     
     # Config
     project_id = os.environ.get('GCP_PROJECT')
