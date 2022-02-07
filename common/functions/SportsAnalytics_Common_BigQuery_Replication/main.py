@@ -16,7 +16,11 @@ def pubsub_to_bigquery_replication(event, context):
         context (google.cloud.functions.Context): Metadata for the event.
     """
     client = bigquery.Client()
-    project_id = os.environ.get('GCP_PROJECT')
+    #project_id = os.environ.get('GCP_PROJECT')
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
     
     publisher = pubsub_v1.PublisherClient()
     try:

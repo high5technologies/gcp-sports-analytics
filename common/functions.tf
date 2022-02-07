@@ -24,7 +24,7 @@ module "function_SportsAnalytics_Common_BigQuery_Replication" {
   function_entry_point = "pubsub_to_bigquery_replication"
   function_region = var.gcp_region
   function_runtime = "python39"
-  function_available_memory_mb = 128
+  function_available_memory_mb = 1024
   #function_trigger_http = null
   #function_event_trigger_type = "google.pubsub.topic.publish"
   function_event_trigger_resource = google_pubsub_topic.bigquery_replication_topic.name
