@@ -8,6 +8,7 @@ import uuid
 import traceback
 import pandas as pd
 import pandas_gbq
+import urllib.request
 
 def pubsub_to_bigquery_replication(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
