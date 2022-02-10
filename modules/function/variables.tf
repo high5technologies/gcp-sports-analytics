@@ -52,6 +52,13 @@ variable "function_available_memory_mb" {
   nullable    = false 
 }
 
+variable "function_timeout" {
+  type        = number
+  description = "Function timeout in seconds"
+  default     = 60
+  nullable    = false 
+}
+
 variable "function_trigger_http" {
   type        = bool
   description = "trigger function via http"

@@ -28,6 +28,7 @@ resource "google_cloudfunctions_function" "mod_function" {
   runtime     = var.function_runtime
 
   available_memory_mb   = var.function_available_memory_mb
+  timeout               = var.function_timeout
   #source_archive_bucket = google_storage_bucket.mod_deploy_bucket.name
   source_archive_bucket = var.function_deployment_bucket_name
   source_archive_object = google_storage_bucket_object.mod_archive_object.name

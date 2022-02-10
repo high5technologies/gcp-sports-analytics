@@ -46,20 +46,7 @@ def pubsub_to_bigquery_replication(event, context):
         #    print("Encountered errors while inserting rows: {}".format(errors))
         #    raise ValueError(json.dumps(errors))
 
-
-        # TODO: Set project_id to your Google Cloud Platform project ID.
-        # project_id = "my-project"
-
-        # TODO: Set table_id to the full destination table ID (including the
-        #       dataset ID).
-        # table_id = 'my_dataset.my_table'
-
         pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
-
-        #pandas_gbq.to_gbq(
-        #    df, 'my_dataset.my_table', project_id=projectid, if_exists='fail',
-        #)
-
          
         return f'Data successfully replicated to BigQuery'
 
