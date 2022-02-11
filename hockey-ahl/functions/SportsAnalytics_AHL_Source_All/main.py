@@ -82,7 +82,7 @@ def ahl_all(event, context):
 
             first_day_of_month = day.replace(day=1)
             last_day_number = calendar.monthrange(day.year, day.month)[1]
-            last_day_of_month = datetime.datetime(day.year, day.month, last_day_number).date()
+            last_day_of_month = datetime(day.year, day.month, last_day_number).date()
             r['start_date'] = startDate if startDate > first_day_of_month else first_day_of_month
             r['end_date'] = endDate if endDate < last_day_of_month else last_day_of_month
 
