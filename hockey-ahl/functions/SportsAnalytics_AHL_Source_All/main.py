@@ -85,8 +85,8 @@ def ahl_all(event, context):
             last_day_of_month = datetime(day.year, day.month, last_day_number).date()
             month_start_date = startDate if startDate > first_day_of_month else first_day_of_month
             month_end_date = endDate if endDate < last_day_of_month else last_day_of_month
-            r['start_date'] = month_start_date.strftime("%Y%m%d")
-            r['end_date'] = month_end_date.strftime("%Y%m%d")
+            r['start_date'] = month_start_date.strftime("%Y-%m-%d")
+            r['end_date'] = month_end_date.strftime("%Y-%m-%d")
 
             if r not in yearmonths: 
                 yearmonths.append(r)
@@ -125,9 +125,11 @@ def ahl_all(event, context):
                             season_indexes.append(si)
 
             # AHL.COM API - HockeyTech
-            topic_id = "ahl_ahlcom_roster_seasons_to_scrape"
-            topic_path = publisher.topic_path(project_id, topic_id)
-            future = publisher.publish(topic_path, data_string.encode("utf-8"))   
+            for si in season_indexes:
+                data_string = json.dumps(si) 
+                topic_id = "ahl_ahlcom_roster_seasons_to_scrape"
+                topic_path = publisher.topic_path(project_id, topic_id)
+                future = publisher.publish(topic_path, data_string.encode("utf-8"))   
 
         return f'Source dates queued successfully (AHLCOM)'
 
