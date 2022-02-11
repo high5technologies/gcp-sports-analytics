@@ -412,8 +412,7 @@ def parse_box_ref(game_key,game_date,data):
         ref['game_ref_key'] = game_key + '|' + str(ref['jersey_number'])
         data_refs.append(ref)
 
-     return data_refs   
-
+    return data_refs   
 
 def parse_box_coaches(game_key,game_date,data):
     ###########################################################################
