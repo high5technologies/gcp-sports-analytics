@@ -1,7 +1,7 @@
 module "function_SportsAnalytics_Common_Log_Error" {
   source = "../modules/function"
 
-  project_name = var.gcp_project_id
+  gcp_project_id = var.gcp_project_id
   function_name = "SportsAnalytics_Common_Log_Error"
   function_description = "Log Errors to Firestore that come into the error log topic"
   function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
@@ -17,7 +17,7 @@ module "function_SportsAnalytics_Common_Log_Error" {
 module "function_SportsAnalytics_Common_BigQuery_Replication" {
   source = "../modules/function"
 
-  project_name = var.gcp_project_id
+  gcp_project_id = var.gcp_project_id
   function_name = "SportsAnalytics_Common_BigQuery_Replication"
   function_description = "Replication pubsub message to BigQuery"
   function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
@@ -33,7 +33,7 @@ module "function_SportsAnalytics_Common_BigQuery_Replication" {
 module "function_SportsAnalytics_Common_BigQuery_TestLoad" {
   source = "../modules/function"
 
-  project_name = var.gcp_project_id
+  gcp_project_id = var.gcp_project_id
   function_name = "SportsAnalytics_Common_BigQuery_TestLoad"
   function_description = "Test data for testing the BigQuery replication function"
   function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name

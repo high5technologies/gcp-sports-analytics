@@ -35,6 +35,11 @@ resource "google_cloudfunctions_function" "mod_function" {
   trigger_http          = var.function_trigger_http
   entry_point           = var.function_entry_point
   region                = var.function_region
+
+  environment_variables = {
+    FUNCTION_NAME  = var.function_name
+    GCP_PROJECT_ID = var.gcp_project_id
+  }
   #event_trigger {
   #  event_type = var.function_event_trigger_type
   #  resource = var.function_event_trigger_resource

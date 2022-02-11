@@ -1,6 +1,6 @@
-variable "project_name" {
+variable "gcp_project_id" {
   type        = string
-  description = "The Google Cloud Project"
+  description = "The Google Cloud Project id"
   nullable    = false 
 }
 
