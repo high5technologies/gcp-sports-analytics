@@ -106,6 +106,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
 
             # loop through seasons that matched search criteria from firestore (reg season and playoffs are 2 separate season_indexes)
             for season_index in season_indexes:
+                print(season_index)
                 # Create URL
                 url = "http://lscluster.hockeytech.com/feed/index.php?feed=statviewfeed&view=schedule&season=" + str(season_index) + "&month=" + str(month) + "&location=homeaway&key=50c2cd9b5e18e390&client_code=ahl"    
                 response = requests.get(url) 
@@ -125,7 +126,8 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                     g["schedule_key"] = g["game_id"]
                     g['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                     
-                    if g["game_date"] in dates_to_scrape:
+                    if g["game_date"] in dates_to_scrape:]
+                        print(g["game_id"])
                         data_string = json.dumps(g)  
                         topic_id = "ahl_ahlcom_games_to_scrape"
                         topic_path = publisher.topic_path(project_id, topic_id)
