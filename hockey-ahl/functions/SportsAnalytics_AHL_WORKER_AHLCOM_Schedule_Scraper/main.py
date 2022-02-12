@@ -10,6 +10,10 @@ import traceback
 #from bs4 import BeautifulSoup, Comment
 import urllib.request
 
+# This scrapes the AHL schedule for a single month
+# There may be multiple season_indexes .. for example, scraping April will find the season_index for both reg season & playoffs
+
+
 def ahl_ahlcom_worker_schedule_scraper(event, context):
     
     # Config
@@ -47,7 +51,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         for i in range(delta.days + 1):
             day = start_date + timedelta(days=i)
             dt = day.strftime("%Y-%m-%d")
-            print(dt)
+            #print(dt)
             col_ref_key = str(dt) 
             docs = fs.collection(u'AHL').document(u'schedule').collection(col_ref_key).stream()
             
@@ -77,7 +81,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         if not dates_to_scrape:
             # Get hockey tech season key from firestore
             docs = fs.collection(u'reference').document(u'AHL').collection('ahl_hockeytech_seasons').where(u'season',u'==',str(season)).stream()
-            
+            print(docs)
             season_indexes = []
             for doc in docs:
                 d = doc.to_dict()
@@ -85,6 +89,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                 season_start_date = datetime.strptime(d['start_date'], '%Y-%m-%d').date()
                 season_end_date = datetime.strptime(d['end_date'], '%Y-%m-%d').date()
                 season_index = d['hockeytech_key']
+                print({"season_start_date":d['start_date'],"season_end_date":d['end_date'],"hockeytech_key":season_index})
                 if not event_flag:
                     for dt_str in dates_to_scrape:
                         dt = datetime.strptime(dt_str, '%Y-%m-%d').date()  
