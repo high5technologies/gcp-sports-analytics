@@ -29,7 +29,8 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         # Get Mesage
         pubsub_message = base64.b64decode(event['data']).decode('utf-8')
         message_data = json.loads(pubsub_message)
-
+        print(message_data)
+        
         monthname = message_data['monthname']
         month = message_data['month_number']
         year = message_data['year']
@@ -46,7 +47,8 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         for i in range(delta.days + 1):
             day = start_date + timedelta(days=i)
             dt = day.strftime("%Y-%m-%d")
-        
+            print(dt) 
+
             col_ref_key = str(dt) 
             docs = fs.collection(u'AHL').document(u'schedule').collection(col_ref_key).stream()
             
