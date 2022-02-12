@@ -30,7 +30,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         pubsub_message = base64.b64decode(event['data']).decode('utf-8')
         message_data = json.loads(pubsub_message)
         print(message_data)
-        
+
         monthname = message_data['monthname']
         month = message_data['month_number']
         year = message_data['year']
@@ -128,7 +128,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                     g["schedule_key"] = g["game_id"]
                     g['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                     
-                    if g["game_date"] in dates_to_scrape:]
+                    if g["game_date"] in dates_to_scrape:
                         print(g["game_id"])
                         data_string = json.dumps(g)  
                         topic_id = "ahl_ahlcom_games_to_scrape"
