@@ -79,9 +79,11 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         ##########################################################################
     
         if not dates_to_scrape:
+            print('here1')
             # Get hockey tech season key from firestore
             docs = fs.collection(u'reference').document(u'AHL').collection('ahl_hockeytech_seasons').where(u'season',u'==',str(season)).stream()
             print(docs)
+            print('here2')
             season_indexes = []
             for doc in docs:
                 d = doc.to_dict()
