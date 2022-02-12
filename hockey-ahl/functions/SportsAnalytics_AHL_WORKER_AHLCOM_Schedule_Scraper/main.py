@@ -47,7 +47,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         for i in range(delta.days + 1):
             day = start_date + timedelta(days=i)
             dt = day.strftime("%Y-%m-%d")
-            
+            print(dt)
             col_ref_key = str(dt) 
             docs = fs.collection(u'AHL').document(u'schedule').collection(col_ref_key).stream()
             
@@ -64,7 +64,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
 
             if scrape_flag or rerun:
                 dates_to_scrape.append(dt)
-
+        print(dates_to_scrape)
         #games_to_ignore = []
         #for gm in firestore_schedule:
         #    if "FINAL" in gm['game_status'].upper():
