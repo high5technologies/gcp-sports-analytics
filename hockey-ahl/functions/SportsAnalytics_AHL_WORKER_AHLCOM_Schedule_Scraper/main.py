@@ -47,8 +47,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         for i in range(delta.days + 1):
             day = start_date + timedelta(days=i)
             dt = day.strftime("%Y-%m-%d")
-            print(dt) 
-
+            
             col_ref_key = str(dt) 
             docs = fs.collection(u'AHL').document(u'schedule').collection(col_ref_key).stream()
             
@@ -89,6 +88,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                 if not event_flag:
                     for dt_str in dates_to_scrape:
                         dt = datetime.strptime(dt_str, '%Y-%m-%d').date()  
+                        print({"dt":dt,"season_start_date":season_start_date,"season_end_date":season_end_date})
                         if dt >= season_start_date and dt <= season_end_date and season_index not in season_indexes:
                             season_indexes.append(season_index)
 
