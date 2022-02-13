@@ -152,25 +152,25 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
 
 
 
-        ##########################################################################
-        # Store Schedule
-        ##########################################################################   
-            
-        # Load schedule last (so no next execution only ignores games if successfully parsed)
-        # Can't control the error if fails in replication ... should be smaller risk
-        #for g in schedule:
-            #print(g)
-            #table_schedule.put_item(Item=g)
-            #col_ref_key = str(dt) 
-        #game_date = str(g['game_date'])
-        #game_id = str(g['game_id'])
-        fs.collection(u'AHL').document(u'schedule').collection(game_date).document(game_id).set(g)
+            ##########################################################################
+            # Store Schedule
+            ##########################################################################   
+                
+            # Load schedule last (so no next execution only ignores games if successfully parsed)
+            # Can't control the error if fails in replication ... should be smaller risk
+            #for g in schedule:
+                #print(g)
+                #table_schedule.put_item(Item=g)
+                #col_ref_key = str(dt) 
+            #game_date = str(g['game_date'])
+            #game_id = str(g['game_id'])
+            fs.collection(u'AHL').document(u'schedule').collection(g['game_date']).document(g['game_id']).set(g)
 
-        if error_count == 0: 
-            return 'Game Log successfully scraped'        
-        else:
-            return 'Game log finished but errors occured.  See error log.'
-
+        #if error_count == 0: 
+        #    return 'Game Log successfully scraped'        
+        #else:
+        #    return 'Game log finished but errors occured.  See error log.'
+        return 'Game Log successfully scraped'
     except Exception as e:
         err = {}
         err['error_key'] = str(uuid.uuid4())

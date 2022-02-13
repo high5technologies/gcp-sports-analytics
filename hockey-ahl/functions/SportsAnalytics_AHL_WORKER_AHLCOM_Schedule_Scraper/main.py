@@ -79,11 +79,10 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
         ##########################################################################
     
         if len(dates_to_scrape) > 0:
-            print('here1')
+            
             # Get hockey tech season key from firestore
             docs = fs.collection(u'reference').document(u'AHL').collection(u'ahl_hockeytech_seasons').where(u'season',u'==',str(season)).stream()
-            print(docs)
-            print('here2')
+            
             season_indexes = []
             for doc in docs:
                 d = doc.to_dict()
@@ -91,11 +90,11 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                 season_start_date = datetime.strptime(d['start_date'], '%Y-%m-%d').date()
                 season_end_date = datetime.strptime(d['end_date'], '%Y-%m-%d').date()
                 season_index = d['hockeytech_key']
-                print({"season_start_date":d['start_date'],"season_end_date":d['end_date'],"hockeytech_key":season_index})
+                
                 if not event_flag:
                     for dt_str in dates_to_scrape:
                         dt = datetime.strptime(dt_str, '%Y-%m-%d').date()  
-                        print({"dt":dt,"season_start_date":season_start_date,"season_end_date":season_end_date})
+                        #print({"dt":dt,"season_start_date":season_start_date,"season_end_date":season_end_date})
                         if dt >= season_start_date and dt <= season_end_date and season_index not in season_indexes:
                             season_indexes.append(season_index)
 
@@ -115,7 +114,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
 
             # loop through seasons that matched search criteria from firestore (reg season and playoffs are 2 separate season_indexes)
             for season_index in season_indexes:
-                print(season_index)
+                
                 # Create URL
                 url = "http://lscluster.hockeytech.com/feed/index.php?feed=statviewfeed&view=schedule&season=" + str(season_index) + "&month=" + str(month) + "&location=homeaway&key=50c2cd9b5e18e390&client_code=ahl"    
                 response = requests.get(url) 
@@ -136,7 +135,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                     g['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                     
                     if g["game_date"] in dates_to_scrape:
-                        print(g["game_id"])
+                        #print(g["game_id"])
                         data_string = json.dumps(g)  
                         topic_id = "ahl_ahlcom_games_to_scrape"
                         topic_path = publisher.topic_path(project_id, topic_id)
