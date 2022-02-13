@@ -1,0 +1,12 @@
+[
+    {"name":"goalie_log_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+{"name":"goalie_id","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"h_a","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"start_period","type":"STRING","mode":"NULLABLE","description":""},
+{"name":"start_time","type":"STRING","mode":"NULLABLE","description":""},
+{"name":"end_period","type":"STRING","mode":"NULLABLE","description":""},
+{"name":"end_time","type":"STRING","mode":"NULLABLE","description":""},
+{"name":"load_datetime","type":"STRING","mode":"REQUIRED","description":""}
+]

@@ -1,6 +1,6 @@
 google-cloud-bigquery
 google-cloud-pubsub
 opentelemetry-exporter-google-cloud
-pandas
-pandas_gbq
+#pandas
+#pandas_gbq
 #urllib

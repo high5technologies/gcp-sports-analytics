@@ -6,8 +6,8 @@ import os
 from datetime import datetime, timedelta, date
 import uuid
 import traceback
-import pandas as pd
-import pandas_gbq
+#import pandas as pd
+#import pandas_gbq
 import urllib.request
 
 def pubsub_to_bigquery_replication(event, context):
@@ -36,16 +36,17 @@ def pubsub_to_bigquery_replication(event, context):
         table_id = project_id + "." + bq_dataset + "." + bq_table
         #data = json.loads(message_data['data'])
         data = message_data['data']
-        df = pd.DataFrame(data) 
+        #df = pd.DataFrame(data) 
 
-        try:
-            print('trying json insert')
-            #errors = client.insert_rows_json(table_id, data)  # Make an API request.
-            client.insert_rows_json(table_id, data)  # Make an API request.
-        except Exception as e2:
-            print('trying pandas create table')
-            pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
-            print('end pandas create table')
+        errors = client.insert_rows_json(table_id, data)  # Make an API request.
+        #try:
+        #    print('trying json insert')
+        #    #errors = client.insert_rows_json(table_id, data)  # Make an API request.
+        #    client.insert_rows_json(table_id, data)  # Make an API request.
+        #except Exception as e2:
+        #    print('trying pandas create table')
+        #    pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
+        #    print('end pandas create table')
         #if errors == []:
         #    print("New rows have been added.")
         #else:

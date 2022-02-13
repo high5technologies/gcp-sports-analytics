@@ -1,0 +1,86 @@
+[
+    {
+      "name": "roster_key",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "unique identifier - season + | + team_id + | player_id"
+    },
+    {
+      "name": "season",
+      "type": "INT64",
+      "mode": "REQUIRED",
+      "description": "season"
+    },
+    {
+      "name":"team_id",
+      "type":"INT64",
+      "mode":"REQUIRED",
+      "description": "team identifier"
+    },
+    {
+      "name":"player_id",
+      "type":"INT64",
+      "mode":"REQUIRED",
+      "description": "player identifier"
+    },
+    {
+      "name":"name",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "player name"
+    },
+    {
+      "name":"jersey_number",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "jersey number"
+    },
+    {
+      "name":"position",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "primary player position"
+    },
+    {
+      "name":"height",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "player height"
+    },
+    {
+      "name":"weight",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "player weight"
+    },
+    {
+      "name":"birthdate",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "player birthdate"
+    },
+    {
+      "name":"birthplace",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "player birth place"
+    },
+    {
+      "name":"shoots",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "skater hand they shoot with"
+    },
+    {
+      "name":"catches",
+      "type":"STRING",
+      "mode":"NULLABLE",
+      "description": "goalie hand they catch with"
+    },
+    {
+      "name":"load_datetime",
+      "type":"DATETIME",
+      "mode":"REQUIRED",
+      "description": "goalie hand they catch with"
+    }
+  ]

@@ -1,0 +1,10 @@
+[
+    {"name":"game_ref_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+{"name":"jersey_number","type":"STRING","mode":"NULLABLE","description":""},
+{"name":"first_name","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"last_name","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"role","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"load_datetime","type":"STRING","mode":"REQUIRED","description":""}
+]
