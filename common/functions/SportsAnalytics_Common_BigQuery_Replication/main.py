@@ -38,15 +38,17 @@ def pubsub_to_bigquery_replication(event, context):
         data = message_data['data']
         df = pd.DataFrame(data) 
 
-        #errors = client.insert_rows_json(table_id, data)  # Make an API request.
-        
+        try:
+            errors = client.insert_rows_json(table_id, data)  # Make an API request.
+        except Exception as e:
+            pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
         #if errors == []:
         #    print("New rows have been added.")
         #else:
         #    print("Encountered errors while inserting rows: {}".format(errors))
         #    raise ValueError(json.dumps(errors))
 
-        pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
+        
          
         return f'Data successfully replicated to BigQuery'
 
