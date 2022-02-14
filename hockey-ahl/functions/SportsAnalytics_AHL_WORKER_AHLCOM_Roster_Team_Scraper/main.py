@@ -18,6 +18,8 @@ def ahl_roster_team_scraper(event, context):
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
+    topic_id = "bigquery_replication_topic"
+    topic_path = publisher.topic_path(project_id, topic_id)
     #fs = firestore.Client()
 
     try:
@@ -44,7 +46,7 @@ def ahl_roster_team_scraper(event, context):
         #load_datetime = message_data['load_datetime']
         #data = message_data['data']
 
-        print(str(roster_key) + '...' + str(season) + '...' + str(team_id))
+        print(str(roster_key) + '...' + str(season_index) + '...' + str(team_id))
 
         
         if(team_id) != -1: 
@@ -54,7 +56,7 @@ def ahl_roster_team_scraper(event, context):
                 if title in ["Forwards","Defencemen","Goalies"]:
                     for player in section["data"]:
                         p = {}
-                        p["season"] = season
+                        p["season_index"] = season_index
                         p["team_id"] = team_id
                         if( title == "Goalies" ):
                             p["catches"] = player["row"]["catches"]
@@ -71,7 +73,7 @@ def ahl_roster_team_scraper(event, context):
                         p["position"] = player["row"]["position"]
                         p["weight"] = player["row"]["w"]
                         p["name"] = player["row"]["name"]
-                        p["roster_key"] = str(season) + "|" + str(team_id) + "|" + str(p["player_id"])
+                        p["roster_key"] = str(season_index) + "|" + str(team_id) + "|" + str(p["player_id"])
                         p["load_datetime"] = load_datetime
                         roster.append(p)
                         #print(p)
