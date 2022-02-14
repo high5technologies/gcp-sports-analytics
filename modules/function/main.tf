@@ -20,6 +20,7 @@ resource "google_storage_bucket_object" "mod_archive_object" {
   #bucket = google_storage_bucket.mod_deploy_bucket.name
   bucket = var.function_deployment_bucket_name
   source = data.archive_file.mod_zip.output_path
+  deletion_protection=false
 }
 
 resource "google_cloudfunctions_function" "mod_function" {
