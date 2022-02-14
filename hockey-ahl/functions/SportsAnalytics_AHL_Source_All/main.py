@@ -116,7 +116,10 @@ def ahl_all(event, context):
                 si['season_index'] = season_index
                 si['season_start_date'] = season_start_date
                 si['season_end_date'] = season_end_date
-                print({"season_start_date":d['start_date'],"season_end_date":['end_date'],"season_index":season_index})
+
+                ssd = d['start_date'].strftime("%Y-%m-%d")
+                sed = ['end_date'].strftime("%Y-%m-%d")
+                print({"season_start_date":ssd,"season_end_date":sed,"season_index":season_index})
                 if not event_flag:
                     # search for first date of season in date range given
                     # Only need to load roster once per year
