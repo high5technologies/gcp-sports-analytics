@@ -114,21 +114,21 @@ def ahl_all(event, context):
 
                 si = {}
                 si['season_index'] = season_index
-                si['season_start_date'] = season_start_date
-                si['season_end_date'] = season_end_date
+                si['season_start_date'] = season_start_date.strftime("%Y-%m-%d")
+                si['season_end_date'] = season_end_date.strftime("%Y-%m-%d")
 
-                ssd = d['start_date'] #.strftime("%Y-%m-%d")
-                sed = d['end_date'] #.strftime("%Y-%m-%d")
-                print({"season_start_date":ssd,"season_end_date":sed,"season_index":season_index})
+                #ssd = d['start_date'] #.strftime("%Y-%m-%d")
+                #sed = d['end_date'] #.strftime("%Y-%m-%d")
+                #print({"season_start_date":ssd,"season_end_date":sed,"season_index":season_index})
                 if not event_flag:
                     # search for first date of season in date range given
                     # Only need to load roster once per year
-                    print('check started')
+                    
                     for i in range(delta.days + 1):
                         dt = startDate + timedelta(days=i) 
-                        print(dt.strftime("%Y-%m-%d"))
+                        #print(dt.strftime("%Y-%m-%d"))
                         if dt == season_start_date and season_index not in season_indexes:
-                            print('found')
+                            print(dt.strftime("%Y-%m-%d"))
                             season_indexes.append(si)
 
             # AHL.COM API - HockeyTech
