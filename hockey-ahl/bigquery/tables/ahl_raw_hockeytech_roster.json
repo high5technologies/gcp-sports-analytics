@@ -3,7 +3,7 @@
       "name": "roster_key",
       "type": "STRING",
       "mode": "REQUIRED",
-      "description": "unique identifier - season + | + team_id + | player_id"
+      "description": "unique identifier - season_index + | + team_id + | player_id"
     },
     {
       "name": "season_index",
