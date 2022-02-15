@@ -123,6 +123,8 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
 
                 for game in raw_json[0]["sections"][0]["data"]:
                     g = {}
+                    g["season"] = season 
+                    g["season_index"] = season_index
                     g["game_date"] = datetime.strptime(game["row"]["date_with_day"] + " " + str(year), '%a, %b %d %Y').strftime("%Y-%m-%d")
                     #print(datetime.strptime(game["row"]["date_with_day"] + " " + str(v['year']), '%a, %b %d %Y').strftime("%Y-%m-%d"))
                     g["game_id"] = game["row"]["game_id"]
