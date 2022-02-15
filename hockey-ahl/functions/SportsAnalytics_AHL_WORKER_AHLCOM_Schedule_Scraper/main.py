@@ -90,6 +90,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                 season_start_date = datetime.strptime(d['start_date'], '%Y-%m-%d').date()
                 season_end_date = datetime.strptime(d['end_date'], '%Y-%m-%d').date()
                 season_index = d['hockeytech_key']
+                season_type = d['season_type']
                 
                 if not event_flag:
                     for dt_str in dates_to_scrape:
@@ -125,6 +126,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                     g = {}
                     g["season"] = season 
                     g["season_index"] = season_index
+                    g["season_type"] = season_type
                     g["game_date"] = datetime.strptime(game["row"]["date_with_day"] + " " + str(year), '%a, %b %d %Y').strftime("%Y-%m-%d")
                     #print(datetime.strptime(game["row"]["date_with_day"] + " " + str(v['year']), '%a, %b %d %Y').strftime("%Y-%m-%d"))
                     g["game_id"] = game["row"]["game_id"]

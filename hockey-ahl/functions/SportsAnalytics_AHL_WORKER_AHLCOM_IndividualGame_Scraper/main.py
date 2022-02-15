@@ -43,6 +43,7 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
             g['load_datetime'] = message_data['load_datetime'] 
             g["season"] = message_data['season']  
             g["season_index"] = message_data['season_index'] 
+            g["season_type"] = message_data['season_type'] 
 
             ##########################################################
             # box score
@@ -55,7 +56,7 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
             #print(json_to_store_box)
 
             # Parse Data
-            data_game = parse_box_game_data(g['game_id'], g['game_date'], g["season"], g["season_index"], raw_json_box)
+            data_game = parse_box_game_data(g['game_id'], g['game_date'], g["season"], g["season_index"], g["season_type"], raw_json_box)
             data_goalie_log = parse_box_goalie_log(g['game_id'], g['game_date'], raw_json_box)
             data_goalie_box = parse_box_goalie_box(g['game_id'], g['game_date'], raw_json_box)
             data_skater_box = parse_box_skater_box(g['game_id'], g['game_date'], raw_json_box)
@@ -190,7 +191,7 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
         topic_path_error = publisher.topic_path(project_id, topic_id_error)
         future = publisher.publish(topic_path_error, data_string_error.encode("utf-8"))
 
-def parse_box_game_data(game_key,game_date,season,season_index,data):
+def parse_box_game_data(game_key,game_date,season,season_index,season_type,data):
     
     ###########################################################################
     # Game data
@@ -199,6 +200,7 @@ def parse_box_game_data(game_key,game_date,season,season_index,data):
     data_game['game_date'] = game_date
     data_game['season'] = season
     data_game['season_index'] = season_index
+    data_game['season_type'] = season_type
     data_game['attendance'] = data["details"]['attendance']
     data_game['duration'] = data["details"]['duration']
     data_game['start_time'] = data["details"]['startTime']
