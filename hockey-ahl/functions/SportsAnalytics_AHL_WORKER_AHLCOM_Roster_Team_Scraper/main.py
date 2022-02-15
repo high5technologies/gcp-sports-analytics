@@ -29,6 +29,7 @@ def ahl_roster_team_scraper(event, context):
         message_data = json.loads(pubsub_message)
 
         season_index = message_data['season_index']
+        season = message_data['season']
         team_id = message_data['team_id']
         
         url_roster = "https://lscluster.hockeytech.com/feed/index.php?feed=statviewfeed&view=roster&team_id=" + str(team_id)  + "&season_id=" + str(season_index) + "&key=50c2cd9b5e18e390&client_code=ahl&league_id=4&lang=en"
@@ -57,6 +58,7 @@ def ahl_roster_team_scraper(event, context):
                     for player in section["data"]:
                         p = {}
                         p["season_index"] = season_index
+                        p["season"] = season
                         p["team_id"] = team_id
                         if( title == "Goalies" ):
                             p["catches"] = player["row"]["catches"]

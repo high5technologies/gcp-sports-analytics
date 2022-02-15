@@ -26,6 +26,8 @@ def ahl_roster_season_scraper(event, context):
         message_data = json.loads(pubsub_message)
 
         season_index = message_data['season_index']
+        season = message_data['season']
+
         #si['season_index'] = season_index
         #si['season_start_date'] = season_start_date.strftime("%Y-%m-%d")
         #si['season_end_date'] = season_end_date.strftime("%Y-%m-%d")
@@ -58,6 +60,7 @@ def ahl_roster_season_scraper(event, context):
             g = {}
             g['season_index'] = season_index
             g['team_id'] = team['id']
+            g['season'] = season
             
             data_string = json.dumps(g)  
             topic_id = "ahl_ahlcom_roster_season_teams_to_scrape"

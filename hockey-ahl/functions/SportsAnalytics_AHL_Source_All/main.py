@@ -116,7 +116,8 @@ def ahl_all(event, context):
                 si['season_index'] = season_index
                 si['season_start_date'] = season_start_date.strftime("%Y-%m-%d")
                 si['season_end_date'] = season_end_date.strftime("%Y-%m-%d")
-
+                si['season'] = season
+                
                 #ssd = d['start_date'] #.strftime("%Y-%m-%d")
                 #sed = d['end_date'] #.strftime("%Y-%m-%d")
                 #print({"season_start_date":ssd,"season_end_date":sed,"season_index":season_index})
