@@ -1,0 +1,22 @@
+[
+    {
+        "name": "team_abbr",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "division",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "conference",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "franchise_code",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    }
+]
