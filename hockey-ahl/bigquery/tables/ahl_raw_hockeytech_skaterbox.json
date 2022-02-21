@@ -1,0 +1,22 @@
+[
+    {"name":"skater_box_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+    {"name":"skater_id","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"first_name","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"last_name","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"birth_date","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"jersey_number","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"position","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"status","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"h_a","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"starting","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"goals","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"assists","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"shots","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"points","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"hits","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"pim","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"plus_minus","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"load_datetime","type":"STRING","mode":"REQUIRED","description":""}
+]

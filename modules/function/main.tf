@@ -20,6 +20,7 @@ resource "google_storage_bucket_object" "mod_archive_object" {
   #bucket = google_storage_bucket.mod_deploy_bucket.name
   bucket = var.function_deployment_bucket_name
   source = data.archive_file.mod_zip.output_path
+  #deletion_protection=false
 }
 
 resource "google_cloudfunctions_function" "mod_function" {
@@ -28,12 +29,18 @@ resource "google_cloudfunctions_function" "mod_function" {
   runtime     = var.function_runtime
 
   available_memory_mb   = var.function_available_memory_mb
+  timeout               = var.function_timeout
   #source_archive_bucket = google_storage_bucket.mod_deploy_bucket.name
   source_archive_bucket = var.function_deployment_bucket_name
   source_archive_object = google_storage_bucket_object.mod_archive_object.name
   trigger_http          = var.function_trigger_http
   entry_point           = var.function_entry_point
   region                = var.function_region
+
+  environment_variables = {
+    FUNCTION_NAME  = var.function_name
+    GCP_PROJECT_ID = var.gcp_project_id
+  }
   #event_trigger {
   #  event_type = var.function_event_trigger_type
   #  resource = var.function_event_trigger_resource

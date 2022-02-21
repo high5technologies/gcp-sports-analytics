@@ -6,9 +6,6 @@ import os
 from datetime import datetime, timedelta, date
 import uuid
 import traceback
-#import pandas as pd
-#import pandas_gbq
-import urllib.request
 
 def pubsub_to_bigquery_replication(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -17,11 +14,7 @@ def pubsub_to_bigquery_replication(event, context):
         context (google.cloud.functions.Context): Metadata for the event.
     """
     client = bigquery.Client()
-    #project_id = os.environ.get('GCP_PROJECT')
-    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
-    req = urllib.request.Request(url)
-    req.add_header("Metadata-Flavor", "Google")
-    project_id = urllib.request.urlopen(req).read().decode()
+    project_id = os.environ.get('GCP_PROJECT')
     
     publisher = pubsub_v1.PublisherClient()
     try:
@@ -34,29 +27,17 @@ def pubsub_to_bigquery_replication(event, context):
         bq_dataset = message_data['bq_dataset']
         bq_table = message_data['bq_table']
         table_id = project_id + "." + bq_dataset + "." + bq_table
+
         #data = json.loads(message_data['data'])
         data = message_data['data']
-        #df = pd.DataFrame(data) 
-
         errors = client.insert_rows_json(table_id, data)  # Make an API request.
-        #try:
-        #    print('trying json insert')
-        #    #errors = client.insert_rows_json(table_id, data)  # Make an API request.
-        #    client.insert_rows_json(table_id, data)  # Make an API request.
-        #except Exception as e2:
-        #    print('trying pandas create table')
-        #    pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
-        #    print('end pandas create table')
-        #if errors == []:
-        #    print("New rows have been added.")
-        #else:
-        #    print("Encountered errors while inserting rows: {}".format(errors))
-        #    raise ValueError(json.dumps(errors))
-
         
-         
-        return f'Data successfully replicated to BigQuery'
-
+        if errors == []:
+            print("New rows have been added.")
+        else:
+            print("Encountered errors while inserting rows: {}".format(errors))
+            raise ValueError(json.dumps(errors))
+            
     except Exception as e:
         err = {}
         err['error_key'] = str(uuid.uuid4())

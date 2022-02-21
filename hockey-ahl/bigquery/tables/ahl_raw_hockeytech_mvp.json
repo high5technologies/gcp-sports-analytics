@@ -1,0 +1,11 @@
+[
+    {"name":"game_mvp_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_key","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+{"name":"player_id","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"team_id","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"team_abbrev","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"position","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"starting","type":"STRING","mode":"REQUIRED","description":""},
+{"name":"load_datetime","type":"STRING","mode":"REQUIRED","description":""}
+]

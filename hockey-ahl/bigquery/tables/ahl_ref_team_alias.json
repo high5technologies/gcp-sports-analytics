@@ -1,0 +1,12 @@
+[
+    {
+        "name": "team_abbr",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "alias",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    }
+]

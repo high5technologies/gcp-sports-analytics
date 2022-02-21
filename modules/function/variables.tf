@@ -1,6 +1,6 @@
-variable "project_name" {
+variable "gcp_project_id" {
   type        = string
-  description = "The Google Cloud Project"
+  description = "The Google Cloud Project id"
   nullable    = false 
 }
 
@@ -49,6 +49,13 @@ variable "function_available_memory_mb" {
   type        = number
   description = "Available memory in mb for function"
   default     = 128
+  nullable    = false 
+}
+
+variable "function_timeout" {
+  type        = number
+  description = "Function timeout in seconds"
+  default     = 60
   nullable    = false 
 }
 

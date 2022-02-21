@@ -1,11 +1,6 @@
-resource "google_storage_bucket" "test-bucket-1" {
-  name = "test-bucket-github-1"
+# Create bucket to deploy code to
+resource "google_storage_bucket" "deploy_bucket" {
+  name = "function_deploy_hockey_ahl_${var.gcp_project_id}"
   location      = "US"
-  force_destroy = true
-}
-
-resource "google_storage_bucket" "test-bucket-11" {
-  name = "test-bucket-github-11"
-  location      = "US"
-  force_destroy = true
+  #force_destroy = true
 }

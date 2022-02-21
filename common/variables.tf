@@ -8,3 +8,8 @@ variable "gcp_region" {
   #default = "europe-west2"
   description = "The Google Cloud region"
 }
+
+variable "env" {
+  type    = string
+  description = "Environment being deployed to"
+}
