@@ -37,8 +37,14 @@ def pubsub_to_bigquery_replication(event, context):
         #data = json.loads(message_data['data'])
         data = message_data['data']
         #df = pd.DataFrame(data) 
+        print(message_data['bq_table'])
 
         errors = client.insert_rows_json(table_id, data)  # Make an API request.
+        if errors == []:
+            print("New rows have been added.")
+        else:
+            print("Encountered errors while inserting rows: {}".format(errors))
+            raise ValueError(json.dumps(errors))
         #try:
         #    print('trying json insert')
         #    #errors = client.insert_rows_json(table_id, data)  # Make an API request.
@@ -47,11 +53,7 @@ def pubsub_to_bigquery_replication(event, context):
         #    print('trying pandas create table')
         #    pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
         #    print('end pandas create table')
-        #if errors == []:
-        #    print("New rows have been added.")
-        #else:
-        #    print("Encountered errors while inserting rows: {}".format(errors))
-        #    raise ValueError(json.dumps(errors))
+        
 
         
          
