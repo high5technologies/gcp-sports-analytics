@@ -139,7 +139,7 @@ def ahl_ahlcom_worker_schedule_scraper(event, context):
                     g['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
                     
                     if g["game_date"] in dates_to_scrape:
-                        #print(g["game_id"])
+                        print({"game_date":g['game_date'],"game_id":g['game_id']})
                         data_string = json.dumps(g)  
                         topic_id = "ahl_ahlcom_games_to_scrape"
                         topic_path = publisher.topic_path(project_id, topic_id)
