@@ -8,6 +8,7 @@ from google.cloud import pubsub_v1
 import uuid
 import traceback
 import csv
+import urllib.request
 
 def nba_538_player_raptor_worker(event, context):
 

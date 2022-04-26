@@ -7,6 +7,7 @@ from google.cloud import pubsub_v1
 import uuid
 import traceback
 import csv
+import urllib.request
 
 def nba_538_PlayerRaptor_scraper(request):
     
@@ -29,7 +30,6 @@ def nba_538_PlayerRaptor_scraper(request):
         historic_url = True
     else:
         historic_url = False
-
 
     try:
         if request_json and 'StartDate' not in request_json:  

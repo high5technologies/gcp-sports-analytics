@@ -6,6 +6,7 @@ from google.cloud import firestore
 from google.cloud import pubsub_v1
 import uuid
 import traceback
+import urllib.request
 
 #def nba_all(request):
 def nba_all(event, context):

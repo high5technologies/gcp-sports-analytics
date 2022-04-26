@@ -9,6 +9,7 @@ import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
 import re 
+import urllib.request
 
 def nba_espn_worker_individual_gamecast_scraper(event, context):
     

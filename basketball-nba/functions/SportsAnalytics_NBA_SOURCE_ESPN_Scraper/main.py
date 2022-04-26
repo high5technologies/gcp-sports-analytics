@@ -8,6 +8,7 @@ import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
 import re 
+import urllib.request
 
 def nba_espn_scraper(request):
     

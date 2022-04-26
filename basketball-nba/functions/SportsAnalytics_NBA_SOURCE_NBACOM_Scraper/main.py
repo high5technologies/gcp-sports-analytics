@@ -7,6 +7,7 @@ from google.cloud import pubsub_v1
 import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
+import urllib.request
 
 def nba_nbacom_scraper(request):
     
