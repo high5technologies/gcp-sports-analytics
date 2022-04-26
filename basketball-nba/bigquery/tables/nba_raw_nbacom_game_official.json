@@ -1,0 +1,13 @@
+[
+    {"name":"game_official_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_id","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"person_id","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+    {"name":"name","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"name_i","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"first_name","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"family_name","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"jersey_num","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"assignment","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"load_datetime","type":"DATETIME","mode":"REQUIRED","description":""}
+]
