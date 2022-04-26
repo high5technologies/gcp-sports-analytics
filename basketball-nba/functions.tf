@@ -216,7 +216,7 @@ module "SportsAnalytics_NBA_SOURCE_BasketballReference_Scraper" {
   function_entry_point = "nba_basketballreference_scraper"
   function_region = var.gcp_region
   function_runtime = "python39"
-  function_available_memory_mb = 128
+  function_available_memory_mb = 512
   function_timeout = 540
   function_trigger_http = true
   #function_event_trigger_resource = google_pubsub_topic.nba_espn_games_to_scrape_playbyplay_topic.name
