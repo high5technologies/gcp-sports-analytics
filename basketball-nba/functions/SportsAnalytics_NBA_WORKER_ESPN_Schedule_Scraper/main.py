@@ -10,6 +10,7 @@ import traceback
 from bs4 import BeautifulSoup, Comment
 import re
 import urllib.request
+from google.cloud import logging
 
 def nba_espn_worker_Schedule_scraper(event, context):
     
@@ -26,6 +27,11 @@ def nba_espn_worker_Schedule_scraper(event, context):
     topic_id_playbyplay = "nba_espn_games_to_scrape_playbyplay"
     topic_path_playbyplay = publisher.topic_path(project_id, topic_id_playbyplay)
 
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
+
     try:
             
         # Get Mesage
@@ -34,6 +40,8 @@ def nba_espn_worker_Schedule_scraper(event, context):
 
         date_string = message_data['date_string']
         date_formatted = message_data['date_formatted']
+
+        logger.log_text(date_string)
 
         url = "https://www.espn.com/nba/scoreboard/_/date/" + date_string
         r = requests.get(url)
@@ -53,6 +61,10 @@ def nba_espn_worker_Schedule_scraper(event, context):
                 game["home_abbrev"] = short_name.split("@")[1].strip()
                 game["start_time"] = event["date"]
                 game["load_datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+                logger.log_text("game_date:"+game["game_date"]+"; espn_key:" + game["espn_key"] + "; away:" + game["away_abbrev"] + "; home:" + game["home_abbrev"])
+
+
                 if event["status"]["type"]["name"] != "STATUS_POSTPONED":
                     #games.append(game)
                 
