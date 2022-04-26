@@ -10,6 +10,7 @@ import traceback
 from bs4 import BeautifulSoup, Comment
 import re 
 import urllib.request
+from google.cloud import logging
 
 def nba_espn_worker_individual_gamecast_scraper(event, context):
     
@@ -22,6 +23,11 @@ def nba_espn_worker_individual_gamecast_scraper(event, context):
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
+
     try:
             
         # Get Mesage
@@ -33,7 +39,9 @@ def nba_espn_worker_individual_gamecast_scraper(event, context):
         away_abbrev = message_data['away_abbrev']
         home_abbrev = message_data['home_abbrev']
         start_time = message_data['start_time']
-       
+
+        logger.log_text("game_date:"+game_date+"; espn_key:" + espn_key + "; away:" + away_abbrev + "; home:" + home_abbrev)
+        
         url = "https://www.espn.com/nba/game?gameId=" + str(espn_key)
         r = requests.get(url)
         data_list = re.findall("espn.gamepackage.probability.data(.+?);", r.content.decode("utf-8"))

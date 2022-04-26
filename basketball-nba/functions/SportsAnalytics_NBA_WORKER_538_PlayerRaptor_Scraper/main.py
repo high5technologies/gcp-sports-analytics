@@ -35,7 +35,7 @@ def nba_538_player_raptor_worker(event, context):
             #url = "https://github.com/fivethirtyeight/data/blob/master/nba-raptor/modern_RAPTOR_by_team.csv"
             url = "https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-raptor/modern_RAPTOR_by_team.csv"
         else:
-            url = "https://projects.fivethirtyeight.com/nba-model/" + endSeason + "/latest_RAPTOR_by_team.csv"
+            url = "https://projects.fivethirtyeight.com/nba-model/" + str(endSeason) + "/latest_RAPTOR_by_team.csv"
                 
         fivethirtyeight_data = []
         print(url)
