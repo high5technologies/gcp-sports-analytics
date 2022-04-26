@@ -13,7 +13,10 @@ import re
 def nba_espn_worker_Schedule_scraper(event, context):
     
     # Config
-    project_id = os.environ.get('GCP_PROJECT')
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
 
     topic_id_gamecast = "nba_espn_games_to_scrape_gamecast"

@@ -11,7 +11,10 @@ import traceback
 def nba_all(event, context):
     
     # Config
-    project_id = os.environ.get('GCP_PROJECT')
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
     
     ##########################################################################

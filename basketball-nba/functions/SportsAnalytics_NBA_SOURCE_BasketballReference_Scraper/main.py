@@ -11,7 +11,10 @@ from bs4 import BeautifulSoup, Comment
 def  nba_basketballreference_scraper(request):
 
     # Config
-    project_id = os.environ.get('GCP_PROJECT')
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
     topic_id = "bigquery_replication_topic"
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
