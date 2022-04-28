@@ -104,10 +104,10 @@ def nba_all(event, context):
             topic_path = publisher.topic_path(project_id, topic_id)
             future = publisher.publish(topic_path, data_string.encode("utf-8"))        
             
-            # ESPN
+            # ESPN - commenting this out for now - ESPN changed their logic and this no longer works
             topic_id = "nba_espn_dates_to_scrape"
             topic_path = publisher.topic_path(project_id, topic_id)
-            future = publisher.publish(topic_path, data_string.encode("utf-8"))   
+            #future = publisher.publish(topic_path, data_string.encode("utf-8"))   
 
             # Rotoguru - commenting out - rotoguru is no longer supporting posting odds
             #topic_id = "nba_rotoguru_dates_to_scrape"
