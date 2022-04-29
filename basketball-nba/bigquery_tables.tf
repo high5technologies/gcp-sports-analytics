@@ -270,7 +270,7 @@ resource "google_bigquery_table" "nba_ref_team" {
     dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
     table_id   = "ref_team"
     description = "google sheet that provides meta data to basketball reference provides.  Google sheet is manually maintained.  This table should be used in LEFT JOINs to prevent data loss if data does not exist in google sheet reference values"
-    schema = file("${path.module}/bigquery/tables/transform/nba_ref_team.json")
+    schema = file("${path.module}/bigquery/tables/nba_ref_team.json")
     labels = {
         env = var.env
         project = "sports_analytics"
@@ -296,7 +296,7 @@ resource "google_bigquery_table" "nba_ref_538_spread_probability" {
     dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
     table_id   = "ref_538_spread_probability"
     description = "google sheet on historical data for the 538 probability to spread"
-    schema = file("${path.module}/bigquery/tables/transform/nba_ref_538_spread_probability.json")
+    schema = file("${path.module}/bigquery/tables/nba_ref_538_spread_probability.json")
     labels = {
         env = var.env
         project = "sports_analytics"
@@ -324,7 +324,7 @@ resource "google_bigquery_table" "nba_ref_team_alias" {
     dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
     table_id   = "ref_team_alias"
     description = "google sheet that provides aliases for different source systems that have may different team aliases in their data sets.  Google sheet is manually maintained.  This table should be used in LEFT JOINs to prevent data loss if data does not exist in google sheet reference values"
-    schema = file("${path.module}/bigquery/tables/transform/nba_ref_team_alias.json")
+    schema = file("${path.module}/bigquery/tables/nba_ref_team_alias.json")
     labels = {
         env = var.env
         project = "sports_analytics"
