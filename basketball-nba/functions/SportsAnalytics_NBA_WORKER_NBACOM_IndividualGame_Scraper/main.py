@@ -41,7 +41,7 @@ def nba_nbacom_worker_individual_scraper(event, context):
         #print(url)
 
         i = 1
-        while i < 3: # max 3 attempts
+        while i <= 3: # max 3 attempts
             logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
             r = requests.get(url)
             #print(r.content[0:3000])

@@ -40,7 +40,7 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
         url = "https://www.nba.com/games?date=" + date_formatted
         
         i = 1
-        while i < 3: # max 3 attempts
+        while i <= 3: # max 3 attempts
             logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
             r = requests.get(url)
             soup = BeautifulSoup(r.content, 'html.parser')
