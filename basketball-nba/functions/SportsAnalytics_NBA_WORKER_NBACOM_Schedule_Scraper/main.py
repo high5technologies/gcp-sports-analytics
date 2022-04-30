@@ -45,7 +45,7 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
             r = requests.get(url)
             soup = BeautifulSoup(r.content, 'html.parser')
             script = soup.find("script", {"id": "__NEXT_DATA__"})
-            if script.string is not None:
+            if script is not None:
                 break
             else:
                 time.sleep(1) # if data not found, wait 1 second and try again
