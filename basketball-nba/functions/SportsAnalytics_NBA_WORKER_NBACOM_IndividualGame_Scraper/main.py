@@ -47,7 +47,7 @@ def nba_nbacom_worker_individual_scraper(event, context):
             #print(r.content[0:3000])
             soup = BeautifulSoup(r.content, 'html.parser')
             script = soup.find("script", {"id": "__NEXT_DATA__"})
-            if script.string is not none:
+            if script.string is not None:
                 break
             else:
                 time.sleep(1) # if data not found, wait 1 second and try again
