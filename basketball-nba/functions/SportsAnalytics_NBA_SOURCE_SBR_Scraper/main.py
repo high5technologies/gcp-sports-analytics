@@ -8,6 +8,7 @@ import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
 import urllib.request
+from google.cloud import logging
 
 def nba_sbr_scraper(request):
     
@@ -20,6 +21,10 @@ def nba_sbr_scraper(request):
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
     
     ##########################################################################
     # Input Data Check

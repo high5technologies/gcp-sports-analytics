@@ -9,6 +9,8 @@ import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
 import urllib.request
+from google.cloud import logging
+import time
 
 def nba_nbacom_worker_individual_scraper(event, context):
     
@@ -21,6 +23,11 @@ def nba_nbacom_worker_individual_scraper(event, context):
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
+
     try:
             
         # Get Mesage
@@ -33,13 +40,19 @@ def nba_nbacom_worker_individual_scraper(event, context):
         url = 'https://www.nba.com/game/' + game_url_id + '/play-by-play'
         #print(url)
 
-        r = requests.get(url)
-        #print(r.content[0:3000])
-        soup = BeautifulSoup(r.content, 'html.parser')
+        i = 1
+        while i < 3: # max 3 attempts
+            logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
+            r = requests.get(url)
+            #print(r.content[0:3000])
+            soup = BeautifulSoup(r.content, 'html.parser')
+            script = soup.find("script", {"id": "__NEXT_DATA__"})
+            if script.string is not none:
+                break
+            else:
+                time.sleep(1) # if data not found, wait 1 second and try again
+            i += 1
 
-        #script = soup.find_all('script').find(id='__NEXT_DATA__')
-        script = soup.find("script", {"id": "__NEXT_DATA__"})
-        #print(script.string[0:1000])
         data = json.loads(script.string)
 
         g = {}

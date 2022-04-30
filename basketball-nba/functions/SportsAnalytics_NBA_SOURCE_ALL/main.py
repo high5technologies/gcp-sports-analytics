@@ -7,6 +7,7 @@ from google.cloud import pubsub_v1
 import uuid
 import traceback
 import urllib.request
+from google.cloud import logging
 
 #def nba_all(request):
 def nba_all(event, context):
@@ -17,6 +18,11 @@ def nba_all(event, context):
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
+    
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
     
     ##########################################################################
     # Input Data Check

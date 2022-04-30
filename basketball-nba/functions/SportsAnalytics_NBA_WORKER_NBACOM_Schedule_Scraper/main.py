@@ -9,6 +9,8 @@ import uuid
 import traceback
 from bs4 import BeautifulSoup, Comment
 import urllib.request
+from google.cloud import logging
+import time
 
 def nba_nbacom_worker_Schedule_scraper(event, context):
     
@@ -21,6 +23,11 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
+    # Instantiate logging
+    logging_client = logging.Client()
+    log_name = os.environ.get('FUNCTION_NAME')
+    logger = logging_client.logger(log_name)
+
     try:
             
         # Get Mesage
@@ -31,10 +38,19 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
         date_formatted = message_data['date_formatted']
 
         url = "https://www.nba.com/games?date=" + date_formatted
-        r = requests.get(url)
-        soup = BeautifulSoup(r.content, 'html.parser')
+        
+        i = 1
+        while i < 3: # max 3 attempts
+            logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content, 'html.parser')
+            script = soup.find("script", {"id": "__NEXT_DATA__"})
+            if script.string is not none:
+                break
+            else:
+                time.sleep(1) # if data not found, wait 1 second and try again
+            i += 1
 
-        script = soup.find("script", {"id": "__NEXT_DATA__"})
         data = json.loads(script.string)
         
         for game in data['props']['pageProps']['games']:
