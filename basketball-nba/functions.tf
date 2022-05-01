@@ -237,3 +237,36 @@ module "SportsAnalytics_NBA_SOURCE_ALL" {
   #function_trigger_http = true
   function_event_trigger_resource = google_pubsub_topic.nba_scrape_all_topic.name
 }
+
+
+module "SportsAnalytics_NBA_SOURCE_NBASTATS_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_SOURCE_NBASTATS_Scraper"
+  function_description = "All APIs from stats.nba.com"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_nbastats_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  function_trigger_http = true
+  #function_event_trigger_resource = google_pubsub_topic.nba_nbastats_dates_to_scrape_topic.name
+}
+
+module "SportsAnalytics_NBA_WORKER_NBASTATS_Game_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_WORKER_NBASTATS_Game_Scraper"
+  function_description = "API for stats.nba.com - Game"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_nbastats_worker_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_nbastats_dates_to_scrape_topic.name
+}
