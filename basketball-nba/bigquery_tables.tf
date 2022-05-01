@@ -2,6 +2,25 @@
 # Google BigQuery:  raw
 ##########################################################################################
 
+resource "google_bigquery_table" "bq_table_nba_raw_nbastats_game" {
+    dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
+    table_id   = "raw_nbastats_game"
+    schema = file("${path.module}/bigquery/tables/nba_raw_nbastats_game.json")
+    labels = {
+        env = var.env
+        project = "sports_analytics"
+        league = "nba"
+    }
+    time_partitioning  {                       
+        type                     = "DAY"
+        field                    = "game_date"
+        require_partition_filter = false
+        expiration_ms            = null   
+    }
+    deletion_protection = true
+}
+
+
 resource "google_bigquery_table" "bq_table_nba_raw_nbacom_game" {
     dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
     table_id   = "raw_nbacom_game"

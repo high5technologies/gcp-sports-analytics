@@ -11,6 +11,11 @@ resource "google_pubsub_topic" "nba_nbacom_games_to_scrape_topic" {
   name = "nba_nbacom_games_to_scrape"
 }
 
+# NBASTATS Dates to scrape
+resource "google_pubsub_topic" "nba_nbastats_dates_to_scrape_topic" {
+  name = "nba_nbastats_dates_to_scrape"
+}
+
 # Espn Games to scrape
 resource "google_pubsub_topic" "nba_espn_dates_to_scrape_topic" {
   name = "nba_espn_dates_to_scrape"

@@ -97,13 +97,19 @@ def nba_all(event, context):
             d['date_string_month'] = str(day.month)
             d['date_string_day'] = str(day.day)
             d['date_string_year'] = str(day.year)
-
+            season = day.year + 1 if day.month > 9 else day.year
+            d['season_nbastats'] = str(season) + '-' + str(season+1)[-2:]
             data_string = json.dumps(d)  
 
             # NBACOM
-            topic_id = "nba_nbacom_dates_to_scrape"
+            #topic_id = "nba_nbacom_dates_to_scrape"
+            #topic_path = publisher.topic_path(project_id, topic_id)
+            #future = publisher.publish(topic_path, data_string.encode("utf-8"))   
+
+            # NBASTATS - switching to the NBA STATS API 
+            topic_id = "nba_nbastats_dates_to_scrape"
             topic_path = publisher.topic_path(project_id, topic_id)
-            future = publisher.publish(topic_path, data_string.encode("utf-8"))   
+            future = publisher.publish(topic_path, data_string.encode("utf-8"))  
 
             # SBR
             topic_id = "nba_sbr_dates_to_scrape"
