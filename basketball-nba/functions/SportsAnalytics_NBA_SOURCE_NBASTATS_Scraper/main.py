@@ -61,7 +61,8 @@ def nba_nbastats_scraper(request):
             d['date_formatted'] = day.strftime("%Y-%m-%d")
             season = day.year + 1 if day.month > 9 else day.year
             d['season_nbastats'] = str(season) + '-' + str(season+1)[-2:]
-            
+            logger.log_text(d)
+
             data_string = json.dumps(d)  
             future = publisher.publish(topic_path, data_string.encode("utf-8"))        
                         
