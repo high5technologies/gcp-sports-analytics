@@ -4,7 +4,7 @@
     {"name":"team_abbreviation","type":"STRING","mode":"NULLABLE","description":""},
     {"name":"team_name","type":"STRING","mode":"NULLABLE","description":""},
     {"name":"game_id","type":"STRING","mode":"REQUIRED","description":""},
-    {"name":"game_date","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
     {"name":"matchup","type":"STRING","mode":"NULLABLE","description":""},
     {"name":"wl","type":"STRING","mode":"NULLABLE","description":""},
     {"name":"min","type":"STRING","mode":"NULLABLE","description":""},
