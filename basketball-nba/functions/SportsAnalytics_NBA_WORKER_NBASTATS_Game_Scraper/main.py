@@ -94,6 +94,8 @@ def nba_nbastats_worker_scraper(event, context):
                 r['load_datetime'] = load_datetime
                 d.append(r)
 
+            logger.log_text("season_type:" + season_type + "; count:" + len(d))
+
             # Check if data returned - loop to try next season_type if no data returned
             if( len(d) > 0 ):
                 break
