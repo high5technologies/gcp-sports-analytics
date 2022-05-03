@@ -59,9 +59,11 @@ def nba_nbastats_worker_scraper(event, context):
         static_name = 'LeagueGameLog'
         season_types = ['Regular Season', 'Playoffs']
 
+        logger.log_text("1")
         found = False
         for season_type in season_types:
             if not found:
+                logger.log_text("2")
                 payload = {
                     'Counter': '1000',
                     'DateFrom': date_formatted,
@@ -75,12 +77,15 @@ def nba_nbastats_worker_scraper(event, context):
 
                 #'Season': '', #2014-15
                 #'SeasonType': 'Regular Season'
+                logger.log_text("3")
                 jsonData = requests.get(url, headers=STATS_HEADERS, params=payload).json()
+                logger.log_text("4")
                 data = jsonData['resultSets'][0]
                 api_name = data['name']
                 headers = data['headers']
                 rowSet = data['rowSet']
 
+                logger.log_text("5")
                 if api_name != static_name:
                     raise ValueError("static name does not match api")
                 if set(headers) != set(static_headers):
@@ -88,6 +93,7 @@ def nba_nbastats_worker_scraper(event, context):
 
                 load_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
 
+                logger.log_text("6")
                 d = []
                 for row in rowSet:
                     r = {}
@@ -95,16 +101,18 @@ def nba_nbastats_worker_scraper(event, context):
                         r[headers[i].lower()] = row[i]
                     r['load_datetime'] = load_datetime
                     d.append(r)
-
-                logger.log_text("season_type:" + season_type + "; count:" + len(d))
-
+                logger.log_text("7")
+                logger.log_text("season_type:" + season_type + "; count:" + str(len(d)))
+                logger.log_text("8")
                 # Check if data returned - loop to try next season_type if no data returned
-                if( len(d) > 0 ):
+                if len(d) > 0:
                     found = True
-                    
+                 logger.log_text("9")   
         ###########################################################################
         ###########################################################################
         
+        logger.log_text("10")
+
         replication_data = {}
         replication_data['bq_dataset'] = 'nba' 
         replication_data['bq_table'] = 'raw_nbastats_game'
@@ -112,6 +120,8 @@ def nba_nbastats_worker_scraper(event, context):
         data_string = json.dumps(replication_data)  
         future = publisher.publish(topic_path, data_string.encode("utf-8"))   
         
+        logger.log_text("11")
+
         return f'nba stats api schedule successfully scraped'
 
 
