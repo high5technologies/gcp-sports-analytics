@@ -55,6 +55,19 @@ def nba_nbastats_worker_scraper(event, context):
                 'Pragma': 'no-cache',
                 'Cache-Control': 'no-cache',
             }
+        STATS_HEADERS_NEW = {
+                'Host': 'stats.nba.com',
+                'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'x-nba-stats-origin': 'stats',
+                'x-nba-stats-token': 'true',
+                'Connection': 'keep-alive',
+                'Referer': 'https://stats.nba.com/',
+                'Pragma': 'no-cache',
+                'Cache-Control': 'no-cache',
+            }
         static_headers = ['SEASON_ID', 'TEAM_ID', 'TEAM_ABBREVIATION', 'TEAM_NAME', 'GAME_ID', 'GAME_DATE', 'MATCHUP', 'WL', 'MIN', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS', 'PLUS_MINUS', 'VIDEO_AVAILABLE']
         static_name = 'LeagueGameLog'
         season_types = ['Regular Season', 'Playoffs']
@@ -78,7 +91,7 @@ def nba_nbastats_worker_scraper(event, context):
                 #'Season': '', #2014-15
                 #'SeasonType': 'Regular Season'
                 logger.log_text("3")
-                jsonData = requests.get(url, headers=STATS_HEADERS, params=payload, verify=False, timeout=10).json()
+                jsonData = requests.get(url, headers=STATS_HEADERS_NEW, params=payload, verify=False, timeout=10).json()
                 logger.log_text("4")
                 data = jsonData['resultSets'][0]
                 api_name = data['name']
