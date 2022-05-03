@@ -36,7 +36,7 @@ def nba_nbastats_worker_scraper(event, context):
         date_string = message_data['date_string']
         date_formatted = message_data['date_formatted']
         season_nbastats = message_data['season_nbastats']
-        logger.log_text(date_formatted)
+        logger.log_text("date:" + date_formatted + "; season:" + season_nbastats)
         ###########################################################################
         # CODE
         ###########################################################################
