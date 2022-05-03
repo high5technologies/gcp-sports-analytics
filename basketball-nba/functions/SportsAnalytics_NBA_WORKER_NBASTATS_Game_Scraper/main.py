@@ -107,7 +107,8 @@ def nba_nbastats_worker_scraper(event, context):
                 # Check if data returned - loop to try next season_type if no data returned
                 if len(d) > 0:
                     found = True
-                 logger.log_text("9")   
+                
+                logger.log_text("9")   
         ###########################################################################
         ###########################################################################
         
