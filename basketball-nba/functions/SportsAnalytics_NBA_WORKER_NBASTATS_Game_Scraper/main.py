@@ -78,7 +78,7 @@ def nba_nbastats_worker_scraper(event, context):
                 #'Season': '', #2014-15
                 #'SeasonType': 'Regular Season'
                 logger.log_text("3")
-                jsonData = requests.get(url, headers=STATS_HEADERS, params=payload).json()
+                jsonData = requests.get(url, headers=STATS_HEADERS, params=payload, verify=False, timeout=10).json()
                 logger.log_text("4")
                 data = jsonData['resultSets'][0]
                 api_name = data['name']
