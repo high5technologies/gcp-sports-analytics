@@ -59,46 +59,48 @@ def nba_nbastats_worker_scraper(event, context):
         static_name = 'LeagueGameLog'
         season_types = ['Regular Season', 'Playoffs']
 
+        found = False
         for season_type in season_types:
-            payload = {
-                'Counter': '1000',
-                'DateFrom': date_formatted,
-                'DateTo': date_formatted,
-                'Direction': 'DESC',
-                'LeagueID': '00',
-                'PlayerOrTeam': 'T',
-                'Season': season_nbastats,
-                'SeasonType': season_type,
-                'Sorter': 'DATE'}
+            if not found:
+                payload = {
+                    'Counter': '1000',
+                    'DateFrom': date_formatted,
+                    'DateTo': date_formatted,
+                    'Direction': 'DESC',
+                    'LeagueID': '00',
+                    'PlayerOrTeam': 'T',
+                    'Season': season_nbastats,
+                    'SeasonType': season_type,
+                    'Sorter': 'DATE'}
 
-            #'Season': '', #2014-15
-            #'SeasonType': 'Regular Season'
-            jsonData = requests.get(url, headers=STATS_HEADERS, params=payload).json()
-            data = jsonData['resultSets'][0]
-            api_name = data['name']
-            headers = data['headers']
-            rowSet = data['rowSet']
+                #'Season': '', #2014-15
+                #'SeasonType': 'Regular Season'
+                jsonData = requests.get(url, headers=STATS_HEADERS, params=payload).json()
+                data = jsonData['resultSets'][0]
+                api_name = data['name']
+                headers = data['headers']
+                rowSet = data['rowSet']
 
-            if api_name != static_name:
-                raise ValueError("static name does not match api")
-            if set(headers) != set(static_headers):
-                raise ValueError("headers list does not match")
+                if api_name != static_name:
+                    raise ValueError("static name does not match api")
+                if set(headers) != set(static_headers):
+                    raise ValueError("headers list does not match")
 
-            load_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                load_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
 
-            d = []
-            for row in rowSet:
-                r = {}
-                for i in range(len(headers)):
-                    r[headers[i].lower()] = row[i]
-                r['load_datetime'] = load_datetime
-                d.append(r)
+                d = []
+                for row in rowSet:
+                    r = {}
+                    for i in range(len(headers)):
+                        r[headers[i].lower()] = row[i]
+                    r['load_datetime'] = load_datetime
+                    d.append(r)
 
-            logger.log_text("season_type:" + season_type + "; count:" + len(d))
+                logger.log_text("season_type:" + season_type + "; count:" + len(d))
 
-            # Check if data returned - loop to try next season_type if no data returned
-            if( len(d) > 0 ):
-                break
+                # Check if data returned - loop to try next season_type if no data returned
+                if( len(d) > 0 ):
+                    found = True
         ###########################################################################
         ###########################################################################
         
