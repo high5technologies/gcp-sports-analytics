@@ -102,14 +102,14 @@ def nba_all(event, context):
             data_string = json.dumps(d)  
 
             # NBACOM
-            #topic_id = "nba_nbacom_dates_to_scrape"
-            #topic_path = publisher.topic_path(project_id, topic_id)
-            #future = publisher.publish(topic_path, data_string.encode("utf-8"))   
+            topic_id = "nba_nbacom_dates_to_scrape"
+            topic_path = publisher.topic_path(project_id, topic_id)
+            future = publisher.publish(topic_path, data_string.encode("utf-8"))   
 
             # NBASTATS - switching to the NBA STATS API 
-            topic_id = "nba_nbastats_dates_to_scrape"
-            topic_path = publisher.topic_path(project_id, topic_id)
-            future = publisher.publish(topic_path, data_string.encode("utf-8"))  
+            #topic_id = "nba_nbastats_dates_to_scrape"
+            #topic_path = publisher.topic_path(project_id, topic_id)
+            #future = publisher.publish(topic_path, data_string.encode("utf-8"))  
 
             # SBR
             topic_id = "nba_sbr_dates_to_scrape"
