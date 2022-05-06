@@ -505,7 +505,7 @@ def nba_nbacom_worker_individual_scraper(event, context):
     except Exception as e:
         err = {}
         err_url = url if url is not None else ''
-        err_content = page_content if page_content is not None else ''
+        err_content = str(page_content) if page_content is not None else ''
         err['error_key'] = str(uuid.uuid4())
         err['error_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         err['function'] = os.environ.get('FUNCTION_NAME')
