@@ -45,12 +45,13 @@ def nba_nbacom_worker_individual_scraper(event, context):
             logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
             r = requests.get(url)
             #print(r.content[0:3000])
-            soup = BeautifulSoup(r.content, 'html.parser')
+            page_content = r.content
+            soup = BeautifulSoup(page_content, 'html.parser')
             script = soup.find("script", {"id": "__NEXT_DATA__"})
             if script is not None:
                 break
             else:
-                time.sleep(1) # if data not found, wait 1 second and try again
+                time.sleep(3) # if data not found, wait 1 second and try again
             i += 1
 
         data = json.loads(script.string)
@@ -503,12 +504,14 @@ def nba_nbacom_worker_individual_scraper(event, context):
 
     except Exception as e:
         err = {}
+        err_url = url if url is not None else ''
+        err_content = page_content if page_content is not None else ''
         err['error_key'] = str(uuid.uuid4())
         err['error_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         err['function'] = os.environ.get('FUNCTION_NAME')
         err['data_identifier'] = "none"
         err['trace_back'] = str(traceback.format_exc())
-        err['message'] = str(e)
+        err['message'] = 'url:'+ err_url + '; msg:' + str(e) + '; /r/n/r/ncontent: ' + err_content 
         #err['data'] = data if data is not None else ""
         print(err)
         
