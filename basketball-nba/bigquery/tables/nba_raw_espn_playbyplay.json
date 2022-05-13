@@ -1,0 +1,19 @@
+[
+    {"name":"play_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"espn_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"play_number","type":"INT64","mode":"REQUIRED","description":""},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+    {"name":"quarter_number","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"away_abbrev","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"home_abbrev","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"start_time","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"time_stamp","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"team_logo_url","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"play_h_a","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"play_team_abbrev","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"game_details","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"combined_score_a_h","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"load_datetime","type":"DATETIME","mode":"REQUIRED","description":""}
+]
+
+                

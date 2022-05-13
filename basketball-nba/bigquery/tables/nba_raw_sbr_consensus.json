@@ -1,0 +1,16 @@
+[
+    {"name":"game_key","type":"STRING","mode":"REQUIRED","description":"Unique identifier from source mapping to 'eid' field in API"},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":"Game Date"},
+    {"name":"h_a","type":"STRING","mode":"NULLABLE","description":"H=HOME; A=AWAY; null when odds_type=TOTALS"},
+    {"name":"team_abbr","type":"STRING","mode":"NULLABLE","description":"Team abbreviation of line"},
+    {"name":"team_city","type":"STRING","mode":"NULLABLE","description":"Team city of line"},
+    {"name":"team_nickname","type":"STRING","mode":"NULLABLE","description":"Team Name of line"},
+    {"name":"o_u","type":"STRING","mode":"NULLABLE","description":"O=OVER; U=UNDER; only populated when odds_type=TOTALS"},
+    {"name":"odds_mtid","type":"STRING","mode":"REQUIRED","description":"mtid is SBR key representing a combo of period_type & odds_type"},
+    {"name":"period_type","type":"STRING","mode":"REQUIRED","description":"betting period - ie FULL=full game odds;"},
+    {"name":"odds_type","type":"STRING","mode":"REQUIRED","description":"Money Line, Spread or Totals line;"},
+    {"name":"epoch_timestamp","type":"STRING","mode":"REQUIRED","description":"Line timestamp from source in epoch"},
+    {"name":"wagers_perc","type":"STRING","mode":"NULLABLE","description":"Percentage of wages on this line; Inverse line on other team/ou will match the inverse of this percent"},
+    {"name":"wagers_count","type":"STRING","mode":"NULLABLE","description":"Total wagers on this line; Wager Percent a calculation of this total"},
+    {"name":"load_datetime","type":"DATETIME","mode":"NULLABLE","description":"timestamp when record was scraped"}
+]

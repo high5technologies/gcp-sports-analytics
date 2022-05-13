@@ -1,0 +1,11 @@
+[
+    {"name":"game_team_period_score_key","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_id","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"team_id","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"h_a","type":"STRING","mode":"REQUIRED","description":""},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":""},
+    {"name":"period","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"period_type","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"score","type":"STRING","mode":"NULLABLE","description":""},
+    {"name":"load_datetime","type":"DATETIME","mode":"REQUIRED","description":""}
+]

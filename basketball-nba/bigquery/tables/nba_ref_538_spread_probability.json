@@ -1,0 +1,12 @@
+[
+    {
+        "name": "spread",
+        "type": "NUMERIC",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "prob",
+        "type": "NUMERIC",
+        "mode": "REQUIRED"
+    }
+]

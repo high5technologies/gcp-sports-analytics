@@ -44,7 +44,7 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
             g["season"] = message_data['season']  
             g["season_index"] = message_data['season_index'] 
             g["season_type"] = message_data['season_type'] 
-
+            print({"game_date":g['game_date'],"game_id":g['game_id']})
             ##########################################################
             # box score
             
@@ -54,6 +54,7 @@ def ahl_ahlcom_worker_individual_game_scraper(event, context):
             raw_json_box = json.loads(response_box.text[1:-1])
             #json_to_store_box = {"game_key" : game["game_id"], "game_date":game["game_date"], "load_datetime":load_datetime, "data":raw_json_box}
             #print(json_to_store_box)
+            print(raw_json_box)
 
             # Parse Data
             data_game = parse_box_game_data(g['game_id'], g['game_date'], g["season"], g["season_index"], g["season_type"], raw_json_box)
