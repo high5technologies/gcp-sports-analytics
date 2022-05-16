@@ -34,7 +34,8 @@ def pubsub_to_bigquery_replication(event, context):
     pubsub_message = base64.b64decode(event['data']).decode('utf-8')
     message_data = json.loads(pubsub_message)
 
-    bq_tables = message_data['tables']
+    bq_tables_string = message_data['tables']
+    bq_tables = bq_tables_string.split(',')
 
     try:
         if 'start_date' not in message_data:  
@@ -48,7 +49,7 @@ def pubsub_to_bigquery_replication(event, context):
     except:
         raise ValueError("Start & End dates must be in YYYY-MM-DD format")
 
-    logger.log_text("tables:" + bq_tables + "; start_date: " + start_date + "; end_date:" + end_date)
+    logger.log_text("tables:" + bq_tables_string + "; start_date: " + start_date + "; end_date:" + end_date)
 
     # Distinct list of Months between start and end date
     delta = end_date - start_date       # as timedelta

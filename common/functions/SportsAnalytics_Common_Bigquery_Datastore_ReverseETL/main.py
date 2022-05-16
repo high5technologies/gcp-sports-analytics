@@ -63,6 +63,14 @@ def pubsub_to_bigquery_replication(event, context):
         )  # API request
         extract_job.result()  # Waits for job to complete.
 
+        #bucket = storage_client.get_bucket(bucket_name)
+        #blob = bucket.blob(dfile_name)
+        #contents = blob.download_as_string()
+
+        #json_object = json.loads(contents)
+
+
+        
         #DATA_FILE = os.path.join(os.path.dirname(__file__), 'YOUR_DATA_FILE.json')
         #with open(DATA_FILE, 'r') as dataFile:
         #    JSON_DATA = json.loads(dataFile.read())
