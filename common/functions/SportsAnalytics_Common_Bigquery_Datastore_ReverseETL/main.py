@@ -11,7 +11,7 @@ import traceback
 import urllib.request
 from google.cloud import logging
 
-def pubsub_to_bigquery_replication(event, context):
+def bigquery_datastore_reverseetl(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
     Args:
         event (dict): Event payload.
