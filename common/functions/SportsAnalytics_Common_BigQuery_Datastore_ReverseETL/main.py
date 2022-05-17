@@ -24,7 +24,7 @@ def bigquery_datastore_reverseetl(event, context):
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
-
+    
     # Instantiate logging
     logging_client = logging.Client()
     log_name = os.environ.get('FUNCTION_NAME')
