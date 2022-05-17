@@ -8,16 +8,16 @@
 # Zip the file path
 data "archive_file" "mod_zip" {
   type        = "zip"
-  source_dir = "${path.module}/${var.function_name}/"
-  output_path = "${path.module}/${var.function_name}.zip"
-  #source_dir = "functions/${var.function_name}/"
-  #output_path = "functions/${var.function_name}.zip"
+  #source_dir = "${path.module}/${var.function_name}/"
+  #output_path = "${path.module}/${var.function_name}.zip"
+  source_dir = "functions/${var.function_name}/"
+  output_path = "functions/${var.function_name}.zip"
 }
 
 # Upload zip to bucket
 resource "google_storage_bucket_object" "mod_archive_object" {
-  #name   = "terraform-google-functions-zips/${var.function_name}_${local.timestamp}.zip"
-  name   = format("terraform-google-functions-zips/${var.function_name}_%s.zip", data.archive_file.mod_zip.output_md5)
+  name   = "terraform-google-functions-zips/${var.function_name}_${local.timestamp}.zip"
+  #name   = format("terraform-google-functions-zips/${var.function_name}_%s.zip", data.archive_file.mod_zip.output_md5)
   #bucket = google_storage_bucket.mod_deploy_bucket.name
   bucket = var.function_deployment_bucket_name
   source = data.archive_file.mod_zip.output_path
