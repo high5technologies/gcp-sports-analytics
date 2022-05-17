@@ -10,7 +10,7 @@ data = text_file.read()
 
 #print(data)
 
-json_strings = data.split('\n')
+json_strings = data.decode().split('\n')
 
 for json_string in json_strings:
     json_data = json.loads(json_string)

@@ -12,6 +12,7 @@ import urllib.request
 from google.cloud import logging
 from google.cloud import firestore
 from google.cloud import storage
+from io import StringIO
 
 def bigquery_datastore_reverseetl(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -70,14 +71,15 @@ def bigquery_datastore_reverseetl(event, context):
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(bucket_name)
         blob = bucket.blob(file_name)
-        content_string = blob.download_as_string()
+        content_blob = blob.download_as_string().decode('utf-8')
+        blob = StringIO(content_blob) 
         json_strings = content_string.split('\n')
 
         for json_string in json_strings:
             json_data = json.loads(json_string)
             unique_key = json_data['unique_key']
             fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_data)
-         
+        
         return f'Data successfully replicated to BigQuery'
 
     except Exception as e:
