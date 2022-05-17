@@ -71,8 +71,8 @@ def bigquery_datastore_reverseetl(event, context):
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(bucket_name)
         blob = bucket.blob(file_name)
-        content_blob = blob.download_as_string().decode('utf-8')
-        content_string = StringIO(content_blob) 
+        content_string = blob.download_as_string().decode('utf-8')
+        #content_string = StringIO(content_blob) 
         json_strings = content_string.split('\n')
 
         for json_string in json_strings:
