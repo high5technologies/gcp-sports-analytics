@@ -1,4 +1,4 @@
-module "function_SportsAnalytics_Common_Log_Error" {
+module "SportsAnalytics_Common_Log_Error" {
   source = "../modules/function"
 
   gcp_project_id = var.gcp_project_id
@@ -14,7 +14,7 @@ module "function_SportsAnalytics_Common_Log_Error" {
   function_event_trigger_resource = google_pubsub_topic.error_log_topic.name
 }
 
-module "function_SportsAnalytics_Common_BigQuery_Replication" {
+module "SportsAnalytics_Common_BigQuery_Replication" {
   source = "../modules/function"
 
   gcp_project_id = var.gcp_project_id
@@ -30,7 +30,7 @@ module "function_SportsAnalytics_Common_BigQuery_Replication" {
   function_event_trigger_resource = google_pubsub_topic.bigquery_replication_topic.name
 }
 
-module "function_SportsAnalytics_Common_BigQuery_TestLoad" {
+module "SportsAnalytics_Common_BigQuery_TestLoad" {
   source = "../modules/function"
 
   gcp_project_id = var.gcp_project_id
@@ -47,20 +47,24 @@ module "function_SportsAnalytics_Common_BigQuery_TestLoad" {
 }
 
 
-#module "function_SportsAnalytics_Common_BigQuery_Datastore_ReverseETL" {
-#  source = "../modules/function"
-#
-#  gcp_project_id = var.gcp_project_id
-#  function_name = "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL"
-#  function_description = "Reverse ETL for BigQuery to Datastore - configurable"
-#  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
-#  function_entry_point = "bigquery_datastore_reverseetl"
-#  function_region = var.gcp_region
-#  function_runtime = "python39"
-#  function_available_memory_mb = 512
-#  #function_trigger_http = true
-#  function_event_trigger_resource = google_pubsub_topic.bigquery_datastore_reverseetl_topic.name
-#}
+module "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL"
+  function_description = "Reverse ETL for BigQuery to Datastore - configurable"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "bigquery_datastore_reverseetl"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.bigquery_datastore_reverseetl_topic.name
+}
+
+
+
 
 #module "function_SportsAnalytics_Common_BigQuery_Dates_To_ReverseETL" {
 #  source = "../modules/function"
