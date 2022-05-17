@@ -8,10 +8,10 @@
 # Zip the file path
 data "archive_file" "mod_zip" {
   type        = "zip"
-  #source_dir = "${path.module}/${var.function_name}/"
-  #output_path = "${path.module}/${var.function_name}.zip"
-  source_dir = "functions/${var.function_name}/"
-  output_path = "functions/${var.function_name}.zip"
+  source_dir = "${path.module}/${var.function_name}/"
+  output_path = "${path.module}/${var.function_name}.zip"
+  #source_dir = "functions/${var.function_name}/"
+  #output_path = "functions/${var.function_name}.zip"
 }
 
 # Upload zip to bucket
