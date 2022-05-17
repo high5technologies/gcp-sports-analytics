@@ -13,7 +13,7 @@ from google.cloud import logging
 
 def dates_to_reverseetl(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
-    Args:
+    Args: 
         event (dict): Event payload.
         context (google.cloud.functions.Context): Metadata for the event.
     """

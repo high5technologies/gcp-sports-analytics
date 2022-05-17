@@ -30,7 +30,7 @@ def bigquery_datastore_reverseetl(event, context):
     log_name = os.environ.get('FUNCTION_NAME')
     logger = logging_client.logger(log_name)
 
-    # bucket_name = 'my-bucket'
+    # bucket_name = 'my-bucket' 
 
     try:
         
