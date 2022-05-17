@@ -47,11 +47,11 @@ module "SportsAnalytics_Common_BigQuery_TestLoad" {
 }
 
 
-module "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL" {
+module "SportsAnalytics_Common_BQ_DS_ReverseETL" {
   source = "../modules/function"
 
   gcp_project_id = var.gcp_project_id
-  function_name = "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL"
+  function_name = "SportsAnalytics_Common_BQ_DS_ReverseETL"
   function_description = "Reverse ETL for BigQuery to Datastore - configurable"
   function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
   function_entry_point = "bigquery_datastore_reverseetl"
