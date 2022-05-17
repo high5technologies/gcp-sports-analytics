@@ -2,6 +2,7 @@ import base64
 import json
 from google.cloud import firestore
 from datetime import datetime, timedelta, date
+from google.cloud import logging
 
 def common_error_log(event, context):
     try:
@@ -18,4 +19,9 @@ def common_error_log(event, context):
         doc_ref.set(error_data)
 
     except Exception as e:
-        print(str(e))
+        #print(str(e))
+        # Instantiate logging
+        logging_client = logging.Client()
+        log_name = os.environ.get('FUNCTION_NAME')
+        logger = logging_client.logger(log_name)
+        logger.log_text(str(e))

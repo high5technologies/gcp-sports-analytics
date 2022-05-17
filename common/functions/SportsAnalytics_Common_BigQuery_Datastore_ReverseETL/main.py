@@ -24,7 +24,8 @@ def bigquery_datastore_reverseetl(event, context):
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
     publisher = pubsub_v1.PublisherClient()
-    
+    fs = firestore.Client()
+
     # Instantiate logging
     logging_client = logging.Client()
     log_name = os.environ.get('FUNCTION_NAME')
@@ -43,8 +44,8 @@ def bigquery_datastore_reverseetl(event, context):
         bq_filter = message_data['filter']
         bq_filter_value = message_data['filter_value']
         
-        bucket_name = bq_dataset + '_' + bq_table
-        file_name = bq_table + '_' + bq_filter + '_' + bq_filter_value + '.json'
+        bucket_name = 'reverse_etl_export'
+        file_name = bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value + '.json'
 
         destination_uri = "gs://{}/{}".format(bucket_name, file_name)
         dataset_ref = bigquery.DatasetReference(project_id, bq_dataset)
@@ -69,8 +70,16 @@ def bigquery_datastore_reverseetl(event, context):
 
         #json_object = json.loads(contents)
 
+        #fs.collection(u'AHL').document(u'schedule').collection(g['game_date']).document(g['game_id']).set(g)
+       
 
         
+        #error_date_string = datetime.strptime(error_data['error_datetime'], '%Y-%m-%d %H:%M:%S').date().strftime('%Y-%m-%d')
+        #doc_ref = db.collection(u'reverse_etl_export').document(error_date_string).collection(function).document(error_key)
+        #doc_ref.set(error_data)
+
+
+
         #DATA_FILE = os.path.join(os.path.dirname(__file__), 'YOUR_DATA_FILE.json')
         #with open(DATA_FILE, 'r') as dataFile:
         #    JSON_DATA = json.loads(dataFile.read())
