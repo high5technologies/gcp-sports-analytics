@@ -63,11 +63,11 @@ module "SportsAnalytics_Common_BigQuery_Datastore_ReverseETL" {
   function_event_trigger_resource = google_pubsub_topic.bigquery_datastore_reverseetl_topic.name
 }
 
-module "SportsAnalytics_Common_BigQuery_ReverseETL_Dates" {
+module "SportsAnalytics_Common_BigQuery_Dates_To_ReverseETL" {
   source = "../modules/function"
 
   gcp_project_id = var.gcp_project_id
-  function_name = "SportsAnalytics_Common_BigQuery_ReverseETL_Dates"
+  function_name = "SportsAnalytics_Common_BigQuery_Dates_To_ReverseETL"
   function_description = "Dates to push events to for Reverse ETL"
   function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
   function_entry_point = "dates_to_reverseetl"
