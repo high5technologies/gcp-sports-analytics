@@ -11,6 +11,7 @@ import traceback
 import urllib.request
 from google.cloud import logging
 from google.cloud import firestore
+from google.cloud import storage
 
 def bigquery_datastore_reverseetl(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -53,6 +54,7 @@ def bigquery_datastore_reverseetl(event, context):
         table_ref = dataset_ref.table(bq_table)
         job_config = bigquery.job.ExtractJobConfig()
         job_config.destination_format = bigquery.DestinationFormat.NEWLINE_DELIMITED_JSON
+        #job_config.field_delimiter = 
 
         logger.log_text("gs:" + bucket_name + "/" + file_name)
 
@@ -65,26 +67,16 @@ def bigquery_datastore_reverseetl(event, context):
         )  # API request
         extract_job.result()  # Waits for job to complete.
 
-        #bucket = storage_client.get_bucket(bucket_name)
-        #blob = bucket.blob(dfile_name)
-        #contents = blob.download_as_string()
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket(bucket_name)
+        blob = bucket.blob(file_name)
+        content_string = blob.download_as_string()
+        json_strings = content_string.split('\n')
 
-        #json_object = json.loads(contents)
-        #unique_key = json_object['unique_key']
-
-        #fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_object)
-       
-
-        
-        #error_date_string = datetime.strptime(error_data['error_datetime'], '%Y-%m-%d %H:%M:%S').date().strftime('%Y-%m-%d')
-        #doc_ref = db.collection(u'reverse_etl_export').document(error_date_string).collection(function).document(error_key)
-        #doc_ref.set(error_data)
-
-
-
-        #DATA_FILE = os.path.join(os.path.dirname(__file__), 'YOUR_DATA_FILE.json')
-        #with open(DATA_FILE, 'r') as dataFile:
-        #    JSON_DATA = json.loads(dataFile.read())
+        for json_string in json_strings:
+            json_data = json.loads(json_string)
+            unique_key = json_data['unique_key']
+            fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_data)
          
         return f'Data successfully replicated to BigQuery'
 
