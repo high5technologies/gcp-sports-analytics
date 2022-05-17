@@ -1,6 +1,6 @@
 import base64
 import json
-from google.cloud import bigquery
+#from google.cloud import bigquery
 from google.cloud import pubsub_v1
 import os
 from datetime import datetime, timedelta, date
