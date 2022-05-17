@@ -49,7 +49,7 @@ def dates_to_reverseetl(event, context):
     except:
         raise ValueError("Start & End dates must be in YYYY-MM-DD format")
 
-    logger.log_text("tables:" + bq_tables_string + "; start_date: " + start_date + "; end_date:" + end_date)
+    logger.log_text("tables:" + bq_tables_string + "; start_date: " + start_date.strftime('%Y-%m-%d') + "; end_date:" + end_date.strftime('%Y-%m-%d'))
 
     # Distinct list of Months between start and end date
     delta = end_date - start_date       # as timedelta
