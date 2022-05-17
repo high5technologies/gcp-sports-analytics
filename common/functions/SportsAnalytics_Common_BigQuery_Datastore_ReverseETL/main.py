@@ -10,6 +10,7 @@ import traceback
 #import pandas_gbq
 import urllib.request
 from google.cloud import logging
+from google.cloud import firestore
 
 def bigquery_datastore_reverseetl(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -69,8 +70,9 @@ def bigquery_datastore_reverseetl(event, context):
         #contents = blob.download_as_string()
 
         #json_object = json.loads(contents)
+        #unique_key = json_object['unique_key']
 
-        #fs.collection(u'AHL').document(u'schedule').collection(g['game_date']).document(g['game_id']).set(g)
+        #fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_object)
        
 
         
