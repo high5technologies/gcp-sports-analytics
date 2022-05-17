@@ -17,7 +17,7 @@ def dates_to_reverseetl(event, context):
         event (dict): Event payload.
         context (google.cloud.functions.Context): Metadata for the event.
     """
-    client = bigquery.Client()
+    #client = bigquery.Client()
     #project_id = os.environ.get('GCP_PROJECT')
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
     req = urllib.request.Request(url)
