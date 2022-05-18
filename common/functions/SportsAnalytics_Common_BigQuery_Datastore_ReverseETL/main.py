@@ -92,10 +92,11 @@ def bigquery_datastore_reverseetl(event, context):
         json_strings = content_string.split('\n')
 
         for json_string in json_strings:
-            json_data = json.loads(json_string)
-            unique_key = json_data['unique_key']
-            fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_data)
-        
+            if json_string is not None and json_string.strip() != "":
+                json_data = json.loads(json_string)
+                unique_key = json_data['unique_key']
+                fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_data)
+            
         # Create table to extract
         query = "DROP TABLE reverseetl." + reverse_etl_table_name
         query_job = client.query(query)  # Make an API request.
