@@ -52,8 +52,8 @@ def bigquery_datastore_reverseetl(event, context):
         reverse_etl_table_name = 'retl_' + bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value
 
         # Create table to extract
-        query = "CREATE OR REPLACE TABLE reverseetl." + reverse_etl_table_name + " as SELECT * FROM " + bq_dataset + "." + bq_table + " WHERE " + bq_filter + " = '" + bq_filter_value + "'"
-
+        query = "CREATE OR REPLACE TABLE reverseetl." + reverse_etl_table_name + " as SELECT * FROM " + bq_dataset + "." + bq_table + " WHERE " + bq_filter + " = '" + bq_filter_value + "';"
+        logger.log_text(query)
         #job_config = bigquery.QueryJobConfig(
         #    query_parameters=[
         #        bigquery.ScalarQueryParameter("corpus", "STRING", "romeoandjuliet"),
