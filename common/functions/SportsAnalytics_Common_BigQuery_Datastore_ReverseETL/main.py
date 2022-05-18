@@ -37,7 +37,7 @@ def bigquery_datastore_reverseetl(event, context):
     # bucket_name = 'my-bucket' 
 
     try:
-        
+
         # decode message from pubsub
         pubsub_message = base64.b64decode(event['data']).decode('utf-8')
         message_data = json.loads(pubsub_message)
@@ -49,10 +49,25 @@ def bigquery_datastore_reverseetl(event, context):
         
         bucket_name = 'reverse_etl_export'
         file_name = bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value + '.json'
+        reverse_etl_table_name = 'retl_' + file_name
 
+        # Create table to extract
+        query = "CREATE OR REPLACE TABLE reverseetl." + reverse_etl_table_name + " as SELECT * FROM " + bq_dataset + "." + bq_table + " WHERE " + bq_filter + " = '" + bq_filter_value + "'"
+
+        #job_config = bigquery.QueryJobConfig(
+        #    query_parameters=[
+        #        bigquery.ScalarQueryParameter("corpus", "STRING", "romeoandjuliet"),
+        #        bigquery.ScalarQueryParameter("min_word_count", "INT64", 250),
+        #    ]
+        #)
+        #query_job = client.query(query, job_config=job_config)  # Make an API request.
+        query_job = client.query(query)  # Make an API request.
+        query_job.result()  # Waits for statement to finish
+
+        
         destination_uri = "gs://{}/{}".format(bucket_name, file_name)
-        dataset_ref = bigquery.DatasetReference(project_id, bq_dataset)
-        table_ref = dataset_ref.table(bq_table)
+        dataset_ref = bigquery.DatasetReference(project_id, 'reverseetl')
+        table_ref = dataset_ref.table(reverse_etl_table_name)
         job_config = bigquery.job.ExtractJobConfig()
         job_config.destination_format = bigquery.DestinationFormat.NEWLINE_DELIMITED_JSON
         #job_config.field_delimiter = 
@@ -80,7 +95,12 @@ def bigquery_datastore_reverseetl(event, context):
             unique_key = json_data['unique_key']
             fs.collection(u'sports_analytics').document(bq_dataset).collection(bq_table).document(unique_key).set(json_data)
         
-        return f'Data successfully replicated to BigQuery'
+        # Create table to extract
+        query = "DROP TABLE reverseetl." + reverse_etl_table_name
+        query_job = client.query(query)  # Make an API request.
+        query_job.result()  # Waits for statement to finish
+
+        return f'Data successfully replicated from BigQuery to Datastore'
 
     except Exception as e:
         err = {}
