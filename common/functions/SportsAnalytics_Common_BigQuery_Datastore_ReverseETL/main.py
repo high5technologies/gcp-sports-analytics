@@ -49,9 +49,9 @@ def bigquery_datastore_reverseetl(event, context):
         
         bucket_name = 'reverse_etl_export'
         file_name = bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value + '.json'
-        reverse_etl_table_name = 'retl_' + bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value
-        reverse_etl_table_name = reverse_etl_table_name.replace("-", "")
-        
+        reverse_etl_table_name = 'retl_' + bq_dataset + '_' + bq_table + '_' + bq_filter + '_' + bq_filter_value.replace("-", "")
+        #reverse_etl_table_name = reverse_etl_table_name.replace("-", "")
+
         # Create table to extract
         query = "CREATE OR REPLACE TABLE reverseetl." + reverse_etl_table_name + " as SELECT * FROM " + bq_dataset + "." + bq_table + " WHERE " + bq_filter + " = '" + bq_filter_value + "';"
         logger.log_text(query)
