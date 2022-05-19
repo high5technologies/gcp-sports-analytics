@@ -51,8 +51,8 @@ def api_return_data(request):
             #print(doc.to_dict())
             data.append(doc.to_dict())
 
-        return_data = {"data":data}
-        return data    
+        #return_data = {"data":data}
+        return {"data":data}    
         #return f'NBA.com dates queued successfully'
 
     except Exception as e:
