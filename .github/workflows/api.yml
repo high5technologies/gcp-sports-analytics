@@ -1,0 +1,84 @@
+#################################
+# Trigger = github action
+# executeion happens on the github side
+# backend = terraform cloud (TF Cloud is state file only - no config or additional needed)
+# TF Cloud Workspace - single workspace per state file - means every sport/env combo requires a new workspace
+#################################
+name: 'API Deployment'
+
+on:
+  push:
+    paths:
+    - 'api/**'                     #config-here
+    branches:
+    - main
+    - dev
+  #pull_request:
+
+env:
+  sport: api                       #config-here
+
+##################################################################################################
+# No changes below here
+##################################################################################################
+jobs:
+
+  # First "set_env" job gets and parse the branch this is run from
+  # This is used to configure the backend.config and tfvars file in the env-config directory
+  set_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Some check on branch
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref }}"
+          echo "::set-output name=env_name::${GITHUB_REF#refs/heads/}"
+         
+      #- name: Use variable setup in previous step
+      #  run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+  
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }} # job output ... consumed by next job
+
+  terraform_deployment:
+    needs: [set_env] #orchestrates set_env job to run before terraform_deployment
+    name: 'terraform-deployment'
+    runs-on: ubuntu-latest
+    environment: ${{ needs.set_env.outputs.env_name }}
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.sport }} # set the sport folder to pull code from
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TFCLOUD_API_TOKEN }} # repo level secret
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init -backend-config=env-config/${{ needs.set_env.outputs.env_name }}-backend.conf
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    #- name: Terraform Format
+    #  #working-directory: ./terraform
+    #  run: terraform fmt -check
+
+    # Generates an execution plan for Terraform
+    #- name: Terraform Plan
+    #  run: terraform plan -var-file="hockey-ahl.tfvars"
+
+    # Auto Apply
+    - name: Terraform Apply
+    #  #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -var-file="env-config/${{ needs.set_env.outputs.env_name }}.tfvars"
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # environment level secret per branch

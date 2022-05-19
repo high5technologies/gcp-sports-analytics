@@ -1,0 +1,22 @@
+swagger: '2.0'
+info:
+  title: sports-analytics-api-config
+  description: API Gateway for Sports Analytics API
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /api/dataset:
+    get:
+      summary: Dataset
+      operationId: dataset
+      x-google-backend:
+        address: https://us-central1-sports-analytics-dev.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: string
+ 
