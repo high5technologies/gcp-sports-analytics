@@ -1,9 +1,9 @@
 terraform {
   required_providers {
-    #google = {
-    #  source  = "hashicorp/google"
-    #  version = "3.89.0"
-    #}
+    google = {
+      source  = "hashicorp/google"
+      version = "3.89.0"
+    }
     google-beta = {
       source  = "hashicorp/google-beta"
       version = "3.89.0"
@@ -20,12 +20,12 @@ terraform {
   }
 }
 
-#provider "google" {
-#  #project = "sports-analytics-dev"
-#  #region = "us-central1" 
-#  project = var.gcp_project_id
-#  region = var.gcp_region
-#}
+provider "google" {
+  #project = "sports-analytics-dev"
+  #region = "us-central1" 
+  project = var.gcp_project_id
+  region = var.gcp_region
+}
 
 provider "google-beta" {
   project = var.gcp_project_id
