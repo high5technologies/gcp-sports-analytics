@@ -22,7 +22,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
 
   openapi_documents {
     document {
-      path     = "openapi.yaml"
+      path     = "openapi.yml"
       contents = filebase64("openapi.yml")
     }
   }
