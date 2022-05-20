@@ -33,7 +33,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
 
 resource "google_api_gateway_gateway" "gw" {
   provider = google-beta
-  region   = var.region
+  region   = var.gcp_region
   project  = var.gcp_project_id
 
 
