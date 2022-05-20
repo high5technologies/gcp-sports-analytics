@@ -11,6 +11,8 @@ resource "google_api_gateway_api" "api_gw" {
   api_id       = local.api_id
   project      = var.gcp_project_id
   display_name = local.display_name
+
+  depends_on = [google_project_service.project]
 }
 
 resource "google_api_gateway_api_config" "api_cfg" {
@@ -29,6 +31,8 @@ resource "google_api_gateway_api_config" "api_cfg" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [google_project_service.project]
 }
 
 resource "google_api_gateway_gateway" "gw" {
@@ -42,5 +46,5 @@ resource "google_api_gateway_gateway" "gw" {
   gateway_id   = local.gateway_id
   display_name = local.display_name
 
-  depends_on   = [google_api_gateway_api_config.api_cfg]
+  depends_on   = [google_project_service.project,google_api_gateway_api_config.api_cfg]
 }
