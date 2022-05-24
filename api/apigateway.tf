@@ -22,8 +22,7 @@ resource "google_apikeys_key" "api_key_sports_analytics_app" {
 
   restrictions {
     api_targets {
-      #service = "${google_api_gateway_api.api_sports_analytics.name}"
-      service = "${local.api_id}"
+      service = google_api_gateway_api.api_sports_analytics.managed_service
       #methods = ["GET*"]
     }
 
@@ -40,8 +39,7 @@ resource "google_apikeys_key" "api_key_sports_analytics_test" {
   project      = var.gcp_project_id
   restrictions {
     api_targets {
-      #service = "${google_api_gateway_api.api_sports_analytics.name}"
-      service = "${local.api_id}"
+      service = google_api_gateway_api.api_sports_analytics.managed_service
       #methods = ["GET*"]
     }
   }
@@ -84,30 +82,3 @@ resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
   depends_on   = [google_api_gateway_api_config.api_sports_analytics_config]
 }
 
-
-resource "google_apikeys_key" "api_key_sports_analytics_tmp1" {
-  name         = "sports-analytics-tmp1"
-  display_name = "Sports Analytics - Tmp1"
-  project      = var.gcp_project_id
-  restrictions {
-    api_targets {
-      #service = "${google_api_gateway_api.api_sports_analytics.name}"
-      service = "${google_api_gateway_api.api_sports_analytics.managed_service}"
-      #methods = ["GET*"]
-    }
-  }
-  depends_on = [google_project_service.project_apikeys]
-}
-
-resource "google_apikeys_key" "api_key_sports_analytics_tmp2" {
-  name         = "sports-analytics-tmp2"
-  display_name = "Sports Analytics - Tmp2"
-  project      = var.gcp_project_id
-  restrictions {
-    api_targets {
-      service = google_api_gateway_api.api_sports_analytics.managed_service
-      #methods = ["GET*"]
-    }
-  }
-  depends_on = [google_project_service.project_apikeys]
-}
