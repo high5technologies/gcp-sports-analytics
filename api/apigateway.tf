@@ -17,7 +17,7 @@ resource "google_api_gateway_api" "api_sports_analytics" {
 
 resource "google_apikeys_key" "sports_analytics_api_key" {
   name         = "sports-analytics-api-key"
-  display_name = "Sports Analytics API Key"
+  display_name = "Sports Analytics API Key - App"
   project      = var.gcp_project_id
 
   restrictions {
