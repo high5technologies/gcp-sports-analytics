@@ -83,3 +83,31 @@ resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
   #depends_on   = [google_api_gateway_api_config.api_sports_analytics_config, google_project_service.project_sports_analytics_api]
   depends_on   = [google_api_gateway_api_config.api_sports_analytics_config]
 }
+
+
+
+resource "google_apikeys_key" "sports_analytics_api_key_tmp1" {
+  name         = "sports-analytics-api-key-tmp1"
+  display_name = "Sports Analytics API Key - Tmp1"
+  project      = var.gcp_project_id
+  restrictions {
+    api_targets {
+      service = "sports-analytics-api"
+      #methods = ["GET*"]
+    }
+  }
+  depends_on = [google_project_service.project_apikeys]
+}
+
+resource "google_apikeys_key" "sports_analytics_api_key_tmp2" {
+  name         = "sports-analytics-api-key-tmp2"
+  display_name = "Sports Analytics API Key - Tmp2"
+  project      = var.gcp_project_id
+  restrictions {
+    api_targets {
+      service = "sports-analytics-api-0ngr4oow5ojwh.apigateway.sports-analytics-dev.cloud.goog"
+      #methods = ["GET*"]
+    }
+  }
+  depends_on = [google_project_service.project_apikeys]
+}
