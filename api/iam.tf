@@ -5,7 +5,7 @@ resource "google_service_account" "sa_sports_analytics" {
 resource "google_project_iam_member" "iam_sa_sports_analytics_function_invoker" {
   project = var.gcp_project_id
   role    = "roles/cloudfunctions.invoker"
-  members = ["serviceAccount:${google_service_account.sa_sports_analytics.email}"]
+  member = "serviceAccount:${google_service_account.sa_sports_analytics.email}"
 }
 #resource "google_service_account_iam_member" "iam_sa_sports_analytics_function_invoker" {
 #  #service_account_id = google_service_account.sa_sports_analytics.name
