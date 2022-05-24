@@ -50,8 +50,10 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
   lifecycle {
     create_before_destroy = true
   }
-  backend_config {
-    google_service_account = google_service_account.sa_sports_analytics.email
+  gateway_config {
+    backend_config {
+        google_service_account = google_service_account.sa_sports_analytics.email
+    }
   }
   depends_on = [google_apikeys_key.sports_analytics_api_key]
 }
