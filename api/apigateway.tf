@@ -22,7 +22,8 @@ resource "google_apikeys_key" "sports_analytics_api_key_app" {
 
   restrictions {
     api_targets {
-      service = "${google_api_gateway_api.api_sports_analytics.name}"
+      #service = "${google_api_gateway_api.api_sports_analytics.name}"
+      service = "${local.api_id}"
       #methods = ["GET*"]
     }
 
@@ -39,7 +40,8 @@ resource "google_apikeys_key" "sports_analytics_api_key_test" {
   project      = var.gcp_project_id
   restrictions {
     api_targets {
-      service = "${google_api_gateway_api.api_sports_analytics.name}"
+      #service = "${google_api_gateway_api.api_sports_analytics.name}"
+      service = "${local.api_id}"
       #methods = ["GET*"]
     }
   }
