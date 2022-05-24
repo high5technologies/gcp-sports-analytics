@@ -23,10 +23,10 @@ resource "google_project_service" "project_apikeys" {
   disable_on_destroy = false
 }
 
-resource "google_project_service" "project_sports_analytics_api" {
-  project = var.gcp_project_id
-  service = google_api_gateway_api.api_sports_analytics.managed_service
-  disable_on_destroy = false
-
-  depends_on = [google_api_gateway_api.api_sports_analytics]
-}
+#resource "google_project_service" "project_sports_analytics_api" {
+#  project = var.gcp_project_id
+#  service = google_api_gateway_api.api_sports_analytics.managed_service
+#  disable_on_destroy = false
+#
+#  depends_on = [google_api_gateway_api.api_sports_analytics]
+#}

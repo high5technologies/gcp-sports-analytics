@@ -66,5 +66,6 @@ resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
   gateway_id   = local.gateway_id
   display_name = local.display_name
 
-  depends_on   = [google_api_gateway_api_config.api_sports_analytics_config, google_project_service.project_sports_analytics_api]
+  #depends_on   = [google_api_gateway_api_config.api_sports_analytics_config, google_project_service.project_sports_analytics_api]
+  depends_on   = [google_api_gateway_api_config.api_sports_analytics_config]
 }
