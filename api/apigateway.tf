@@ -30,4 +30,5 @@ resource "google_apikeys_key" "sports_analytics_api_key" {
     #  allowed_referrers = [".*"]
     #}
   }
+  depends_on = [google_project_service.project_apikeys]
 }

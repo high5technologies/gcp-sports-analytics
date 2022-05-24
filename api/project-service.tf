@@ -16,3 +16,9 @@ resource "google_project_service" "project_servicecontrol" {
   service = "servicecontrol.googleapis.com"
   disable_on_destroy = false
 }
+
+resource "google_project_service" "project_apikeys" {
+  project = var.gcp_project_id
+  service = "apikeys.googleapis.com"
+  disable_on_destroy = false
+}
