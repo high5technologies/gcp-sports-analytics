@@ -36,7 +36,7 @@ resource "google_apikeys_key" "sports_analytics_api_key" {
 
 resource "google_api_gateway_api_config" "api_sports_analytics_config" {
   provider             = google-beta
-  api                  = google_api_gateway_api.api_gw.api_id
+  api                  = google_api_gateway_api.api_sports_analytics.api_id
   api_config_id_prefix = local.api_config_id_prefix
   project              = var.gcp_project_id
   display_name         = local.display_name
