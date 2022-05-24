@@ -15,9 +15,9 @@ resource "google_api_gateway_api" "api_sports_analytics" {
   depends_on = [google_project_service.project_apigateway,google_project_service.project_servicemanagement,google_project_service.project_servicecontrol]
 }
 
-resource "google_apikeys_key" "sports_analytics_api_key_app" {
-  name         = "sports-analytics-api-key-app"
-  display_name = "Sports Analytics API Key - App"
+resource "google_apikeys_key" "api_key_sports_analytics_app" {
+  name         = "sports-analytics-app"
+  display_name = "Sports Analytics - App"
   project      = var.gcp_project_id
 
   restrictions {
@@ -34,9 +34,9 @@ resource "google_apikeys_key" "sports_analytics_api_key_app" {
   depends_on = [google_project_service.project_apikeys]
 }
 
-resource "google_apikeys_key" "sports_analytics_api_key_test" {
-  name         = "sports-analytics-api-key-test"
-  display_name = "Sports Analytics API Key - Test"
+resource "google_apikeys_key" "api_key_sports_analytics_test" {
+  name         = "sports-analytics-test"
+  display_name = "Sports Analytics - Test"
   project      = var.gcp_project_id
   restrictions {
     api_targets {
@@ -69,7 +69,7 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
         google_service_account = google_service_account.sa_sports_analytics.email
     }
   }
-  depends_on = [google_apikeys_key.sports_analytics_api_key_app, google_apikeys_key.sports_analytics_api_key_test]
+  depends_on = [google_apikeys_key.api_key_sports_analytics_app, google_apikeys_key.api_key_sports_analytics_test]
 }
 
 resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
