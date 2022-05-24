@@ -1,7 +1,8 @@
 swagger: '2.0'
 info:
-  title: sports-analytics-api-config
-  description: API Config for Sports Analytics API Gateway
+  # title & description here are what get pulled into the API for the library (what's enabled)
+  title: sports-analytics-api
+  description: Sports Analytics API for app data consumption
   version: 1.0.0
 schemes:
   - https
