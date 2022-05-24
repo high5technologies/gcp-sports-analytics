@@ -10,6 +10,6 @@ module "SportsAnalytics_API_Get_Dataset" {
   function_runtime = "python39"
   function_available_memory_mb = 512
   function_timeout = 30
-  function_trigger_http = false
+  function_trigger_http = true
   #function_event_trigger_resource = google_pubsub_topic.bigquery_dates_to_reverseetl_topic.name
 }
