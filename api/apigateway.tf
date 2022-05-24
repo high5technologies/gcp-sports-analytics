@@ -32,3 +32,37 @@ resource "google_apikeys_key" "sports_analytics_api_key" {
   }
   depends_on = [google_project_service.project_apikeys]
 }
+
+
+resource "google_api_gateway_api_config" "api_sports_analytics_config" {
+  provider             = google-beta
+  api                  = google_api_gateway_api.api_gw.api_id
+  api_config_id_prefix = local.api_config_id_prefix
+  project              = var.gcp_project_id
+  display_name         = local.display_name
+
+  openapi_documents {
+    document {
+      path     = "openapi.yml"
+      contents = filebase64("openapi.yml")
+    }
+  }
+  lifecycle {
+    create_before_destroy = true
+  }
+  backend_config {
+    google_service_account = google_service_account.sa_sports_analytics.email
+  }
+  depends_on = [google_apikeys_key.sports_analytics_api_key]
+}
+
+resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
+  provider = google-beta
+  region   = var.gcp_region
+  project  = var.gcp_project_id
+  api_config   = google_api_gateway_api_config.api_sports_analytics_config.id
+  gateway_id   = local.gateway_id
+  display_name = local.display_name
+
+  depends_on   = [google_api_gateway_api_config.api_sports_analytics_config]
+}
