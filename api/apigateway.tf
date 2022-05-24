@@ -15,8 +15,8 @@ resource "google_api_gateway_api" "api_sports_analytics" {
   depends_on = [google_project_service.project_apigateway,google_project_service.project_servicemanagement,google_project_service.project_servicecontrol]
 }
 
-resource "google_apikeys_key" "sports_analytics_api_key" {
-  name         = "sports-analytics-api-key"
+resource "google_apikeys_key" "sports_analytics_api_key_app" {
+  name         = "sports-analytics-api-key-app"
   display_name = "Sports Analytics API Key - App"
   project      = var.gcp_project_id
 
@@ -33,6 +33,18 @@ resource "google_apikeys_key" "sports_analytics_api_key" {
   depends_on = [google_project_service.project_apikeys]
 }
 
+resource "google_apikeys_key" "sports_analytics_api_key_test" {
+  name         = "sports-analytics-api-key-test"
+  display_name = "Sports Analytics API Key - Test"
+  project      = var.gcp_project_id
+  restrictions {
+    api_targets {
+      service = "${google_api_gateway_api.api_sports_analytics.name}"
+      #methods = ["GET*"]
+    }
+  }
+  depends_on = [google_project_service.project_apikeys]
+}
 
 resource "google_api_gateway_api_config" "api_sports_analytics_config" {
   provider             = google-beta
