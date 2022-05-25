@@ -40,7 +40,7 @@ def api_return_data(request):
         raise ValueError("invalid inputs")
 
     try:
-        bq_table = 'analytics_' + dataset
+        bq_table = 'api_' + dataset
 
         fs = firestore.Client()
         docs = fs.collection(u'sports_analytics').document(league).collection(bq_table).where('season','==', season).stream()
