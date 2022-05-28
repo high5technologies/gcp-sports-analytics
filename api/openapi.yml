@@ -9,8 +9,24 @@ schemes:
 produces:
   - application/json
 paths:
-  /dataset:
-    post:
+  /dataset/{league}/{dataset}/{season}:
+    get:
+      parameters:
+        - in: path
+          name: league
+          type: string
+          required: true
+          description: League abbreviation
+        - in: path
+          name: dataset
+          type: string
+          required: true
+          description: Name of the dataset 
+        - in: path
+          name: season
+          type: string
+          required: true
+          description: Season
       summary: Get a dataset dynamically from datastore
       operationId: dataset
       x-google-backend:
@@ -28,3 +44,4 @@ securityDefinitions:
     type: "apiKey"
     name: "key"
     in: "query"
+
