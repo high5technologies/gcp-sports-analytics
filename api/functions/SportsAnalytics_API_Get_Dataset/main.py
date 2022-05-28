@@ -23,19 +23,35 @@ def api_return_data(request):
     logger = logging_client.logger(log_name)
     
     try:
-        request_json = request.get_json()
-        if not request_json: 
+        #request_json = request.get_json()
+        #if not request_json: 
+        #    raise ValueError("Invalid inputs - none supplied")
+        #if 'league' not in request_json:  
+        #    raise ValueError("invalid inputs - league is a required input")
+        #if 'dataset' not in request_json:
+        #    raise ValueError("invalid inputs - dataset is a required input")
+        #if 'season' not in request_json:
+        #    raise ValueError("invalid inputs - season is a required input")
+        #
+        #league = request_json["league"]
+        #dataset = request_json["dataset"]
+        #season = request_json["season"]
+
+        request_args = request.args
+
+        if not request_args: 
             raise ValueError("Invalid inputs - none supplied")
-        if 'league' not in request_json:  
+        if 'league' not in request_args:  
             raise ValueError("invalid inputs - league is a required input")
-        if 'dataset' not in request_json:
+        if 'dataset' not in request_args:
             raise ValueError("invalid inputs - dataset is a required input")
-        if 'season' not in request_json:
+        if 'season' not in request_args:
             raise ValueError("invalid inputs - season is a required input")
         
-        league = request_json["league"]
-        dataset = request_json["dataset"]
-        season = request_json["season"]
+        league = request_args["league"]
+        dataset = request_args["dataset"]
+        season = request_args["season"]
+
     except:
         raise ValueError("invalid inputs")
 
