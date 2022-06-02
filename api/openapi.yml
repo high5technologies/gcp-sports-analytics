@@ -56,7 +56,7 @@ paths:
           required: true
           description: Season
       summary: Get a dataset dynamically from datastore
-      operationId: dataset
+      operationId: dataset_cors
       x-google-backend:
         address: https://us-central1-sports-analytics-dev.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
       security:
