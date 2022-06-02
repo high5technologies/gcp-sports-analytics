@@ -46,6 +46,15 @@ resource "google_apikeys_key" "api_key_sports_analytics_test" {
   depends_on = [google_project_service.project_apikeys]
 }
 
+data "template_file" "openapi_file" {
+  #template = file("${path.module}/userdata.sh")
+  template = file("openapi.yml")
+  
+  vars = {
+    MANAGED_SERVICE    = google_api_gateway_api.api_sports_analytics.managed_service
+  }
+}
+
 resource "google_api_gateway_api_config" "api_sports_analytics_config" {
   provider             = google-beta
   api                  = google_api_gateway_api.api_sports_analytics.api_id
@@ -56,7 +65,9 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
   openapi_documents {
     document {
       path     = "openapi.yml"
-      contents = filebase64("openapi.yml")
+      #contents = filebase64("openapi.yml")
+      #contents = data.template_file.openapi_file.rendered
+      contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
     }
   }
   lifecycle {
@@ -67,7 +78,7 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
         google_service_account = google_service_account.sa_sports_analytics.email
     }
   }
-  depends_on = [google_apikeys_key.api_key_sports_analytics_app, google_apikeys_key.api_key_sports_analytics_test]
+  depends_on = [google_api_gateway_api.api_sports_analytics,google_apikeys_key.api_key_sports_analytics_app, google_apikeys_key.api_key_sports_analytics_test]
 }
 
 resource "google_api_gateway_gateway" "api_sports_analytics_gateway" {
