@@ -67,7 +67,8 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
       path     = "openapi.yml"
       #contents = filebase64("openapi.yml")
       #contents = data.template_file.openapi_file.rendered
-      contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
+      #contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
+      contents = base64encode(data.template_file.openapi_file.rendered)
     }
   }
   lifecycle {
