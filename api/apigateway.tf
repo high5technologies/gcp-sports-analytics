@@ -64,10 +64,11 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
 
   openapi_documents {
     document {
-      path     = "openapi.yml"
+      #path     = "openapi.yml"
+      path      = data.template_file.openapi_file.template
       #contents = filebase64("openapi.yml")
-      contents = data.template_file.openapi_file.rendered
-      #contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
+      #contents = data.template_file.openapi_file.rendered
+      contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
     }
   }
   lifecycle {
