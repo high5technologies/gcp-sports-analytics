@@ -10,6 +10,10 @@ import urllib.request
 
 def api_return_data(request):
     
+    headers = {
+        'Access-Control-Allow-Origin': '*'
+    }
+
     # Config
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
     req = urllib.request.Request(url)
@@ -68,7 +72,8 @@ def api_return_data(request):
             data.append(doc.to_dict())
 
         #return_data = {"data":data}
-        return {"data":data}    
+        #return {"data":data}    
+        return data
         #return f'NBA.com dates queued successfully'
 
     except Exception as e:
