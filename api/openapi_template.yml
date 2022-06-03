@@ -42,6 +42,34 @@ paths:
           description: Successful response
           schema:
             type: string
+    options:
+      parameters:
+        - in: path
+          name: league
+          type: string
+          required: true
+          description: League abbreviation
+        - in: path
+          name: dataset
+          type: string
+          required: true
+          description: Name of the dataset 
+        - in: path
+          name: season
+          type: string
+          required: true
+          description: Season
+      summary: Get a dataset dynamically from datastore
+      operationId: dataset_cors
+      x-google-backend:
+        address: https://us-central1-sports-analytics-dev.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
+      security:
+      - api_key: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: string
 securityDefinitions:
   # This section configures basic authentication with an API key. do not change these values when copying
   api_key:
