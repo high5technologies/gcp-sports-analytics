@@ -34,7 +34,7 @@ paths:
       summary: Get a dataset dynamically from datastore
       operationId: dataset
       x-google-backend:
-        address: https://us-central1-sports-analytics-dev.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
+        address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
       security:
       - api_key: []
       responses:

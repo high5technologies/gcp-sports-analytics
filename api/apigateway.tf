@@ -52,6 +52,8 @@ data "template_file" "openapi_file" {
   
   vars = {
     MANAGED_SERVICE    = google_api_gateway_api.api_sports_analytics.managed_service
+    GCP_REGION         = var.gcp_region
+    GCP_PROJECT_ID     = var.gcp_project_id
   }
 }
 
