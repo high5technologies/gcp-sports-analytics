@@ -73,7 +73,8 @@ def api_return_data(request):
 
         #return_data = {"data":data}
         #return {"data":data}    
-        return data
+        #return data
+        return (data, 200, headers)
         #return f'NBA.com dates queued successfully'
 
     except Exception as e:
