@@ -48,7 +48,7 @@ resource "google_apikeys_key" "api_key_sports_analytics_test" {
 
 data "template_file" "openapi_file" {
   #template = file("${path.module}/userdata.sh")
-  template = file("openapi.yml")
+  template = file("openapi_template.yml")
   
   vars = {
     MANAGED_SERVICE    = google_api_gateway_api.api_sports_analytics.managed_service
@@ -64,8 +64,7 @@ resource "google_api_gateway_api_config" "api_sports_analytics_config" {
 
   openapi_documents {
     document {
-      #path     = "openapi.yml"
-      path      = data.template_file.openapi_file.template
+      path     = "openapi.yml"
       #contents = filebase64("openapi.yml")
       #contents = data.template_file.openapi_file.rendered
       contents = textencodebase64(data.template_file.openapi_file.rendered, "UTF-16LE")
