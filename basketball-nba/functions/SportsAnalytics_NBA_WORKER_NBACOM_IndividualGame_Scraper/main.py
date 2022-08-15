@@ -41,7 +41,7 @@ def nba_nbacom_worker_individual_scraper(event, context):
         #print(url)
 
         i = 1
-        while i <= 3: # max 3 attempts
+        while i <= 5: # max 3 attempts
             logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
             r = requests.get(url)
             #print(r.content[0:3000])
@@ -51,7 +51,7 @@ def nba_nbacom_worker_individual_scraper(event, context):
             if script is not None:
                 break
             else:
-                time.sleep(3) # if data not found, wait 1 second and try again
+                time.sleep(30) # if data not found, wait 1 second and try again
             i += 1
 
         data = json.loads(script.string)
