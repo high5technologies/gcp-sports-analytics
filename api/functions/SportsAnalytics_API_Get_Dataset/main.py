@@ -47,12 +47,12 @@ def api_return_data(request):
             raise ValueError("invalid inputs - league is a required input")
         if 'dataset' not in request_args:
             raise ValueError("invalid inputs - dataset is a required input")
-        if 'season' not in request_args:
-            raise ValueError("invalid inputs - season is a required input")
+        #if 'season' not in request_args:
+        #    raise ValueError("invalid inputs - season is a required input")
         
         league = request_args["league"]
         dataset = request_args["dataset"]
-        season = request_args["season"]
+        #season = request_args["season"]
 
     except:
         raise ValueError("invalid inputs")
@@ -61,7 +61,8 @@ def api_return_data(request):
         bq_table = 'api_' + dataset
 
         fs = firestore.Client()
-        docs = fs.collection(u'sports_analytics').document(league).collection(bq_table).where('season','==', season).stream()
+        #docs = fs.collection(u'sports_analytics').document(league).collection(bq_table).where('season','==', season).stream()
+        docs = fs.collection(u'sports_analytics').document(league).collection(bq_table).stream()
         #docs = fs.collection('users').where('paid', '==', True).stream()
         data = []
         for doc in docs:

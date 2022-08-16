@@ -7,13 +7,14 @@ info:
   # title & description here are what get pulled into the API for the library (what's enabled)
   title: sports-analytics-api
   description: Sports Analytics API for app data consumption
-  version: 1.0.0
+  version: 1.0.1
 schemes:
   - https
 produces:
   - application/json
 paths:
-  /dataset/{league}/{dataset}/{season}:
+  #/dataset/{league}/{dataset}/{season}:
+  /dataset/{league}/{dataset}:
     get:
       parameters:
         - in: path
@@ -26,12 +27,12 @@ paths:
           type: string
           required: true
           description: Name of the dataset 
-        - in: path
-          name: season
-          type: string
-          required: true
-          description: Season
-      summary: Get a dataset dynamically from datastore
+        #- in: path
+        #  name: season
+        #  type: string
+        #  required: true
+        #  description: Season
+      summary: Get a dataset dynamically from firestore
       operationId: dataset
       x-google-backend:
         address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
