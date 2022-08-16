@@ -40,7 +40,7 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
         url = "https://www.nba.com/games?date=" + date_formatted
         
         i = 1
-        while i <= 3: # max 3 attempts
+        while i <= 5: # max 3 attempts
             logger.log_text("attmpt:"+str(i) + "; url:" + url + ";")
             r = requests.get(url)
             soup = BeautifulSoup(r.content, 'html.parser')
@@ -48,7 +48,7 @@ def nba_nbacom_worker_Schedule_scraper(event, context):
             if script is not None:
                 break
             else:
-                time.sleep(1) # if data not found, wait 1 second and try again
+                time.sleep(30) # if data not found, wait 1 second and try again
             i += 1
 
         data = json.loads(script.string)
