@@ -36,7 +36,7 @@ paths:
       operationId: dataset
       x-google-backend:
         address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
-      deadline: 60
+        deadline: 60
       security:
       - api_key: []
       responses:
