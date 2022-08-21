@@ -42,8 +42,19 @@ paths:
       operationId: test2
       security:
       - api_key: []
-      x-google-backend:
-        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test2
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app/test2
+      responses:
+        200:
+          description: A successful response
+          schema:
+            type: string
+  /dataset-test:
+    get:
+      summary: Dataset test data set
+      operationId: dataset-test
+      security:
+      - api_key: []
       responses:
         200:
           description: A successful response
