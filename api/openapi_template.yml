@@ -12,8 +12,9 @@ schemes:
   - https
 produces:
   - application/json
-x-google-backend:
-  address: https://api-backend-gkj4hbakoa-uc.a.run.app
+#host: api-backend-gkj4hbakoa-uc.a.run.app
+#x-google-backend:
+#  address: api-backend
 paths:
   /test1:
     get:
@@ -21,6 +22,8 @@ paths:
       operationId: test1
       security:
       - api_key: []
+      x-google-backend:
+        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
       responses:
         200:
           description: A successful response
@@ -32,6 +35,8 @@ paths:
       operationId: test2
       security:
       - api_key: []
+      x-google-backend:
+        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
       responses:
         200:
           description: A successful response
