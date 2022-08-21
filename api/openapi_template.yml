@@ -22,7 +22,7 @@ paths:
       security:
       - api_key: []
       responses:
-        '200':
+        200:
           description: A successful response
           schema:
             type: string
@@ -33,7 +33,7 @@ paths:
       security:
       - api_key: []
       responses:
-        '200':
+        200:
           description: A successful response
           schema:
             type: string
@@ -58,9 +58,9 @@ paths:
         #  description: Season
       summary: Get a dataset dynamically from firestore
       operationId: dataset
-      x-google-backend:
-        address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
-        deadline: 60
+      #x-google-backend:
+      #  address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
+      #  deadline: 60
       security:
       - api_key: []
       responses:
