@@ -13,8 +13,12 @@ schemes:
 produces:
   - application/json
 #host: api-backend-gkj4hbakoa-uc.a.run.app
+#host:
 #x-google-backend:
 #  address: api-backend
+x-google-backend:
+  address: https://api-backend-gkj4hbakoa-uc.a.run.app
+  path_translation: APPEND_PATH_TO_ADDRESS
 paths:
   /test1:
     get:
@@ -22,8 +26,11 @@ paths:
       operationId: test1
       security:
       - api_key: []
-      x-google-backend:
-        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app
+      #  path_translation: APPEND_PATH_TO_ADDRESS
       responses:
         200:
           description: A successful response
@@ -36,7 +43,7 @@ paths:
       security:
       - api_key: []
       x-google-backend:
-        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
+        address: https://api-backend-gkj4hbakoa-uc.a.run.app/test2
       responses:
         200:
           description: A successful response

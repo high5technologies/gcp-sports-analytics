@@ -7,6 +7,12 @@ resource "google_project_iam_member" "iam_sa_sports_analytics_function_invoker" 
   role    = "roles/cloudfunctions.invoker"
   member = "serviceAccount:${google_service_account.sa_sports_analytics.email}"
 }
+resource "google_project_iam_member" "iam_sa_sports_analytics_cloudrun_invoker" {
+  project = var.gcp_project_id
+  role    = "roles/run.invoker"
+  member = "serviceAccount:${google_service_account.sa_sports_analytics.email}"
+}
+
 #resource "google_service_account_iam_member" "iam_sa_sports_analytics_function_invoker" {
 #  #service_account_id = google_service_account.sa_sports_analytics.name
 #  role               = "roles/cloudfunctions.invoker"
