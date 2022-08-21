@@ -19,6 +19,8 @@ paths:
     get:
       summary: Cloud Run Test 1
       operationId: test1
+      security:
+      - api_key: []
       responses:
         '200':
           description: A successful response
@@ -28,6 +30,8 @@ paths:
     get:
       summary: Cloud Run Test 2
       operationId: test2
+      security:
+      - api_key: []
       responses:
         '200':
           description: A successful response
