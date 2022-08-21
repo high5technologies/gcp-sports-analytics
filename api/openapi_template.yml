@@ -18,7 +18,7 @@ paths:
   /test1:
     get:
       summary: Cloud Run Test 1
-      operationId: hello
+      operationId: test1
       responses:
         '200':
           description: A successful response
@@ -27,7 +27,7 @@ paths:
   /test2:
     get:
       summary: Cloud Run Test 2
-      operationId: hello
+      operationId: test2
       responses:
         '200':
           description: A successful response
