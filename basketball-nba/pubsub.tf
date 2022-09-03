@@ -49,6 +49,18 @@ resource "google_pubsub_topic" "nba_538_predictions_range_to_scrape_topic" {
   name = "nba_538_predictions_range_to_scrape"
 }
 
+# Swish - Salary - Source topic
+resource "google_pubsub_topic" "nba_swish_source_topic" {
+  name = "nba_swish_source"
+}
+
+# Swish - Salary - Games to scrape
+resource "google_pubsub_topic" "nba_swish_salaries_dates_to_scrape_topic" {
+  name = "nba_swish_salaries_dates_to_scrape"
+}
+
 resource "google_pubsub_topic" "nba_scrape_all_topic" {
   name = "nba_scrape_all"
 }
+
+
