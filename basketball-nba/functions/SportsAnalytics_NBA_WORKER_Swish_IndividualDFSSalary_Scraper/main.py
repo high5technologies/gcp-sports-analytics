@@ -118,8 +118,8 @@ def nba_swish_worker_individual_dfssalary_scraper(event, context):
         
         replication_data = {}
         replication_data['bq_dataset'] = 'nba' 
-        replication_data['bq_table'] = 'raw_sbr_lines'
-        replication_data['data'] = lines_to_load
+        replication_data['bq_table'] = 'raw_swish_salary'
+        replication_data['data'] = lines_datato_load
         data_string = json.dumps(replication_data)  
         future = publisher.publish(topic_path, data_string.encode("utf-8"))        
 
