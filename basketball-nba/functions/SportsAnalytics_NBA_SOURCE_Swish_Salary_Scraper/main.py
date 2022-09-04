@@ -72,7 +72,8 @@ def nba_swish_salary_scraper(event, context):
             
             data_string = json.dumps(d)  
             future = publisher.publish(topic_path, data_string.encode("utf-8"))        
-                        
+
+        logger.log_text("Swish Analytics Salaries dates queued successfully")     
         return f'Swish Analytics Salaries dates queued successfully'
 
     except Exception as e:

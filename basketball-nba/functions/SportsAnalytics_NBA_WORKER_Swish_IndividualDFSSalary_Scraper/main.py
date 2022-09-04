@@ -123,7 +123,7 @@ def nba_swish_worker_individual_dfssalary_scraper(event, context):
         data_string = json.dumps(replication_data)  
         future = publisher.publish(topic_path, data_string.encode("utf-8"))        
 
-        
+        logger.log_text("SwishAnalytics Salaries successfully scraped")
         return f'SwishAnalytics Salaries successfully scraped'
 
     except Exception as e:
