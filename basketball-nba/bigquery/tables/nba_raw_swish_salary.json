@@ -5,7 +5,7 @@
     {"name":"player_id","type":"STRING","mode":"NULLABLE","description":"Player identifier from Swish"},
     {"name":"player_name","type":"STRING","mode":"NULLABLE","description":"Player full name"},
     {"name":"team_abbr","type":"STRING","mode":"NULLABLE","description":"Team abbreviation"},
-    {"name":"pos_main","type":"BOOL","mode":"NULLABLE","description":"Player primary position"},
+    {"name":"pos_main","type":"STRING","mode":"NULLABLE","description":"Player primary position"},
     {"name":"projected_fantasy_pts","type":"STRING","mode":"NULLABLE","description":"Projected fantasy points for this game from Swish"},
     {"name":"avg_pts","type":"STRING","mode":"NULLABLE","description":"Average fantasy points for player YTD"},
     {"name":"fpts_diff","type":"STRING","mode":"NULLABLE","description":"Difference between Average Fantasy Pts vs Proj (AVG - PROJ)"},
