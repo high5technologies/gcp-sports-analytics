@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup, Comment
 import urllib.request
 from google.cloud import logging
 
-def nba_swish_salary_scraper(request):
+def nba_swish_salary_scraper(event, context):
     
     # Config
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
@@ -31,15 +31,19 @@ def nba_swish_salary_scraper(request):
     ##########################################################################
 
     try:
-        request_json = request.get_json()
-        if request_json and 'start_date' not in request_json:  
+        # Get Mesage
+        pubsub_message = base64.b64decode(event['data']).decode('utf-8')
+        message_data = json.loads(pubsub_message)
+        #game_date = message_data['date_string']
+
+        if 'start_date' not in message_data:
             startDate = datetime.now().strftime("%Y-%m-%d")
         else:
-            startDate = datetime.strptime(request_json['start_date'], '%Y-%m-%d').date()
-        if request_json and 'end_date' not in request_json:  
-            endDate = datetime.now().strftime("%Y-%m-%d") 
+            startDate = datetime.strptime(message_data['start_date'], '%Y-%m-%d').date()
+        if 'end_date' not in message_data:
+            endDate = datetime.now().strftime("%Y-%m-%d")
         else:
-            endDate = datetime.strptime(request_json['end_date'], '%Y-%m-%d').date()
+            endDate = datetime.strptime(message_data['end_date'], '%Y-%m-%d').date()
     except:
         raise ValueError("Start & End dates must be in YYYY-MM-DD format")
     
