@@ -33,10 +33,10 @@ def nba_swish_worker_individual_dfssalary_scraper(event, context):
         pubsub_message = base64.b64decode(event['data']).decode('utf-8')
         message_data = json.loads(pubsub_message)
 
-        game_date = message_data['date_string']
+        game_date = message_data['date_formatted']
         #game_url_id = message_data['url_id']
         #game_key = message_data['game_key']
-        date_formatted = message_data['date_formatted']
+        date_string = message_data['date_string']
         #games = message_data['games']
 
         url = 'https://swishanalytics.com/optimus/nba/daily-fantasy-salary-changes?date=' + str(game_date)

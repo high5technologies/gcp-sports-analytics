@@ -50,6 +50,8 @@ def nba_swish_salary_scraper(event, context):
     except:
         raise ValueError("Start & End dates must be in YYYY-MM-DD format")
     
+    logger.log_text("start_date:"+startDate.strftime("%Y-%m-%d") + "; end_date:" + endDate.strftime("%Y-%m-%d"))
+
     # Distinct list of Months between start and end date
     delta = endDate - startDate       # as timedelta
     
