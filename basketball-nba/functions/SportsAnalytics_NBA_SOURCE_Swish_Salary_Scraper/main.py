@@ -40,7 +40,9 @@ def nba_swish_salary_scraper(event, context):
             startDate = datetime.now().strftime("%Y-%m-%d")
         else:
             startDate = datetime.strptime(message_data['start_date'], '%Y-%m-%d').date()
-        if 'end_date' not in message_data:
+        if 'end_date' not in message_data and 'start_date' in message_data:
+            endDate = startDate
+        elif 'end_date' not in message_data:
             endDate = datetime.now().strftime("%Y-%m-%d")
         else:
             endDate = datetime.strptime(message_data['end_date'], '%Y-%m-%d').date()
