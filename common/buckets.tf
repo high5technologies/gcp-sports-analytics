@@ -6,7 +6,7 @@ resource "google_storage_bucket" "deploy_bucket" {
 }
 
 resource "google_storage_bucket" "reverse_etl_export_bucket" {
-  name = "reverse_etl_export"
+  name = "reverse_etl_export_${var.gcp_project_id}"
   location      = "US"
   #force_destroy = true
 }
