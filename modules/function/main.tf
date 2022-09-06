@@ -57,11 +57,11 @@ resource "google_cloudfunctions_function" "mod_function" {
 }
 
 # IAM entry for all users to invoke the function
-resource "google_cloudfunctions_function_iam_member" "mod_invoker_permissions" {
-  project        = google_cloudfunctions_function.mod_function.project
-  region         = google_cloudfunctions_function.mod_function.region
-  cloud_function = google_cloudfunctions_function.mod_function.name
-
-  role   = "roles/cloudfunctions.invoker"
-  member = "allUsers"
-}
+#resource "google_cloudfunctions_function_iam_member" "mod_invoker_permissions" {
+#  project        = google_cloudfunctions_function.mod_function.project
+#  region         = google_cloudfunctions_function.mod_function.region
+#  cloud_function = google_cloudfunctions_function.mod_function.name
+#
+#  role   = "roles/cloudfunctions.invoker"
+#  member = "allUsers"
+#}

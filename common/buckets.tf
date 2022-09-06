@@ -4,3 +4,10 @@ resource "google_storage_bucket" "deploy_bucket" {
   location      = "US"
   #force_destroy = true
 }
+
+resource "google_storage_bucket" "reverse_etl_export_bucket" {
+  name = "reverse_etl_export"
+  location      = "US"
+  #force_destroy = true
+}
+

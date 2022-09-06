@@ -1,0 +1,100 @@
+swagger: '2.0'
+host: "${MANAGED_SERVICE}"
+x-google-endpoints:
+- name: "${MANAGED_SERVICE}"
+  allowCors: True
+info:
+  # title & description here are what get pulled into the API for the library (what's enabled)
+  title: sports-analytics-api
+  description: Sports Analytics API for app data consumption
+  version: 1.0.2
+schemes:
+  - https
+produces:
+  - application/json
+#host: api-backend-gkj4hbakoa-uc.a.run.app
+#host:
+#x-google-backend:
+#  address: api-backend
+x-google-backend:
+  address: https://api-backend-gkj4hbakoa-uc.a.run.app
+  path_translation: APPEND_PATH_TO_ADDRESS
+paths:
+  /test1:
+    get:
+      summary: Cloud Run Test 1
+      operationId: test1
+      security:
+      - api_key: []
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app/test1
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app
+      #  path_translation: APPEND_PATH_TO_ADDRESS
+      responses:
+        200:
+          description: A successful response
+          schema:
+            type: string
+  /test2:
+    get:
+      summary: Cloud Run Test 2
+      operationId: test2
+      security:
+      - api_key: []
+      #x-google-backend:
+      #  address: https://api-backend-gkj4hbakoa-uc.a.run.app/test2
+      responses:
+        200:
+          description: A successful response
+          schema:
+            type: string
+  /dataset-test:
+    get:
+      summary: Dataset test data set
+      operationId: dataset-test
+      security:
+      - api_key: []
+      responses:
+        200:
+          description: A successful response
+          schema:
+            type: string
+  #/dataset/{league}/{dataset}/{season}:
+  /dataset/{league}/{dataset}:
+    get:
+      parameters:
+        - in: path
+          name: league
+          type: string
+          required: true
+          description: League abbreviation
+        - in: path
+          name: dataset
+          type: string
+          required: true
+          description: Name of the dataset 
+        #- in: path
+        #  name: season
+        #  type: string
+        #  required: true
+        #  description: Season
+      summary: Get a dataset dynamically from firestore
+      operationId: dataset
+      #x-google-backend:
+      #  address: https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/SportsAnalytics_API_Get_Dataset
+      #  deadline: 60
+      security:
+      - api_key: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: string
+securityDefinitions:
+  # This section configures basic authentication with an API key. do not change these values when copying
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+

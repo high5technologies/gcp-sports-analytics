@@ -281,6 +281,25 @@ resource "google_bigquery_table" "bq_table_nba_raw_espn_playbyplay" {
     deletion_protection = true
 }
 
+resource "google_bigquery_table" "bq_table_nba_raw_swish_salary" {
+    dataset_id = google_bigquery_dataset.bq_dataset_nba.dataset_id
+    table_id   = "raw_swish_salary"
+    schema = file("${path.module}/bigquery/tables/nba_raw_swish_salary.json")
+    labels = {
+        env = var.env
+        project = "sports_analytics"
+        league = "nba"
+    }
+    time_partitioning  {                       
+        type                     = "DAY"
+        field                    = "game_date"
+        require_partition_filter = false
+        expiration_ms            = null   
+    }
+    clustering = ["game_date"]
+    deletion_protection = true
+}
+
 ##########################################################################################
 # Google BigQuery:  reference
 ##########################################################################################
