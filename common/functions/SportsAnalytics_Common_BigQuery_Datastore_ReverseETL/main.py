@@ -102,6 +102,9 @@ def bigquery_datastore_reverseetl(event, context):
         query_job = client.query(query)  # Make an API request.
         query_job.result()  # Waits for statement to finish
 
+        # Clean Up Bucket Storage
+        blob.delete()
+
         return f'Data successfully replicated from BigQuery to Datastore'
 
     except Exception as e:
