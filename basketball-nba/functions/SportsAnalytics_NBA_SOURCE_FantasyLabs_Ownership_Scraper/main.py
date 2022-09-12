@@ -11,14 +11,14 @@ import traceback
 import urllib.request
 from google.cloud import logging
 
-def nba_swish_salary_scraper(event, context):
+def nba_fantasylabs_ownership_scraper(event, context):
     
     # Config
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
     req = urllib.request.Request(url)
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
-    topic_id = "nba_swish_salaries_dates_to_scrape"
+    topic_id = "nba_fantasylabs_ownership_dates_to_scrape"
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
@@ -73,8 +73,8 @@ def nba_swish_salary_scraper(event, context):
             data_string = json.dumps(d)  
             future = publisher.publish(topic_path, data_string.encode("utf-8"))        
 
-        logger.log_text("Swish Analytics Salaries dates queued successfully")     
-        return f'Swish Analytics Salaries dates queued successfully'
+        logger.log_text("FantasyLabs Ownership dates queued successfully")     
+        return f'FantasyLabs Ownership dates queued successfully'
 
     except Exception as e:
         err = {}

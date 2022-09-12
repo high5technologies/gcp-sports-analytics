@@ -1,0 +1,14 @@
+{
+    '5324' : [
+      {id:378,name:"Rajon Rondo", owned:82.64, pos:'PG', team:'NO', sal:8000 },
+      {id:535,name:"Kevin Durant", owned:44.06, pos:'SF', team:'GS', sal:10800 },
+      {id:300,name:"Draymond Green", owned:42.82, pos:'PF', team:'GS', sal:9000 },
+      {id:3,name:"Jae Crowder", owned:38.94, pos:'PF', team:'UTA', sal:5000 },
+      {id:111,name:"Nikola Mirotic", owned:36.22, pos:'PF', team:'NO', sal:7200 },
+      {id:425,name:"James Harden", owned:32.7, pos:'SG', team:'HOU', sal:12300 },
+      {id:422,name:"Clint Capela", owned:28.54, pos:'C', team:'HOU', sal:9400 },
+      {id:387,name:"Anthony Davis", owned:28.42, pos:'PF', team:'NO', sal:12800 },
+      {id:392,name:"Eric Gordon", owned:24.14, pos:'SG', team:'HOU', sal:5000 },
+      {id:358,name:"PJ Tucker", owned:21.08, pos:'SF', team:'HOU', sal:4400 },
+    ],
+ }

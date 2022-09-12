@@ -1,0 +1,17 @@
+[
+    {"name":"fantasylabs_key","type":"STRING","mode":"REQUIRED","description":"Unique identifier from source - salary_source|game_date|player_id"},
+    {"name":"game_date","type":"DATE","mode":"REQUIRED","description":"Game Date"},
+    {"name":"dfs_source","type":"STRING","mode":"NULLABLE","description":"DFS Site - dk=Draft Kings; fd=Fan Duel"},
+    {"name":"dfs_contest_id","type":"STRING","mode":"NULLABLE","description":"Player identifier from Swish"},
+    {"name":"fantasy_result_id","type":"STRING","mode":"NULLABLE","description":"Player full name"},
+    {"name":"player_id","type":"STRING","mode":"NULLABLE","description":"Team abbreviation"},
+    {"name":"player_name","type":"STRING","mode":"NULLABLE","description":"Player primary position"},
+    {"name":"position","type":"STRING","mode":"NULLABLE","description":"Projected fantasy points for this game from Swish"},
+    {"name":"team","type":"STRING","mode":"NULLABLE","description":"Average fantasy points for player YTD"},
+    {"name":"salary","type":"STRING","mode":"NULLABLE","description":"Difference between Average Fantasy Pts vs Proj (AVG - PROJ)"},
+    {"name":"actual_points","type":"STRING","mode":"NULLABLE","description":"Previous game date that is used for salary_diff comparison"},
+    {"name":"ownership_average","type":"STRING","mode":"NULLABLE","description":"DFS Salary"},
+    {"name":"ownership_volatility","type":"STRING","mode":"NULLABLE","description":"Diff between Salary and previous game date salary"},
+    {"name":"gpp_grade","type":"STRING","mode":"NULLABLE","description":"Percentage diff between salary and previous game date salary"},
+    {"name":"load_datetime","type":"DATETIME","mode":"NULLABLE","description":"timestamp when record was scraped"}
+]
