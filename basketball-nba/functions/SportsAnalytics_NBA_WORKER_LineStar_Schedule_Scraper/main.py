@@ -57,6 +57,7 @@ def nba_linestar_worker_schedule_scraper(event, context):
         # Get Max PID scraped from Firestore
         docs = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').order_by(u'pid', direction=firestore.Query.DESCENDING).limit(1).stream()
 
+        cached_pid = 0 # default for first run (no cache)
         for doc in docs:
             d = doc.to_dict()
             cached_pid = int(d['pid'])            
