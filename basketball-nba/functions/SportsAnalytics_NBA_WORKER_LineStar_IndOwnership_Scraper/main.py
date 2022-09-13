@@ -98,7 +98,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
             game_date_string = script_with_date_field[start:end]
             game_date_timestamp = datetime.strptime(game_date_string, '%b %d, %Y')
             game_date = game_date_timestamp.strftime('%Y-%m-%d')
-            
+
             #################################################
             # Find Data
             is_found = False
@@ -170,7 +170,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         # Update Firestore to store that PID was updated
         pid_data = {}
         pid_data['pid'] = pid
-        doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(pid)
+        doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(str(pid))
         doc_ref.set(pid_data)
 
         logger.log_text("LineStar Ownership successfully scraped")
