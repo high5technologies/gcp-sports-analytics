@@ -69,7 +69,8 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         #date_string = message_data['date_string']
         #games = message_data['games']
         pid = message_data['pid']
-
+        data = []
+        
         dfs_sources = ['FanDuel','DraftKings']
         for dfs_source in dfs_sources:
             #dfs_source = 'FanDuel'
@@ -83,7 +84,6 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
             scripts = soup.find_all("script")
             script_with_date_field = ""
             script_with_data = ""
-            data = []
 
             #################################################
             # Extract Game Date (since all we get is the PID)
