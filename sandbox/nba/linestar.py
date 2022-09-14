@@ -12,12 +12,13 @@ def format_js_object(g):
     g = g.replace('}','"}')
     g = g.replace(':','":"')
     g = g.replace(',','","')
-    g = g.replace('""','"')
     g = g.replace(':"[',':[')
     g = g.replace(']","','],')
     g = g.replace('}","','},')
+    g = g.replace('""','"')
     g = g.replace('},]','}]')
     g = g.replace('],}',']}')
+    g = g.replace('],"}',']}')
     g = g.replace('{"}','{}')
     return g
 
@@ -39,7 +40,7 @@ json_string = r.content
 data = json.loads(json_string)
 
 pid = data['Info']['Periods'][0]['Id']
-
+pid = 1755 # override
 dfs_source = 'FanDuel'
 
 url = 'https://www.linestarapp.com/Ownership/Sport/NBA/Site/' + dfs_source + '/PID/' + str(pid)
@@ -80,6 +81,7 @@ for script in scripts:
 
 # Projected
 projected_json_string = extract_json_string_from_html(script_with_data,'projectedSlatesDict')
+#print(projected_json_string)
 projected_json = json.loads(projected_json_string)
 
 for key in projected_json.keys():
@@ -125,7 +127,7 @@ for key in actual_json.keys():
         d['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
         data.append(d)
 
-#print(data)
+print(data)
 #projected_base_index = script_with_data.find("projectedSlatesDict")
 #projected_start = script_with_data.find("{",projected_base_index)
 #projected_end = script_with_data.find(";",projected_start)

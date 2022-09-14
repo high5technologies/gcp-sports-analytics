@@ -18,13 +18,16 @@ def format_js_object(g):
     g = g.replace('}','"}')
     g = g.replace(':','":"')
     g = g.replace(',','","')
-    g = g.replace('""','"')
+    
     g = g.replace(':"[',':[')
     g = g.replace(']","','],')
     g = g.replace('}","','},')
+    g = g.replace('""','"')
     g = g.replace('},]','}]')
     g = g.replace('],}',']}')
+    g = g.replace('],"}',']}')
     g = g.replace('{"}','{}')
+
     return g
 
 def extract_json_string_from_html(html, find_string):
