@@ -55,21 +55,31 @@ def nba_linestar_worker_schedule_scraper(event, context):
         max_pid = data['Info']['Periods'][0]['Id']
 
         # Get Max PID scraped from Firestore
-        docs = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').order_by(u'pid', direction=firestore.Query.DESCENDING).limit(1).stream()
-
-        cached_pid = 0 # default for first run (no cache)
+        #docs = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').order_by(u'pid', direction=firestore.Query.DESCENDING).limit(1).stream()
+        docs = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').stream()
+    
+        #cached_pid = 0 # default for first run (no cache)
+        previously_ran_pids = []
         for doc in docs:
             d = doc.to_dict()
-            cached_pid = int(d['pid'])            
+            #cached_pid = int(d['pid'])     
+            previously_ran_pids.append(int(d['pid']))       
 
-        # Compare PID
+        # In hist mode, try running any pids that haven't been run
+        if hist:
+            for i in range(1,int(max_pid)+1):
+                if i not in previously_ran_pids:
+                    d = {}
+                    d['pid'] = i
+                    data_string = json.dumps(d)  
+                    future = publisher.publish(topic_path, data_string.encode("utf-8")) 
 
-        if hist and cached_pid < max_pid:
-            for pid in range(cached_pid+1, max_pid+1):
-                d = {}
-                d['pid'] = pid
-                data_string = json.dumps(d)  
-                future = publisher.publish(topic_path, data_string.encode("utf-8")) 
+        #if hist and cached_pid < max_pid:
+        #    for pid in range(cached_pid+1, max_pid+1):
+        #        d = {}
+        #        d['pid'] = pid
+        #        data_string = json.dumps(d)  
+        #        future = publisher.publish(topic_path, data_string.encode("utf-8")) 
 
         if not hist:
             pid = max_pid

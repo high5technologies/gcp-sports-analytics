@@ -56,6 +56,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
     logger = logging_client.logger(log_name)
 
     fs = firestore.Client()
+    pid = -1 # default pid for error handling
 
     try:
 
@@ -70,7 +71,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         #games = message_data['games']
         pid = message_data['pid']
         data = []
-        
+
         dfs_sources = ['FanDuel','DraftKings']
         for dfs_source in dfs_sources:
             #dfs_source = 'FanDuel'
@@ -173,7 +174,8 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         # Update Firestore to store that PID was updated
         pid_data = {}
         pid_data['pid'] = pid
-        doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(str(pid))
+        file_name = ('00000' + str(pid))[-5:]
+        doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(file_name)
         doc_ref.set(pid_data)
 
         logger.log_text("LineStar Ownership successfully scraped")
@@ -187,6 +189,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         err['data_identifier'] = "none"
         err['trace_back'] = str(traceback.format_exc())
         err['message'] = str(e)
+        err['pid'] = pid
         #err['data'] = data if data is not None else ""
         print(err)
         
