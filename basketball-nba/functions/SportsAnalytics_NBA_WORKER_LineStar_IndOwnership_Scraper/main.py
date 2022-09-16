@@ -31,10 +31,11 @@ def format_js_object(g):
     return g
 
 def extract_json_string_from_html(html, find_string):
-    base_index = html.find(find_string)
-    start = html.find("{",base_index)
-    end = html.find(";",start)
-    json_string = html[start:end]
+    html_adj = html.replace('&#39;','') # funky html code
+    base_index = html_adj.find(find_string)
+    start = html_adj.find("{",base_index)
+    end = html_adj.find(";",start)
+    json_string = html_adj[start:end]
     json_string = format_js_object(json_string)
     return json_string
 
@@ -71,6 +72,7 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
         #games = message_data['games']
         pid = message_data['pid']
         data = []
+        is_data_available = False
 
         dfs_sources = ['FanDuel','DraftKings']
         for dfs_source in dfs_sources:
@@ -88,96 +90,107 @@ def nba_linestar_worker_individual_ownership_scraper(event, context):
 
             #################################################
             # Extract Game Date (since all we get is the PID)
-            is_found = False
+            
             for script in scripts:
                 if 'fscInfo' in str(script):
                     script_with_date_field = str(script)
-                    is_found = True
+                    is_data_available = True
                     break
+            
+            if is_data_available:
+                base_index = script_with_date_field.find('fscInfo')
+                base_index_2 = script_with_date_field.find("periodName",base_index)
+                start = script_with_date_field.find('"',base_index) + 1
+                end = script_with_date_field.find('",',start)
+                game_date_string = script_with_date_field[start:end]
+                game_date_timestamp = datetime.strptime(game_date_string, '%b %d, %Y')
+                game_date = game_date_timestamp.strftime('%Y-%m-%d')
 
-            base_index = script_with_date_field.find('fscInfo')
-            base_index_2 = script_with_date_field.find("periodName",base_index)
-            start = script_with_date_field.find('"',base_index) + 1
-            end = script_with_date_field.find('",',start)
-            game_date_string = script_with_date_field[start:end]
-            game_date_timestamp = datetime.strptime(game_date_string, '%b %d, %Y')
-            game_date = game_date_timestamp.strftime('%Y-%m-%d')
+                #################################################
+                # Find Data
+                is_found = False
+                for script in scripts:
+                    if 'projectedSlatesDict' in str(script):
+                        script_with_data = str(script)
+                        is_found = True
+                        break
 
-            #################################################
-            # Find Data
-            is_found = False
-            for script in scripts:
-                if 'projectedSlatesDict' in str(script):
-                    script_with_data = str(script)
-                    is_found = True
-                    break
+                # Projected
+                projected_json_string = extract_json_string_from_html(script_with_data,'projectedSlatesDict')
+                projected_json = json.loads(projected_json_string)
 
-            # Projected
-            projected_json_string = extract_json_string_from_html(script_with_data,'projectedSlatesDict')
-            projected_json = json.loads(projected_json_string)
-
-            for key in projected_json.keys():
-                arr = projected_json[key]
-                for record in arr:
-                    d = {}
-                    d['game_date'] = game_date
-                    d['pid'] = pid
-                    d['dfs_source'] = dfs_source
-                    d['dfs_contest_id'] = key
-                    d['linestar_type'] = 'projected'
-                    d['player_id'] = record['id']
-                    d['player_name'] = record['name']
-                    d['owned'] = record['owned']
-                    d['player_pos'] = record['pos']
-                    d['team'] = record['team']
-                    d['player_salary'] = record['sal']
-                    d['linestar_key'] = str(d['dfs_source']) + '|' + str(d['game_date']) + '|' + str(d['player_id']) + '|' + str(d['dfs_contest_id'])
-                    d['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-                    data.append(d)
+                for key in projected_json.keys():
+                    arr = projected_json[key]
+                    for record in arr:
+                        d = {}
+                        d['game_date'] = game_date
+                        d['pid'] = pid
+                        d['dfs_source'] = dfs_source
+                        d['dfs_contest_id'] = key
+                        d['linestar_type'] = 'projected'
+                        d['player_id'] = record['id']
+                        d['player_name'] = record['name']
+                        d['owned'] = record['owned']
+                        d['player_pos'] = record['pos']
+                        d['team'] = record['team']
+                        d['player_salary'] = record['sal']
+                        d['linestar_key'] = str(d['dfs_source']) + '|' + str(d['game_date']) + '|' + str(d['player_id']) + '|' + str(d['dfs_contest_id'])
+                        d['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                        data.append(d)
 
 
-            # Actual
-            actual_json_string = extract_json_string_from_html(script_with_data,'actualResultsDict')
-            actual_json = json.loads(actual_json_string)
+                # Actual
+                actual_json_string = extract_json_string_from_html(script_with_data,'actualResultsDict')
+                actual_json = json.loads(actual_json_string)
 
-            for key in actual_json.keys():
-                arr = actual_json[key]
-                for record in arr:
-                    d = {}
-                    d['game_date'] = game_date
-                    d['pid'] = pid
-                    d['dfs_source'] = dfs_source
-                    d['dfs_contest_id'] = key
-                    d['linestar_type'] = 'actual'
-                    d['player_id'] = record['id']
-                    d['player_name'] = record['name']
-                    d['owned'] = record['owned']
-                    d['player_pos'] = record['pos']
-                    d['team'] = record['team']
-                    d['player_salary'] = record['sal']
-                    d['linestar_key'] = str(d['dfs_source']) + '|' + str(d['game_date']) + '|' + str(d['player_id']) + '|' + str(d['dfs_contest_id'])
-                    d['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-                    data.append(d)
+                for key in actual_json.keys():
+                    arr = actual_json[key]
+                    for record in arr:
+                        d = {}
+                        d['game_date'] = game_date
+                        d['pid'] = pid
+                        d['dfs_source'] = dfs_source
+                        d['dfs_contest_id'] = key
+                        d['linestar_type'] = 'actual'
+                        d['player_id'] = record['id']
+                        d['player_name'] = record['name']
+                        d['owned'] = record['owned']
+                        d['player_pos'] = record['pos']
+                        d['team'] = record['team']
+                        d['player_salary'] = record['sal']
+                        d['linestar_key'] = str(d['dfs_source']) + '|' + str(d['game_date']) + '|' + str(d['player_id']) + '|' + str(d['dfs_contest_id'])
+                        d['load_datetime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+                        data.append(d)
 
-                    
+                        
         ##########################################################################
         # Publish to BigQuery Replication Topic
         ##########################################################################
-        
-        replication_data = {}
-        replication_data['bq_dataset'] = 'nba' 
-        replication_data['bq_table'] = 'raw_linestar_ownership'
-        replication_data['data'] = data
-        data_string = json.dumps(replication_data)  
-        future = publisher.publish(topic_path, data_string.encode("utf-8"))        
+        if is_data_available:
+            replication_data = {}
+            replication_data['bq_dataset'] = 'nba' 
+            replication_data['bq_table'] = 'raw_linestar_ownership'
+            replication_data['data'] = data
+            data_string = json.dumps(replication_data)  
+            future = publisher.publish(topic_path, data_string.encode("utf-8"))        
 
-        # Update Firestore to store that PID was updated
-        pid_data = {}
-        pid_data['pid'] = pid
-        file_name = ('00000' + str(pid))[-5:]
-        doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(file_name)
-        doc_ref.set(pid_data)
+            # Update Firestore to store that PID was updated
+            pid_data = {}
+            pid_data['pid'] = pid
+            file_name = ('00000' + str(pid))[-5:]
+            doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(file_name)
+            doc_ref.set(pid_data)
 
+        else:
+            # This means game info doesn't exist - saw a bunch with the COVID dates
+            # Log that this already was scraped 
+            pid_data = {}
+            pid_data['pid'] = pid
+            pid_data['message'] = 'no data available'
+            file_name = ('00000' + str(pid))[-5:]
+            doc_ref = fs.collection(u'nba_scraper').document(u'linestar').collection('ownership').document(file_name)
+            doc_ref.set(pid_data)
+           
         logger.log_text("LineStar Ownership successfully scraped")
         return f'LineStar Ownership successfully scraped'
 

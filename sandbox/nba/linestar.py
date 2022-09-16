@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, date
 from bs4 import BeautifulSoup, Comment
 
 def format_js_object(g):
+    
     g = g.replace("'",'"')
     g = g.replace(" ","").replace('\r', '').replace('\n', '')
     g = g.replace('{','{"')
@@ -23,10 +24,16 @@ def format_js_object(g):
     return g
 
 def extract_json_string_from_html(html, find_string):
-    base_index = html.find(find_string)
-    start = html.find("{",base_index)
-    end = html.find(";",start)
-    json_string = html[start:end]
+    #print(html)
+    html_adj = html.replace('&#39;','')
+    #print('##################')
+    #print('##################')
+    #print('##################')
+    #print()
+    base_index = html_adj.find(find_string)
+    start = html_adj.find("{",base_index)
+    end = html_adj.find(";",start)
+    json_string = html_adj[start:end]
     json_string = format_js_object(json_string)
     return json_string
 
@@ -40,7 +47,7 @@ json_string = r.content
 data = json.loads(json_string)
 
 pid = data['Info']['Periods'][0]['Id']
-pid = 1755 # override
+pid = 673 # override
 dfs_source = 'FanDuel'
 
 url = 'https://www.linestarapp.com/Ownership/Sport/NBA/Site/' + dfs_source + '/PID/' + str(pid)
@@ -68,6 +75,7 @@ base_index_2 = script_with_date_field.find("periodName",base_index)
 start = script_with_date_field.find('"',base_index) + 1
 end = script_with_date_field.find('",',start)
 game_date_string = script_with_date_field[start:end]
+print(game_date_string)
 game_date = datetime.strptime(game_date_string, '%b %d, %Y')
 
 #################################################
@@ -106,6 +114,7 @@ for key in projected_json.keys():
 
 # Actual
 actual_json_string = extract_json_string_from_html(script_with_data,'actualResultsDict')
+#print(actual_json_string)
 actual_json = json.loads(actual_json_string)
 
 for key in actual_json.keys():
