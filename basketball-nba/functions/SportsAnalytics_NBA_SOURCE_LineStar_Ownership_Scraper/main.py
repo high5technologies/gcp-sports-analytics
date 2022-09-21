@@ -11,14 +11,14 @@ import traceback
 import urllib.request
 from google.cloud import logging
 
-def nba_swish_salary_scraper(event, context):
+def nba_linestar_ownership_schedule_scraper(event, context):
     
     # Config
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
     req = urllib.request.Request(url)
     req.add_header("Metadata-Flavor", "Google")
     project_id = urllib.request.urlopen(req).read().decode()
-    topic_id = "nba_swish_salaries_dates_to_scrape"
+    topic_id = "nba_fantasylabs_ownership_schedule_scrape"
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     
@@ -37,44 +37,27 @@ def nba_swish_salary_scraper(event, context):
         message_data = json.loads(pubsub_message)
         #game_date = message_data['date_string']
 
-        if 'start_date' not in message_data:
-            startDate = datetime.now().strftime("%Y-%m-%d")
+        if 'hist' in message_data:
+            hist = True
         else:
-            startDate = datetime.strptime(message_data['start_date'], '%Y-%m-%d').date()
-        if 'end_date' not in message_data and 'start_date' in message_data:
-            endDate = startDate
-        elif 'end_date' not in message_data:
-            endDate = datetime.now().strftime("%Y-%m-%d")
-        else:
-            endDate = datetime.strptime(message_data['end_date'], '%Y-%m-%d').date()
-    except:
-        raise ValueError("Start & End dates must be in YYYY-MM-DD format")
-    
-    logger.log_text("start_date:"+startDate.strftime("%Y-%m-%d") + "; end_date:" + endDate.strftime("%Y-%m-%d"))
+            hist = False
 
-    # Distinct list of Months between start and end date
-    delta = endDate - startDate       # as timedelta
-    
-    if delta.days < 0:
-        raise ValueError("StartDate can't be offer Begin Date")
-    
 
-    ##########################################################################
-    # Get games/urls to scrape
-    ##########################################################################
-    
-    try:
-        for i in range(delta.days + 1):
-            d = {}
-            day = startDate + timedelta(days=i)
-            d['date_string'] = day.strftime("%Y%m%d")
-            d['date_formatted'] = day.strftime("%Y-%m-%d")
+        logger.log_text("hist:"+str(hist))
+
+   
+        ##########################################################################
+        # Get games/urls to scrape
+        ##########################################################################
+        
+        d = {}
+        d['hist'] = hist
             
-            data_string = json.dumps(d)  
-            future = publisher.publish(topic_path, data_string.encode("utf-8"))        
+        data_string = json.dumps(d)  
+        future = publisher.publish(topic_path, data_string.encode("utf-8"))        
 
-        logger.log_text("Swish Analytics Salaries dates queued successfully")     
-        return f'Swish Analytics Salaries dates queued successfully'
+        logger.log_text("LineStar Ownership dates queued successfully")     
+        return f'LineStar Ownership dates queued successfully'
 
     except Exception as e:
         err = {}

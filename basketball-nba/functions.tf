@@ -302,3 +302,85 @@ module "SportsAnalytics_NBA_WORKER_Swish_IndividualDFSSalary_Scraper" {
   #function_trigger_http = true
   function_event_trigger_resource = google_pubsub_topic.nba_swish_salaries_dates_to_scrape_topic.name
 }
+
+module "SportsAnalytics_NBA_SOURCE_FantasyLabs_Ownership_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_SOURCE_FantasyLabs_Ownership_Scraper"
+  function_description = "Source scraper for FantasyLabs Ownership & Salaries"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_fantasylabs_ownership_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_fantasylabs_ownership_source_topic.name
+}
+
+module "SportsAnalytics_NBA_WORKER_FantasyLabs_IndOwnership_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_WORKER_FantasyLabs_IndOwnership_Scraper"
+  function_description = "Individual game scraper for FantasyLabs Ownership & Salaries"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_fantasylabs_worker_individual_ownership_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_fantasylabs_ownership_dates_to_scrape_topic.name
+}
+
+
+module "SportsAnalytics_NBA_SOURCE_LineStar_Ownership_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_SOURCE_LineStar_Ownership_Scraper"
+  function_description = "Source scraper for LineStar Ownership & Salaries"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_linestar_ownership_schedule_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_linestar_ownership_source_topic.name
+}
+
+module "SportsAnalytics_NBA_WORKER_LineStar_Schedule_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_WORKER_LineStar_Schedule_Scraper"
+  function_description = "Schedule game scraper for LineStar Ownership & Salaries"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_linestar_worker_schedule_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_fantasylabs_ownership_schedule_scrape_topic.name
+}
+
+module "SportsAnalytics_NBA_WORKER_LineStar_IndOwnership_Scraper" {
+  source = "../modules/function"
+
+  gcp_project_id = var.gcp_project_id
+  function_name = "SportsAnalytics_NBA_WORKER_LineStar_IndOwnership_Scraper"
+  function_description = "Individual game scraper for LineStar Ownership & Salaries"
+  function_deployment_bucket_name = google_storage_bucket.deploy_bucket.name
+  function_entry_point = "nba_linestar_worker_individual_ownership_scraper"
+  function_region = var.gcp_region
+  function_runtime = "python39"
+  function_available_memory_mb = 512
+  function_timeout = 540
+  #function_trigger_http = true
+  function_event_trigger_resource = google_pubsub_topic.nba_linestar_ownership_pids_to_scrape_topic.name
+}
+

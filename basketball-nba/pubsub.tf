@@ -63,4 +63,29 @@ resource "google_pubsub_topic" "nba_scrape_all_topic" {
   name = "nba_scrape_all"
 }
 
+# FantasyLabs - Ownership - Source topic
+resource "google_pubsub_topic" "nba_fantasylabs_ownership_source_topic" {
+  name = "nba_fantasylabs_ownership_source"
+}
+
+# FantasyLabs - Ownership - Games to scrape
+resource "google_pubsub_topic" "nba_fantasylabs_ownership_dates_to_scrape_topic" {
+  name = "nba_fantasylabs_ownership_dates_to_scrape"
+}
+
+# LineStar - Ownership - Source topic
+resource "google_pubsub_topic" "nba_linestar_ownership_source_topic" {
+  name = "nba_linestar_ownership_source"
+}
+
+# LineStar - Ownership - Schedule scrape
+resource "google_pubsub_topic" "nba_fantasylabs_ownership_schedule_scrape_topic" {
+  name = "nba_fantasylabs_ownership_schedule_scrape"
+}
+
+# LineStar - Ownership - Games to scrape
+resource "google_pubsub_topic" "nba_linestar_ownership_pids_to_scrape_topic" {
+  name = "nba_linestar_ownership_pids_to_scrape"
+}
+
 

@@ -37,28 +37,28 @@ def pubsub_to_bigquery_replication(event, context):
         #data = json.loads(message_data['data'])
         data = message_data['data']
         #df = pd.DataFrame(data) 
-        print(message_data['bq_table'])
+        
+        if data:
+            print(message_data['bq_table'])
 
-        errors = client.insert_rows_json(table_id, data)  # Make an API request.
-        if errors == []:
-            print("New rows have been added.")
+            errors = client.insert_rows_json(table_id, data)  # Make an API request.
+            if errors == []:
+                print("New rows have been added.")
+            else:
+                print("Encountered errors while inserting rows: {}".format(errors))
+                raise ValueError(json.dumps(errors))
+            #try:
+            #    print('trying json insert')
+            #    #errors = client.insert_rows_json(table_id, data)  # Make an API request.
+            #    client.insert_rows_json(table_id, data)  # Make an API request.
+            #except Exception as e2:
+            #    print('trying pandas create table')
+            #    pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
+            #    print('end pandas create table')
+            
+            return f'Data successfully replicated to BigQuery'
         else:
-            print("Encountered errors while inserting rows: {}".format(errors))
-            raise ValueError(json.dumps(errors))
-        #try:
-        #    print('trying json insert')
-        #    #errors = client.insert_rows_json(table_id, data)  # Make an API request.
-        #    client.insert_rows_json(table_id, data)  # Make an API request.
-        #except Exception as e2:
-        #    print('trying pandas create table')
-        #    pandas_gbq.to_gbq(df, table_id, project_id=project_id, if_exists='append')
-        #    print('end pandas create table')
-        
-
-        
-         
-        return f'Data successfully replicated to BigQuery'
-
+            return f'No data to replicate'
     except Exception as e:
         err = {}
         err['error_key'] = str(uuid.uuid4())
