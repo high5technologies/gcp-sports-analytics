@@ -5,7 +5,8 @@ import requests
 from datetime import datetime, timedelta, date
 from bs4 import BeautifulSoup, Comment
 
-game_date = '2022-02-03'
+#game_date = '2022-02-03'
+game_date = '2018-02-26'
 gd = datetime.strptime(game_date, '%Y-%m-%d')
 
 year = gd.strftime("%Y")
@@ -26,6 +27,7 @@ for group in data_ids:
     draft_group_id = group['DraftGroupId']
 
     url = 'https://www.fantasylabs.com/api/contest-ownership/2/' + url_date + '/4/' + str(draft_group_id) + '/0/'
+    print(url)
     r = requests.get(url)
     json_string = r.content
     data_json = json.loads(json_string)
@@ -52,4 +54,4 @@ for group in data_ids:
 
   
 
-print(data)
+#print(data)
