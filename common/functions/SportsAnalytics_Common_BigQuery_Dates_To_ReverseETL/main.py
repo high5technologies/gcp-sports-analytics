@@ -34,9 +34,10 @@ def dates_to_reverseetl(event, context):
     pubsub_message = base64.b64decode(event['data']).decode('utf-8')
     message_data = json.loads(pubsub_message)
 
-    bq_tables_string = message_data['tables']
-    bq_tables = bq_tables_string.split(',')
-
+    #bq_tables_string = message_data['tables']
+    #bq_tables = bq_tables_string.split(',')
+    bq_tables = message_data['tables']
+    bq_tables_string = ''.join(bq_tables)
     try:
         if 'start_date' not in message_data:  
             start_date = (datetime.now() - timedelta(1)).date() #.strftime('%Y-%m-%d')
